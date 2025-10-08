@@ -272,16 +272,17 @@ nav {
 }
 
 .industries-grid {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for wider cards and flexible columns */
     gap: 1.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    margin-top: 3rem;
+    max-width: 1200px; /* Max width to center the grid */
+    margin: 0 auto 3rem auto; /* Center the grid and add bottom margin */
 }
 
 .industry-card {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem; /* Reduced padding for shorter height */
     border-radius: 12px;
     text-align: center;
     transition: all 0.3s ease;
@@ -327,14 +328,16 @@ nav {
 
 .solutions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* Set to 2 columns for larger screens */
     gap: 2rem;
     margin-top: 3rem;
+    max-width: 1000px; /* Max width to center the grid */
+    margin: 0 auto 3rem auto; /* Center the grid and add bottom margin */
 }
 
 .solution-card {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 2rem;
+    padding: 1.5rem; /* Reduced padding for shorter height */
     border-radius: 16px;
     color: white;
     transition: transform 0.3s ease;
@@ -704,8 +707,10 @@ footer {
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .mobile-menu { display: flex; }
-    .industries-grid { grid-template-columns: repeat(2, 1fr); }
+    .industries-grid { grid-template-columns: 1fr; } /* Changed back to 1fr for stacking on small screens */
+    .industry-card { padding: 1rem; }
     .solutions-grid { grid-template-columns: 1fr; }
+    .offer-cards { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
