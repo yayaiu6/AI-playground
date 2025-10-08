@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>HardwareTech AI Agent</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='HardwareTech_Agent.css') }}">
+</head>
+<body>
+    <div id="appContainer">
+        <div class="header">
+            <h1>HardwareTech AI Agent</h1>
+        </div>
+        <messages-area></messages-area>
+        <message-input></message-input>
+        <div id="thinkingBox" class="thinking-box" style="display: none;">
+            <div class="thinking-box-content">
+                <div class="spinner"></div>
+                <p class="thinking-box-text"></p>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line short"></div>
+            </div>
+        </div>
+
+        <div class="initial-actions">
+            <button class="who-are-you-button"> كنت عايز لابتوب متوسط للألعاب</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='HardwareTech_Agent.js') }}"></script>
+</body>
+</html>
