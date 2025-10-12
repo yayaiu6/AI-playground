@@ -231,6 +231,18 @@
             observer.observe(el);
         });
     </script>
+    <script>
+
+    document.querySelectorAll('.industry-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const link = card.querySelector('.try-demo');
+            if (link && link.href) {
+                window.open(link.href, '_blank');
+            }
+        });
+    });
+</script>
 </body>
 </html>
+
 
