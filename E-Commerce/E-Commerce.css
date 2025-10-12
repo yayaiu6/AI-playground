@@ -651,7 +651,7 @@ footer {
         right: 10px;
         transform: none;
         will-change: auto;
-        /* تغيير الاتجاه للأفقي */
+
         flex-direction: row;
         gap: 8px;
     }
@@ -676,7 +676,7 @@ footer {
     }
 }
 
-/* Mobile First - الهواتف الصغيرة */
+
 @media (max-width: 480px) {
     nav { padding: 0.5rem 3%; }
     .hero h1 { font-size: 2rem; }
@@ -702,7 +702,7 @@ footer {
         right: auto;
     }
 }
-/* باقي الكود يبقى كما هو */
+
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
@@ -759,74 +759,7 @@ footer {
     transition: all 0.4s ease-out;
 }
 
-/* Hidden class for language switching */
+
 .hidden {
     display: none !important;
 }
-/* ================================
-   📱 تحسينات واجهة التابلت (768px إلى 1024px)
-   ================================ */
-@media (min-width: 768px) and (max-width: 1024px) {
-
-    /* عام */
-    .container {
-        padding: 0 3%;
-    }
-
-    /* الكروت (industry, solution, offer, contact) */
-    .industry-card,
-    .solution-card,
-    .offer-card,
-    .contact-card {
-        border-radius: 10px; /* زوايا أنعم للتابلت */
-        padding: 1.2rem;     /* توازن أفضل في الحواف */
-    }
-
-    /* التباعد العام بين العناصر */
-    .industries-grid,
-    .solutions-grid,
-    .offer-cards,
-    .contact-grid {
-        gap: 1.5rem;
-    }
-
-    /* النصوص والعناوين */
-    .industry-name,
-    .solution-card h3,
-    .offer-title,
-    .contact-title {
-        font-size: 1.2rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    /* الصور داخل الكروت */
-    .industry-icon img {
-        width: 160px;
-        height: 160px;
-    }
-
-    /* تحسين البطل (Hero) */
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    .hero p {
-        font-size: 1.1rem;
-    }
-    .hero-cta {
-        padding: 0.9rem 1.8rem;
-        font-size: 1rem;
-    }
-
-    /* تحسين تجربة اللمس */
-    .industry-card:hover,
-    .solution-card:hover,
-    .offer-card:hover,
-    .contact-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.1);
-    }
-}
-
