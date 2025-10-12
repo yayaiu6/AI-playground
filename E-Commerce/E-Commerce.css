@@ -746,6 +746,39 @@ footer {
     }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    .industry-card {
+        height: 320px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 8px; 
+        padding: 1.2rem;
+    }
+
+    .industry-icon img {
+        max-width: 160px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .industry-name {
+        font-size: 1rem;
+        margin-top: 0.8rem;
+    }
+
+    .industry-card p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        flex-grow: 1;
+    }
+
+    .try-demo {
+        margin-top: 1rem;
+    }
+}
+
+
 /* Animations */
 .fade-in {
     opacity: 1;
@@ -763,3 +796,4 @@ footer {
 .hidden {
     display: none !important;
 }
+
