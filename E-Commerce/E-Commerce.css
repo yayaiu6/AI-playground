@@ -643,7 +643,9 @@ footer {
     left: 20px;
 }
 
-/* Mobile responsive */
+/* ===========================
+   Mobile Responsive
+=========================== */
 @media (max-width: 768px) {
     .quick-contact {
         position: absolute;
@@ -651,7 +653,6 @@ footer {
         right: 10px;
         transform: none;
         will-change: auto;
-
         flex-direction: row;
         gap: 8px;
     }
@@ -675,7 +676,6 @@ footer {
         right: auto;
     }
 }
-
 
 @media (max-width: 480px) {
     nav { padding: 0.5rem 3%; }
@@ -703,28 +703,64 @@ footer {
     }
 }
 
-
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .mobile-menu { display: flex; }
-    .industries-grid { grid-template-columns: 1fr; } /* Changed back to 1fr for stacking on small screens */
+    .industries-grid { grid-template-columns: 1fr; } /* Stacked on small screens */
     .industry-card { padding: 1rem; }
     .solutions-grid { grid-template-columns: 1fr; }
     .offer-cards { grid-template-columns: 1fr; }
 }
 
+/* ===========================
+   Tablet Responsive
+=========================== */
 @media (min-width: 769px) and (max-width: 1024px) {
     .industries-grid { grid-template-columns: repeat(3, 1fr); }
     .solutions-grid { grid-template-columns: repeat(2, 1fr); }
     nav { padding: 1rem 4%; }
+
+    /* Updated design for tablet view - makes cards more square and balanced */
+    .industry-card {
+        aspect-ratio: 1 / 1.1; /* Keeps card close to a square shape */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-sizing: border-box;
+    }
+
+    .industry-card img {
+        max-height: 100px;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .industry-card p {
+        flex-grow: 1;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        line-height: 1.4;
+    }
+
+    .try-demo {
+        align-self: center;
+        margin-top: 1rem;
+    }
 }
 
+/* ===========================
+   Large Screens
+=========================== */
 @media (min-width: 1400px) {
     .container { max-width: 1400px; }
     .hero h1 { font-size: 4rem; }
 }
 
-/* Contact Section Responsive */
+/* ===========================
+   Contact Section Responsive
+=========================== */
 @media (max-width: 576px) {
     .contact-grid { 
         grid-template-columns: 1fr; 
@@ -746,40 +782,9 @@ footer {
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    .industry-card {
-        height: 320px; 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border-radius: 8px; 
-        padding: 1.2rem;
-    }
-
-    .industry-icon img {
-        max-width: 160px;
-        height: auto;
-        margin: 0 auto;
-    }
-
-    .industry-name {
-        font-size: 1rem;
-        margin-top: 0.8rem;
-    }
-
-    .industry-card p {
-        font-size: 0.9rem;
-        line-height: 1.4;
-        flex-grow: 1;
-    }
-
-    .try-demo {
-        margin-top: 1rem;
-    }
-}
-
-
-/* Animations */
+/* ===========================
+   Animations
+=========================== */
 .fade-in {
     opacity: 1;
     transform: translateY(0);
@@ -792,7 +797,7 @@ footer {
     transition: all 0.4s ease-out;
 }
 
-
+/* Utility */
 .hidden {
     display: none !important;
 }
