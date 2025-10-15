@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in Education: Future of Learning</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+</head>
+<body>
+    <main>
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <h1>Unlock the Future of Learning with AI</h1>
+                <p>Experience how AI enhances educational content, making learning more accessible and engaging for everyone.</p>
+            </div>
+        </section>
+
+        <!-- AI Features Section -->
+        <section class="ai-features">
+            <div class="container">
+                <h2 class="section-title">AI That Translates Your Lectures</h2>
+                
+                <!-- 0. Real-Time Translation -->
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <i class="fas fa-language feature-icon"></i>
+                        <h3>Real-Time Lecture Translation</h3>
+                    </div>
+                    <p class="feature-description">
+                        Break language barriers with AI-powered real-time translation. Our system automatically transcribes 
+                        lectures and translates them into multiple languages instantly, making education accessible to students 
+                        worldwide regardless of their native language. Watch the example below to see it in action.
+                    </p>
+                    
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <video id="lectureVideo" controls preload="metadata">
+                                <source src="example_lecture.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        
+                        <div class="video-controls">
+                            <div class="control-group">
+                                <label for="languageSelect">
+                                    <i class="fas fa-language"></i>
+                                    <span>Select caption language:</span>
+                                </label>
+                                <select id="languageSelect" aria-label="Select caption language">
+                                    <option value="en">English</option>
+                                    <option value="ar">العربية</option>
+                                    <option value="fr">Français</option>
+                                    <option value="cn">中文</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="captions-wrapper">
+                            <div id="captionsDisplay" class="captions-display active" role="region" aria-live="polite" aria-label="Video captions">
+                                <i class="fas fa-comment-dots caption-icon"></i>
+                                <div class="caption-content">Captions will appear here...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">AI That Summarizes Your Lectures</h2>
+
+                <!-- 1. Lecture Summary -->
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <i class="fas fa-file-alt feature-icon"></i>
+                        <h3>Lecture Summary</h3>
+                    </div>
+                    <p class="feature-description">
+                        Generate concise summaries of entire lectures in seconds. Our AI analyzes the transcript and creates 
+                        a structured summary that captures all key points, making study sessions more efficient.
+                    </p>
+                    <button class="summary-btn" id="summaryBtn">
+                        <i class="fas fa-magic"></i>
+                        Press to summarize lecture
+                    </button>
+                    <div class="summary-result" id="summaryResult">
+                        <div class="summary-content" id="summaryContent"></div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">AI That Generates Your Exams</h2>
+
+                <!-- 2. Exam Generator -->
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <i class="fas fa-clipboard-list feature-icon"></i>
+                        <h3>Exam Generator</h3>
+                    </div>
+                    <p class="feature-description">
+                        Create customized exams with multiple choice, true/false, and open-ended questions. 
+                        Simply describe what you need, and our AI will generate a comprehensive exam based on the lecture content.
+                    </p>
+                    <div class="exam-input-group">
+                        <label for="examPrompt">
+                            <i class="fas fa-edit"></i> Enter your exam requirements:
+                        </label>
+                        <textarea 
+                            id="examPrompt" 
+                            class="exam-prompt" 
+                            placeholder="Example: Create a 5-question exam on this content"
+                        ></textarea>
+                    </div>
+                    <button class="generate-exam-btn" id="generateExamBtn">
+                        <i class="fas fa-cogs"></i>
+                        Generate Exam
+                    </button>
+                    <div class="exam-result" id="examResult"></div>
+                </div>
+
+                <!-- 3. Cheat Sheet Monitoring -->
+                <h2 class="section-title">AI That Monitors Your Students</h2>
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <i class="fas fa-eye feature-icon"></i>
+                        <h3>Cheat Sheet Monitoring</h3>
+                    </div>
+                    <p class="feature-description">
+                        Our AI-powered computer vision system monitors student behavior during exams and online classes. 
+                        It can detect students who are distracted, using unauthorized devices, or absent from their screens, 
+                        ensuring academic integrity in both virtual and physical learning environments.
+                    </p>
+                    <div class="monitoring-images">
+                        <div class="monitoring-card">
+                            <img src="online_cheating_example.png" alt="Online class monitoring system">
+                            <div class="monitoring-label">
+                                <h4>Online Class Monitoring</h4>
+                                <p>Real-time detection of distraction and cheating behavior in virtual classrooms</p>
+                            </div>
+                        </div>
+                        <div class="monitoring-card">
+                            <img src="Scool_cheating_example.png" alt="In-class cheating detection">
+                            <div class="monitoring-label">
+                                <h4>In-Class Cheating Detection</h4>
+                                <p>AI-powered surveillance for physical exam halls and classrooms</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="solutions">
+            <div class="container">
+                <h2 class="section-title">How AI Transforms Education</h2>
+                <div class="solutions-grid">
+                    <div class="solution-card">
+                        <h3>🎯 Smart Summaries</h3>
+                        <p>AI automatically generates concise summaries of lectures and complex topics, saving time and aiding comprehension for students worldwide.</p>
+                    </div>
+                    <div class="solution-card">
+                        <h3>🌐 Multi-Language Captions</h3>
+                        <p>Real-time translation and captioning in multiple languages make educational content accessible to a truly global audience.</p>
+                    </div>
+                    <div class="solution-card">
+                        <h3>🚀 Personalized Learning Paths</h3>
+                        <p>Adaptive AI systems tailor learning experiences to individual student needs and paces, optimizing engagement and outcomes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/yayaiu6" data-en="About Us" data-ar="من نحن">About Us</a>
+            </div>
+            <div class="social-links">
+                <a href="mailto:yahyamahroof35@gmail.com" title="Email">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/+201001866276" title="WhatsApp">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/yahya-mahrouf" title="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/yahya.m.marouf.2025" title="Facebook">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="https://x.com/YahyaMahro" title="X">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.7;">© 2025 yahya-mahrouf. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        const video = document.getElementById('lectureVideo');
+        const languageSelect = document.getElementById('languageSelect');
+        const captionsDisplay = document.getElementById('captionsDisplay');
+
+        let captions = {};
+        let currentLanguage = 'en';
+        let isLoading = false;
+        let lastCaptionText = '';
+
+        // Mock captions data for demonstration
+        const mockCaptions = {
+            en: [
+                { start: 0, duration: 5, text: "Welcome to today's lecture on Measurement in Physics." },
+                { start: 5, duration: 5, text: "We'll explore various tools, units, and applications." },
+                { start: 10, duration: 5, text: "Understanding measurement is fundamental to all scientific work." }
+            ],
+            ar: [
+                { start: 0, duration: 5, text: "مرحبًا بكم في محاضرة اليوم حول القياس في الفيزياء." },
+                { start: 5, duration: 5, text: "سنستكشف الأدوات والوحدات والتطبيقات المختلفة." },
+                { start: 10, duration: 5, text: "فهم القياس أساسي لجميع الأعمال العلمية." }
+            ],
+            fr: [
+                { start: 0, duration: 5, text: "Bienvenue au cours d'aujourd'hui sur la mesure en physique." },
+                { start: 5, duration: 5, text: "Nous explorerons divers outils, unités et applications." },
+                { start: 10, duration: 5, text: "Comprendre la mesure est fondamental pour tous les travaux scientifiques." }
+            ],
+            cn: [
+                { start: 0, duration: 5, text: "欢迎来到今天关于物理测量的讲座。" },
+                { start: 5, duration: 5, text: "我们将探索各种工具、单位和应用。" },
+                { start: 10, duration: 5, text: "理解测量是所有科学工作的基础。" }
+            ]
+        };
+
+        // ============================================
+        // VIDEO PERFORMANCE OPTIMIZATION
+        // ============================================
+        
+        // Better video loading and performance
+        video.load();
+        video.playbackRate = 1.0;
+        video.defaultPlaybackRate = 1.0;
+
+        // Video loading events
+        video.addEventListener('loadstart', function() {
+            console.log('Video loading started...');
+        });
+
+        video.addEventListener('canplay', function() {
+            console.log('Video can play now');
+        });
+
+        // Preload first frame for better UX
+        video.addEventListener('loadedmetadata', function() {
+            if (video.duration) {
+                video.currentTime = 0.1;
+                video.pause();
+                video.currentTime = 0;
+            }
+        });
+
+        // Buffer monitoring for debugging
+        video.addEventListener('progress', function() {
+            if (video.buffered.length > 0) {
+                const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+                const duration = video.duration;
+                if (duration > 0) {
+                    const bufferedPercent = (bufferedEnd / duration) * 100;
+                    console.log(`Buffered: ${bufferedPercent.toFixed(1)}%`);
+                }
+            }
+        });
+
+        // Handle video waiting/buffering
+        video.addEventListener('waiting', function() {
+            console.log('Video is buffering...');
+        });
+
+        video.addEventListener('playing', function() {
+            console.log('Video is playing');
+        });
+
+        // ============================================
+        // CAPTIONS LOADING AND DISPLAY
+        // ============================================
+
+        // Load captions
+        async function fetchCaptions(lang) {
+            try {
+                const response = await fetch(`transcript_${lang}.json`);
+                if (!response.ok) {
+                    return mockCaptions[lang] || [];
+                }
+                return await response.json();
+            } catch (error) {
+                console.log(`Using mock captions for ${lang}`);
+                return mockCaptions[lang] || [];
+            }
+        }
+
+        async function loadAllCaptions() {
+            isLoading = true;
+            const languages = ['en', 'ar', 'fr', 'cn'];
+            
+            // Load captions in parallel for better performance
+            const captionPromises = languages.map(async lang => {
+                captions[lang] = await fetchCaptions(lang);
+            });
+            
+            await Promise.all(captionPromises);
+            
+            isLoading = false;
+            displayCaption();
+        }
+
+        function displayCaption() {
+            const currentTime = video.currentTime;
+            const activeCaptions = captions[currentLanguage] || [];
+            
+            let relevantCaptions = activeCaptions.filter(caption => {
+                const captionEnd = caption.start + caption.duration;
+                return currentTime >= caption.start && currentTime < captionEnd;
+            });
+
+            const content = captionsDisplay.querySelector('.caption-content');
+            
+            if (relevantCaptions.length > 0) {
+                const captionsToShow = relevantCaptions.slice(-2);
+                const newCaptionText = captionsToShow.map(c => c.text).join('|');
+                
+                if (newCaptionText !== lastCaptionText) {
+                    lastCaptionText = newCaptionText;
+                    captionsDisplay.classList.add('active');
+                    
+                    requestAnimationFrame(() => {
+                        content.innerHTML = captionsToShow
+                            .map((c, i) => `<div class="caption-line new-caption">${c.text}</div>`)
+                            .join('');
+                        
+                        setTimeout(() => {
+                            const lines = content.querySelectorAll('.caption-line');
+                            lines.forEach(line => line.classList.remove('new-caption'));
+                        }, 300);
+                    });
+                }
+            } else {
+                if (lastCaptionText !== '') {
+                    lastCaptionText = '';
+                    captionsDisplay.classList.remove('active');
+                    requestAnimationFrame(() => {
+                        content.innerHTML = '<div style="opacity: 0.5;">Captions will appear here...</div>';
+                    });
+                }
+            }
+        }
+
+        // Optimized video time update - throttle to improve performance
+        let lastUpdateTime = 0;
+        const updateThrottle = 100; // Update every 100ms instead of every frame
+
+        video.addEventListener('timeupdate', function() {
+            const now = Date.now();
+            if (now - lastUpdateTime >= updateThrottle) {
+                lastUpdateTime = now;
+                displayCaption();
+            }
+        });
+
+        video.addEventListener('seeked', displayCaption);
+
+        // Language selection handler
+        languageSelect.addEventListener('change', (e) => {
+            currentLanguage = e.target.value;
+            const isRTL = currentLanguage === 'ar';
+
+            // Set RTL for Arabic captions only
+            if (isRTL) {
+                captionsDisplay.setAttribute('dir', 'rtl');
+                captionsDisplay.classList.add('rtl-caption');
+            } else {
+                captionsDisplay.setAttribute('dir', 'ltr');
+                captionsDisplay.classList.remove('rtl-caption');
+            }
+
+            // Update language attribute
+            captionsDisplay.setAttribute('lang', currentLanguage === 'cn' ? 'zh' : currentLanguage);
+            lastCaptionText = '';
+            displayCaption();
+        });
+
+        // Load all captions on page load
+        loadAllCaptions();
+
+        // ============================================
+        // AI FEATURES IMPLEMENTATION
+        // ============================================
+
+        // 1. LECTURE SUMMARY
+        const summaryBtn = document.getElementById('summaryBtn');
+        const summaryResult = document.getElementById('summaryResult');
+        const summaryContent = document.getElementById('summaryContent');
+
+        summaryBtn.addEventListener('click', async () => {
+            summaryBtn.disabled = true;
+            summaryBtn.innerHTML = '<span class="spinner"></span> Generating...';
+            
+            // Simulate AI processing time
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            try {
+                // Fetch the summary from the file
+                const response = await fetch('Lecture summary.txt');
+                
+                if (!response.ok) {
+                    throw new Error('Summary file not found');
+                }
+                
+                const summaryText = await response.text();
+                
+                // Convert markdown to HTML
+                const summaryHTML = marked.parse(summaryText);
+                summaryContent.innerHTML = summaryHTML;
+                summaryResult.classList.add('show');
+                
+                // Check if content is Arabic and set direction
+                if (/[\u0600-\u06FF]/.test(summaryHTML)) {
+                    summaryContent.setAttribute('dir', 'rtl');
+                    summaryContent.classList.add('arabic-summary');
+                } else {
+                    summaryContent.setAttribute('dir', 'ltr');
+                    summaryContent.classList.remove('arabic-summary');
+                }
+                
+                // Update button to success state
+                summaryBtn.innerHTML = '<i class="fas fa-check"></i> Summary Generated';
+                summaryBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                summaryBtn.style.cursor = 'default';
+                summaryBtn.disabled = true;
+
+            } catch (error) {
+                console.error('Error loading summary:', error);
+                summaryContent.innerHTML = '<p style="color: var(--warning);">Error loading summary. Please make sure "Lecture summary.txt" file exists in the same directory.</p>';
+                summaryResult.classList.add('show');
+                
+                // Reset button after error
+                summaryBtn.disabled = false;
+                summaryBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error - Try Again';
+                
+                setTimeout(() => {
+                    summaryBtn.innerHTML = '<i class="fas fa-magic"></i> Press to summarize lecture';
+                }, 3000);
+            }
+        });
+
+        // 2. EXAM GENERATOR
+        const examPrompt = document.getElementById('examPrompt');
+        const generateExamBtn = document.getElementById('generateExamBtn');
+        const examResult = document.getElementById('examResult');
+
+        generateExamBtn.addEventListener('click', async () => {
+            const prompt = examPrompt.value.trim();
+            
+            if (!prompt) {
+                alert('Please enter your exam requirements');
+                examPrompt.focus();
+                return;
+            }
+
+            generateExamBtn.disabled = true;
+            generateExamBtn.innerHTML = '<span class="spinner"></span> Generating Exam...';
+
+            try {
+                // Get captions from the current language
+                const captionsData = captions[currentLanguage] || captions['en'] || mockCaptions['en'];
+                
+                // Prepare the request payload
+                const requestData = {
+                    prompt: prompt,
+                    ai_data: {
+                        name: "Measurement in Physics – Tools, Units, and Applications",
+                        captions: captionsData
+                    }
+                };
+
+                // Simulate API call - Replace with actual endpoint when ready
+                // const response = await fetch('YOUR_API_ENDPOINT', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(requestData)
+                // });
+                // const examData = await response.json();
+
+                // Mock response for demonstration (2 seconds delay)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                const examData = {
+                    exam: {
+                        en: { name: "Exam on Measurement in Physics" },
+                        ar: { name: "اختبار حول القياس في الفيزياء" }
+                    },
+                    questions: [
+                        {
+                            type: "multiple_choice",
+                            en: { question: "What is the most precise measurement tool mentioned in the lecture?" },
+                            ar: { question: "ما هي أداة القياس الأكثر دقة المذكورة في المحاضرة؟" },
+                            correct_answer: 2
+                        },
+                        {
+                            type: "multiple_choice",
+                            en: { question: "What does SI stand for in measurement units?" },
+                            ar: { question: "ماذا يعني SI في وحدات القياس؟" },
+                            correct_answer: 1
+                        },
+                        {
+                            type: "true_false",
+                            en: { question: "A vernier caliper is more precise than a regular ruler." },
+                            ar: { question: "القدمة ذات الورنية أكثر دقة من المسطرة العادية." },
+                            correct_answer: 0
+                        },
+                        {
+                            type: "multiple_choice",
+                            en: { question: "Which field does NOT commonly use precise measurements?" },
+                            ar: { question: "أي مجال لا يستخدم القياسات الدقيقة بشكل شائع؟" },
+                            correct_answer: 3
+                        },
+                        {
+                            type: "text",
+                            en: { question: "Explain why taking multiple measurements improves reliability in scientific experiments." },
+                            ar: { question: "اشرح لماذا يؤدي أخذ قياسات متعددة إلى تحسين الموثوقية في التجارب العلمية." },
+                            correct_answer: 0
+                        }
+                    ],
+                    answers: {
+                        "0": [
+                            { en: { answer: "Ruler" }, ar: { answer: "المسطرة" } },
+                            { en: { answer: "Vernier Caliper" }, ar: { answer: "القدمة ذات الورنية" } },
+                            { en: { answer: "Micrometer" }, ar: { answer: "الميكرومتر" } },
+                            { en: { answer: "Balance Scale" }, ar: { answer: "الميزان" } }
+                        ],
+                        "1": [
+                            { en: { answer: "Standard Instruments" }, ar: { answer: "الأدوات القياسية" } },
+                            { en: { answer: "International System" }, ar: { answer: "النظام الدولي" } },
+                            { en: { answer: "Scientific Index" }, ar: { answer: "المؤشر العلمي" } },
+                            { en: { answer: "Simple Integration" }, ar: { answer: "التكامل البسيط" } }
+                        ],
+                        "2": [
+                            { en: { answer: "True" }, ar: { answer: "صح" } },
+                            { en: { answer: "False" }, ar: { answer: "خطأ" } }
+                        ],
+                        "3": [
+                            { en: { answer: "Engineering" }, ar: { answer: "الهندسة" } },
+                            { en: { answer: "Medicine" }, ar: { answer: "الطب" } },
+                            { en: { answer: "Construction" }, ar: { answer: "البناء" } },
+                            { en: { answer: "Creative Writing" }, ar: { answer: "الكتابة الإبداعية" } }
+                        ],
+                        "4": [
+                            { en: { answer: "Open-ended response" }, ar: { answer: "إجابة مفتوحة" } }
+                        ]
+                    }
+                };
+
+                renderExam(examData);
+
+            } catch (error) {
+                console.error('Error generating exam:', error);
+                alert('Failed to generate exam. Please try again.');
+            } finally {
+                generateExamBtn.disabled = false;
+                generateExamBtn.innerHTML = '<i class="fas fa-cogs"></i> Generate Exam';
+            }
+        });
+
+        function renderExam(examData) {
+            const lang = currentLanguage === 'ar' ? 'ar' : 'en';
+            const examTitle = examData.exam[lang].name;
+            
+            let examHTML = `<div class="exam-title">${examTitle}</div>`;
+            
+            examData.questions.forEach((question, qIndex) => {
+                const questionText = question[lang].question;
+                const questionType = question.type.replace('_', ' ').toUpperCase();
+                
+                examHTML += `
+                    <div class="question-card">
+                        <span class="question-type">${questionType}</span>
+                        <div class="question-header">Question ${qIndex + 1}: ${questionText}</div>
+                `;
+                
+                if (question.type === 'text') {
+                    examHTML += `<textarea class="text-answer-input" placeholder="Type your answer here..."></textarea>`;
+                } else {
+                    const answers = examData.answers[qIndex.toString()];
+                    answers.forEach((answer, aIndex) => {
+                        const answerText = answer[lang].answer;
+                        const isCorrect = question.correct_answer === aIndex ? 'correct' : '';
+                        examHTML += `
+                            <div class="answer-option ${isCorrect}" data-correct="${isCorrect !== ''}" tabindex="0" role="button">
+                                ${String.fromCharCode(65 + aIndex)}. ${answerText}
+                            </div>
+                        `;
+                    });
+                }
+                
+                examHTML += `</div>`;
+            });
+            
+            examResult.innerHTML = examHTML;
+            examResult.classList.add('show');
+            
+            // Scroll to exam result smoothly
+            setTimeout(() => {
+                examResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+            
+            // Add click handlers for answer options
+            const answerOptions = examResult.querySelectorAll('.answer-option');
+            answerOptions.forEach(option => {
+                // Click handler
+                option.addEventListener('click', function() {
+                    selectAnswer(this);
+                });
+                
+                // Keyboard accessibility
+                option.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectAnswer(this);
+                    }
+                });
+            });
+        }
+
+        function selectAnswer(element) {
+            // Remove selection from siblings
+            const siblings = element.parentElement.querySelectorAll('.answer-option');
+            siblings.forEach(sib => {
+                sib.style.border = '2px solid var(--color-border)';
+                sib.style.background = '';
+            });
+            
+            // Highlight selected answer
+            element.style.border = '2px solid var(--color-primary)';
+            element.style.background = 'rgba(99, 102, 241, 0.1)';
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', function(e) {
+            // Space bar to play/pause video
+            if (e.code === 'Space' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'INPUT') {
+                e.preventDefault();
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            }
+            
+            // Arrow keys for seeking
+            if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                video.currentTime = Math.max(0, video.currentTime - 5);
+            }
+            if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                video.currentTime = Math.min(video.duration, video.currentTime + 5);
+            }
+        });
+
+        // ============================================
+        // PERFORMANCE MONITORING (Optional - for debugging)
+        // ============================================
+        if (window.performance && console.table) {
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    console.log('Page Load Performance:');
+                    console.table({
+                        'DNS Lookup': `${(perfData.domainLookupEnd - perfData.domainLookupStart).toFixed(2)}ms`,
+                        'TCP Connection': `${(perfData.connectEnd - perfData.connectStart).toFixed(2)}ms`,
+                        'Request Time': `${(perfData.responseStart - perfData.requestStart).toFixed(2)}ms`,
+                        'Response Time': `${(perfData.responseEnd - perfData.responseStart).toFixed(2)}ms`,
+                        'DOM Processing': `${(perfData.domComplete - perfData.domLoading).toFixed(2)}ms`,
+                        'Total Load Time': `${(perfData.loadEventEnd - perfData.fetchStart).toFixed(2)}ms`
+                    });
+                }, 0);
+            });
+        }
+
+        console.log('✅ Video player initialized with optimizations');
+        console.log('⌨️ Keyboard shortcuts: Space (play/pause), ← → (seek 5s)');
+    </script>
+</body>
+</html>
