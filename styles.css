@@ -78,7 +78,7 @@ nav {
 .logo img {
     height: auto;
     width: auto;
-    max-height: 80px;
+    max-height: 150px;
 }
 
 /* Adjust logo size for medium screens (tablets) */
@@ -91,7 +91,7 @@ nav {
 /* Adjust logo size for small screens (mobiles) */
 @media (max-width: 768px) {
     .logo img {
-        max-height: 50px;
+        max-height: 100px;
     }
 }
 
