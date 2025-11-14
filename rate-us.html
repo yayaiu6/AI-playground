@@ -350,6 +350,14 @@
         // Star rating functionality
         const starLabels = document.querySelectorAll('.star-rating label');
         const starInputs = document.querySelectorAll('.star-rating input');
+        let selectedRating = 0;
+
+        // Initialize all stars as empty on page load
+        function initializeStars() {
+            starLabels.forEach(label => {
+                label.classList.remove('filled');
+            });
+        }
 
         function updateStars(rating) {
             starLabels.forEach(label => {
@@ -364,8 +372,17 @@
 
         // Click handler for stars
         starLabels.forEach(label => {
-            label.addEventListener('click', () => {
+            label.addEventListener('click', (e) => {
+                e.preventDefault();
                 const value = parseInt(label.getAttribute('data-value'));
+                selectedRating = value;
+                
+                // Check the corresponding radio button
+                const radioButton = document.getElementById(`star${value}`);
+                if (radioButton) {
+                    radioButton.checked = true;
+                }
+                
                 updateStars(value);
             });
         });
@@ -378,22 +395,26 @@
                     const lValue = parseInt(l.getAttribute('data-value'));
                     if (lValue <= value) {
                         l.style.color = '#ffa500';
+                    } else {
+                        l.style.color = '#ddd';
                     }
                 });
             });
         });
 
-        // Reset hover
+        // Reset hover - show selected rating
         document.querySelector('.star-rating').addEventListener('mouseleave', () => {
-            const checkedInput = document.querySelector('.star-rating input:checked');
-            if (checkedInput) {
-                updateStars(parseInt(checkedInput.value));
+            if (selectedRating > 0) {
+                updateStars(selectedRating);
             } else {
                 starLabels.forEach(l => {
-                    l.style.color = '#ddd';
+                    l.classList.remove('filled');
                 });
             }
         });
+
+        // Initialize stars as empty when page loads
+        initializeStars();
 
         // Character counter
         commentField.addEventListener('input', () => {
@@ -436,7 +457,8 @@
                 await addDoc(collection(db, 'ratings'), formData);
                 showAlert('Thank you for your feedback! 🎉', 'success');
                 form.reset();
-                updateStars(0);
+                selectedRating = 0;
+                initializeStars();
                 charCount.textContent = '0';
 
                 // Redirect to home after 2 seconds
