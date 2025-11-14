@@ -74,48 +74,51 @@ nav {
     gap: 0.5rem;
 }
 
-/* Logo Image */
+
 .logo img {
+    width: 14vw;         
+    max-width: 200px;    
+    min-width: 120px;    
     height: auto;
-    width: auto;
-    max-height: 150px;
-}
-
-/* Adjust logo size for medium screens (tablets) */
-@media (max-width: 1024px) {
-    .logo img {
-        max-height: 60px;
-    }
-}
-
-/* Adjust logo size for small screens (mobiles) */
-@media (max-width: 768px) {
-    .logo img {
-        max-height: 100px;
-    }
-}
-
-/* Adjust logo size for extra small screens (phones) */
-@media (max-width: 480px) {
-    .logo img {
-        max-height: 40px;
-    }
-}
-
-/* Optional: prevent stretching */
-.logo img {
     display: block;
     object-fit: contain;
 }
 
 
+@media (max-width: 1024px) {
+    .logo img {
+        width: 18vw;
+        max-width: 220px;
+        min-width: 130px;
+    }
+}
 
+
+@media (max-width: 768px) {
+    .logo img {
+        width: 24vw;
+        max-width: 240px;
+        min-width: 150px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 30vw;
+        max-width: 260px;
+        min-width: 170px;
+    }
+}
+
+/* Nav Links */
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
     align-items: center;
 }
+
 
 .nav-links a {
     color: var(--dark);
