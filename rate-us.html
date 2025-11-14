@@ -114,12 +114,11 @@
             min-height: 100px;
         }
 
-        /* Star Rating - Fixed */
+        /* Star Rating - Simplified and Fixed */
         .star-rating {
             display: flex;
-            flex-direction: row-reverse;
             justify-content: center;
-            gap: 0.3rem;
+            gap: 0.5rem;
             margin: 1rem 0;
         }
 
@@ -131,17 +130,14 @@
             font-size: 2.5rem;
             cursor: pointer;
             color: #ddd;
-            transition: color 0.2s ease;
+            transition: color 0.15s ease;
         }
 
-        /* When hovering over a star */
-        .star-rating label:hover,
-        .star-rating label:hover ~ label {
-            color: #ffd700;
+        .star-rating label:hover {
+            color: #ffa500;
         }
 
-        /* When a star is selected */
-        .star-rating input:checked ~ label {
+        .star-rating label.filled {
             color: #ffd700;
         }
 
@@ -293,21 +289,21 @@
         <form id="ratingForm">
             <div class="form-group">
                 <label>How was your experience? <span class="required">*</span></label>
-                <div class="star-rating">
+                <div class="star-rating" id="starRating">
                     <input type="radio" name="stars" id="star1" value="1" required>
-                    <label for="star1" title="1 star">⭐</label>
+                    <label for="star1" title="1 star" data-value="1">⭐</label>
                     
                     <input type="radio" name="stars" id="star2" value="2">
-                    <label for="star2" title="2 stars">⭐</label>
+                    <label for="star2" title="2 stars" data-value="2">⭐</label>
                     
                     <input type="radio" name="stars" id="star3" value="3">
-                    <label for="star3" title="3 stars">⭐</label>
+                    <label for="star3" title="3 stars" data-value="3">⭐</label>
                     
                     <input type="radio" name="stars" id="star4" value="4">
-                    <label for="star4" title="4 stars">⭐</label>
+                    <label for="star4" title="4 stars" data-value="4">⭐</label>
                     
                     <input type="radio" name="stars" id="star5" value="5">
-                    <label for="star5" title="5 stars">⭐</label>
+                    <label for="star5" title="5 stars" data-value="5">⭐</label>
                 </div>
             </div>
 
@@ -351,6 +347,54 @@
         const commentField = document.getElementById('comment');
         const charCount = document.getElementById('charCount');
 
+        // Star rating functionality
+        const starLabels = document.querySelectorAll('.star-rating label');
+        const starInputs = document.querySelectorAll('.star-rating input');
+
+        function updateStars(rating) {
+            starLabels.forEach(label => {
+                const value = parseInt(label.getAttribute('data-value'));
+                if (value <= rating) {
+                    label.classList.add('filled');
+                } else {
+                    label.classList.remove('filled');
+                }
+            });
+        }
+
+        // Click handler for stars
+        starLabels.forEach(label => {
+            label.addEventListener('click', () => {
+                const value = parseInt(label.getAttribute('data-value'));
+                updateStars(value);
+            });
+        });
+
+        // Hover preview
+        starLabels.forEach(label => {
+            label.addEventListener('mouseenter', () => {
+                const value = parseInt(label.getAttribute('data-value'));
+                starLabels.forEach(l => {
+                    const lValue = parseInt(l.getAttribute('data-value'));
+                    if (lValue <= value) {
+                        l.style.color = '#ffa500';
+                    }
+                });
+            });
+        });
+
+        // Reset hover
+        document.querySelector('.star-rating').addEventListener('mouseleave', () => {
+            const checkedInput = document.querySelector('.star-rating input:checked');
+            if (checkedInput) {
+                updateStars(parseInt(checkedInput.value));
+            } else {
+                starLabels.forEach(l => {
+                    l.style.color = '#ddd';
+                });
+            }
+        });
+
         // Character counter
         commentField.addEventListener('input', () => {
             charCount.textContent = commentField.value.length;
@@ -392,6 +436,7 @@
                 await addDoc(collection(db, 'ratings'), formData);
                 showAlert('Thank you for your feedback! 🎉', 'success');
                 form.reset();
+                updateStars(0);
                 charCount.textContent = '0';
 
                 // Redirect to home after 2 seconds
