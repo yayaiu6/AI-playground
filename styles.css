@@ -68,54 +68,39 @@ nav {
 
 
 
+/* Logo Container */
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
 }
 
-
+/* Logo Image – final balanced size */
 .logo img {
-    width: 10vw;          
-    max-width: 140px;     
-    min-width: 90px;     
-    height: auto;
-    display: block;
+    height: 45px;       /* الحجم الرئيسي */
+    width: auto;        /* الحفاظ على التناسق */
     object-fit: contain;
+    display: block;
 }
 
-
+/* تابلت */
 @media (max-width: 1024px) {
     .logo img {
-        width: 14vw;
-        max-width: 150px;
-        min-width: 95px;
+        height: 40px;
     }
 }
 
-
+/* موبايل */
 @media (max-width: 768px) {
     .logo img {
-        width: 18vw;
-        max-width: 160px;
-        min-width: 100px;
+        height: 35px;
     }
 }
 
-
+/* موبايل صغير جداً */
 @media (max-width: 480px) {
     .logo img {
-        width: 22vw;
-        max-width: 170px;
-        min-width: 105px;
+        height: 32px;
     }
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    align-items: center;
 }
 
 
