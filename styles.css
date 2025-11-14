@@ -68,41 +68,47 @@ nav {
 
 
 
-/* Logo Container */
+
 .logo {
     display: flex;
     align-items: center;
 }
 
-/* Logo Image – final balanced size */
+
 .logo img {
-    height: 45px;       /* الحجم الرئيسي */
-    width: auto;        /* الحفاظ على التناسق */
+    height: 45px;       
+    width: auto;        
     object-fit: contain;
     display: block;
 }
 
-/* تابلت */
+
 @media (max-width: 1024px) {
     .logo img {
         height: 40px;
     }
 }
 
-/* موبايل */
+
 @media (max-width: 768px) {
     .logo img {
         height: 35px;
     }
 }
 
-/* موبايل صغير جداً */
+
 @media (max-width: 480px) {
     .logo img {
         height: 32px;
     }
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+}
 
 
 .nav-links a {
@@ -687,7 +693,7 @@ footer {
     }
 }
 
-/* Mobile First - الهواتف الصغيرة */
+
 @media (max-width: 480px) {
     nav { padding: 0.5rem 3%; }
     .hero h1 { font-size: 2rem; }
@@ -713,7 +719,7 @@ footer {
         right: auto;
     }
 }
-/* باقي الكود يبقى كما هو */
+
 
 @media (max-width: 768px) {
     .nav-links { display: none; }
