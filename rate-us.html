@@ -33,46 +33,21 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, .05) 35px, rgba(255, 255, 255, .05) 70px);
-            animation: wave 15s linear infinite;
-        }
-
-        @keyframes wave {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(70px, 70px); }
         }
 
         .container {
             background: white;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
-            padding: 3rem;
-            position: relative;
-            z-index: 1;
-            animation: slideUp 0.6s ease;
+            padding: 2.5rem;
+            animation: fadeIn 0.4s ease;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .header {
@@ -81,19 +56,13 @@
         }
 
         .header-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .header h1 {
             color: var(--dark);
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -103,7 +72,7 @@
 
         .header p {
             color: var(--text);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .form-group {
@@ -125,12 +94,12 @@
 
         input, textarea {
             width: 100%;
-            padding: 0.9rem 1.2rem;
+            padding: 0.8rem 1rem;
             border: 2px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 1rem;
             font-family: inherit;
-            transition: all 0.3s ease;
+            transition: border-color 0.2s ease;
             background: var(--light);
         }
 
@@ -138,7 +107,6 @@
             outline: none;
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         textarea {
@@ -146,11 +114,12 @@
             min-height: 100px;
         }
 
-        /* Star Rating */
+        /* Star Rating - Fixed */
         .star-rating {
             display: flex;
-            gap: 0.5rem;
+            flex-direction: row-reverse;
             justify-content: center;
+            gap: 0.3rem;
             margin: 1rem 0;
         }
 
@@ -161,27 +130,19 @@
         .star-rating label {
             font-size: 2.5rem;
             cursor: pointer;
-            transition: all 0.2s ease;
-            margin: 0;
+            color: #ddd;
+            transition: color 0.2s ease;
         }
 
+        /* When hovering over a star */
         .star-rating label:hover,
         .star-rating label:hover ~ label {
-            transform: scale(1.2);
+            color: #ffd700;
         }
 
+        /* When a star is selected */
         .star-rating input:checked ~ label {
-            filter: grayscale(100%);
-        }
-
-        .star-rating label.active {
-            animation: pop 0.3s ease;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
+            color: #ffd700;
         }
 
         /* Submit Button */
@@ -191,25 +152,21 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
         .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .submit-btn:active:not(:disabled) {
-            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
         }
 
         .submit-btn:disabled {
@@ -218,12 +175,12 @@
         }
 
         .submit-btn .spinner {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-top-color: white;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.6s linear infinite;
         }
 
         @keyframes spin {
@@ -239,34 +196,21 @@
             text-decoration: none;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+            transition: color 0.2s ease;
         }
 
         .back-btn:hover {
-            gap: 0.8rem;
             color: var(--secondary);
         }
 
         /* Alert Messages */
         .alert {
-            padding: 1rem 1.2rem;
-            border-radius: 12px;
+            padding: 1rem;
+            border-radius: 10px;
             margin-bottom: 1.5rem;
             display: none;
             align-items: center;
             gap: 0.8rem;
-            animation: slideDown 0.4s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .alert.show {
@@ -286,7 +230,7 @@
         }
 
         .alert i {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
 
         /* Character Counter */
@@ -327,7 +271,6 @@
 
             .star-rating label {
                 font-size: 1.8rem;
-                gap: 0.3rem;
             }
         }
     </style>
@@ -351,20 +294,20 @@
             <div class="form-group">
                 <label>How was your experience? <span class="required">*</span></label>
                 <div class="star-rating">
-                    <input type="radio" name="stars" id="star5" value="5" required>
-                    <label for="star5" title="5 stars">⭐</label>
-                    
-                    <input type="radio" name="stars" id="star4" value="4">
-                    <label for="star4" title="4 stars">⭐</label>
-                    
-                    <input type="radio" name="stars" id="star3" value="3">
-                    <label for="star3" title="3 stars">⭐</label>
+                    <input type="radio" name="stars" id="star1" value="1" required>
+                    <label for="star1" title="1 star">⭐</label>
                     
                     <input type="radio" name="stars" id="star2" value="2">
                     <label for="star2" title="2 stars">⭐</label>
                     
-                    <input type="radio" name="stars" id="star1" value="1">
-                    <label for="star1" title="1 star">⭐</label>
+                    <input type="radio" name="stars" id="star3" value="3">
+                    <label for="star3" title="3 stars">⭐</label>
+                    
+                    <input type="radio" name="stars" id="star4" value="4">
+                    <label for="star4" title="4 stars">⭐</label>
+                    
+                    <input type="radio" name="stars" id="star5" value="5">
+                    <label for="star5" title="5 stars">⭐</label>
                 </div>
             </div>
 
@@ -408,19 +351,6 @@
         const commentField = document.getElementById('comment');
         const charCount = document.getElementById('charCount');
 
-        // Star rating interaction
-        const stars = document.querySelectorAll('.star-rating label');
-        const starInputs = document.querySelectorAll('.star-rating input');
-
-        starInputs.forEach((input, index) => {
-            input.addEventListener('change', () => {
-                stars.forEach(star => star.classList.remove('active'));
-                for (let i = index; i < stars.length; i++) {
-                    stars[i].classList.add('active');
-                }
-            });
-        });
-
         // Character counter
         commentField.addEventListener('input', () => {
             charCount.textContent = commentField.value.length;
@@ -462,7 +392,6 @@
                 await addDoc(collection(db, 'ratings'), formData);
                 showAlert('Thank you for your feedback! 🎉', 'success');
                 form.reset();
-                stars.forEach(star => star.classList.remove('active'));
                 charCount.textContent = '0';
 
                 // Redirect to home after 2 seconds
