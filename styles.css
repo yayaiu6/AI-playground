@@ -756,3 +756,341 @@ footer {
 .hidden {
     display: none !important;
 }
+
+/* ===== IMPROVED RATINGS SECTION STYLING ===== */
+
+/* Ratings Section */
+.ratings {
+    padding: 5rem 5%;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.ratings::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--success));
+}
+
+.ratings .container {
+    position: relative;
+    z-index: 1;
+}
+
+.ratings h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.ratings-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+/* Ratings Grid */
+.ratings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Rating Item Card */
+.rating-item {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.rating-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.rating-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+    border-color: var(--primary);
+}
+
+.rating-item:hover::before {
+    transform: scaleX(1);
+}
+
+/* Rating Header */
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.rating-header h4 {
+    color: var(--dark);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rating-header h4::before {
+    content: '👤';
+    font-size: 1.5rem;
+}
+
+.rating-header .stars {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Comment */
+.rating-item .comment {
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.rating-item .comment::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -5px;
+    font-size: 2rem;
+    color: var(--primary);
+    opacity: 0.3;
+}
+
+/* Rating Details */
+.rating-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+}
+
+.rating-details small {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.rating-details small::before {
+    font-size: 1rem;
+}
+
+.rating-details small:first-child::before {
+    content: '📧';
+}
+
+.rating-details small:nth-child(2)::before {
+    content: '📱';
+}
+
+.rating-details small:last-child::before {
+    content: '🕒';
+}
+
+/* Floating Rate Button */
+.rate-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    z-index: 998;
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.rate-btn::after {
+    content: 'Rate Us';
+    position: absolute;
+    bottom: -35px;
+    background: var(--dark);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.rate-btn:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+}
+
+.rate-btn:hover::after {
+    opacity: 1;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* RTL Support */
+[dir="rtl"] .rate-btn {
+    right: auto;
+    left: 30px;
+}
+
+[dir="rtl"] .rating-item .comment {
+    padding-left: 0;
+    padding-right: 1rem;
+}
+
+[dir="rtl"] .rating-item .comment::before {
+    left: auto;
+    right: 0;
+}
+
+/* Empty State */
+.ratings-grid:empty::after {
+    content: '🌟 No ratings yet. Be the first to share your experience! 🌟';
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: var(--text);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Loading State */
+.ratings-loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.ratings-loading::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ratings {
+        padding: 3rem 4%;
+    }
+
+    .ratings h2 {
+        font-size: 2rem;
+    }
+
+    .ratings-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .rate-btn {
+        bottom: 20px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 1.6rem;
+    }
+
+    [dir="rtl"] .rate-btn {
+        right: auto;
+        left: 20px;
+    }
+
+    .rating-item {
+        padding: 1.5rem;
+    }
+
+    .rating-header h4 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ratings {
+        padding: 2.5rem 3%;
+    }
+
+    .ratings h2 {
+        font-size: 1.8rem;
+    }
+
+    .rate-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    [dir="rtl"] .rate-btn {
+        right: auto;
+        left: 15px;
+    }
+}
+
