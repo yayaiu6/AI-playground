@@ -68,19 +68,21 @@ nav {
 
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    /* إضافة لدعم أفضل للمتصفحات */
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    /* كنسخة احتياطية */
+    font-size: 0; 
+    font-weight: normal;
+    background: none; 
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: unset;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
 }
+
+.logo img {
+    max-height: 50px; 
+    width: auto;
+}
+
 
 .nav-links {
     display: flex;
