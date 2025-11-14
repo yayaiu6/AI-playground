@@ -67,21 +67,47 @@ nav {
 
 
 
+/* Logo Container */
 .logo {
-    font-size: 0; 
-    font-weight: normal;
-    background: none; 
-    -webkit-background-clip: unset;
-    -webkit-text-fill-color: unset;
-    color: unset;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
+/* Logo Image */
 .logo img {
-    max-height: 50px; 
+    height: auto;
     width: auto;
+    max-height: 80px;
 }
+
+/* Adjust logo size for medium screens (tablets) */
+@media (max-width: 1024px) {
+    .logo img {
+        max-height: 60px;
+    }
+}
+
+/* Adjust logo size for small screens (mobiles) */
+@media (max-width: 768px) {
+    .logo img {
+        max-height: 50px;
+    }
+}
+
+/* Adjust logo size for extra small screens (phones) */
+@media (max-width: 480px) {
+    .logo img {
+        max-height: 40px;
+    }
+}
+
+/* Optional: prevent stretching */
+.logo img {
+    display: block;
+    object-fit: contain;
+}
+
 
 
 .nav-links {
