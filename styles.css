@@ -44,7 +44,7 @@ body {
     flex-direction: row-reverse;
 }
 
-/* ===== HEADER SLIGHTLY BIGGER (BALANCED SIZE) ===== */
+/* ===== HEADER REDUCED BY ONE THIRD ===== */
 header {
     position: fixed;
     top: 0;
@@ -60,31 +60,42 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.7rem 5%; 
+    padding: 0.35rem 5%; 
     max-width: 1400px;
     margin: 0 auto;
+    height: 70px; 
 }
 
 .logo img {
-    height: 120px;       
-    max-height: 145px;    
+    height: 100px;      
+    max-height: 120px;
     width: auto;
     object-fit: contain;
     display: block;
     transition: all 0.3s ease;
 }
 
+.hero {
+    margin-top: 70px; 
+}
+
 /* Media Queries */
 @media (max-width: 1024px) {
-    .logo img { height: 105px; max-height: 120px; } 
+    nav { height: 60px; padding: 0.3rem 4%; }
+    .logo img { height: 85px; }
+    .hero { margin-top: 60px; }
 }
 
 @media (max-width: 768px) {
-    .logo img { height: 95px; max-height: 110px; }
+    nav { height: 55px; padding: 0.25rem 4%; }
+    .logo img { height: 75px; }
+    .hero { margin-top: 55px; }
 }
 
 @media (max-width: 480px) {
-    .logo img { height: 80px; max-height: 95px; } 
+    nav { height: 50px; padding: 0.25rem 3%; }
+    .logo img { height: 65px; }
+    .hero { margin-top: 50px; }
 }
 
 
