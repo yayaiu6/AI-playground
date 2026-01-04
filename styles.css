@@ -76,7 +76,7 @@ nav {
 
 
 .logo img {
-    height: 45px;       
+    height: 135px;       
     width: auto;        
     object-fit: contain;
     display: block;
@@ -85,21 +85,21 @@ nav {
 
 @media (max-width: 1024px) {
     .logo img {
-        height: 40px;
+        height: 120px;
     }
 }
 
 
 @media (max-width: 768px) {
     .logo img {
-        height: 35px;
+        height: 105px;
     }
 }
 
 
 @media (max-width: 480px) {
     .logo img {
-        height: 32px;
+        height: 96px;
     }
 }
 
