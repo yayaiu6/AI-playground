@@ -44,7 +44,7 @@ body {
     flex-direction: row-reverse;
 }
 
-/* ===== HEADER REDUCED HEIGHT (WITHOUT SHRINKING LOGO) ===== */
+/* ===== HEADER REDUCED HEIGHT (SLIGHTLY SMALLER) ===== */
 header {
     position: fixed;
     top: 0;
@@ -60,32 +60,33 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.65rem 5%; 
+    padding: 0.5rem 5%; 
     max-width: 1400px;
     margin: 0 auto;
 }
 
+
 .logo img {
-    height: 120px;       
-    max-height: 150px;
+    height: 110px;      
+    max-height: 135px;
     width: auto;
     object-fit: contain;
     display: block;
     transition: all 0.3s ease;
 }
 
+/* Media Queries */
 @media (max-width: 1024px) {
-    .logo img { height: 100px; max-height: 120px; } 
+    .logo img { height: 95px; max-height: 110px; }
 }
 
 @media (max-width: 768px) {
-    .logo img { height: 90px; max-height: 110px; }  
+    .logo img { height: 85px; max-height: 100px; }
 }
 
 @media (max-width: 480px) {
-    .logo img { height: 75px; max-height: 90px; }   
+    .logo img { height: 70px; max-height: 85px; }
 }
-
 
 
 
