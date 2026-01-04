@@ -44,7 +44,6 @@ body {
     flex-direction: row-reverse;
 }
 
-/* Header */
 header {
     position: fixed;
     top: 0;
@@ -67,45 +66,45 @@ nav {
 
 
 
-
-
 .logo {
     display: flex;
     align-items: center;
 }
 
-/* LOGO RESPONSIVE 6X */
 .logo img {
-    height: clamp(200px, 15vw, 810px); 
-    width: auto;                     
+    height: clamp(120px, 10vw, 250px); 
+    width: auto;
     object-fit: contain;
     display: block;
-    max-width: none;                   
-}
-
-/* Media queries optional for fine-tuning on small screens */
-@media (max-width: 1024px) {
-    .logo img {
-        height: clamp(180px, 18vw, 720px);
-    }
-}
-
-@media (max-width: 768px) {
-    .logo img {
-        height: clamp(160px, 20vw, 630px);
-    }
-}
-
-@media (max-width: 480px) {
-    .logo img {
-        height: clamp(140px, 25vw, 576px);
-    }
+    max-width: 100%;
 }
 
 header {
-    padding: 1rem 5%;     
-    min-height: 100px;    
+    min-height: 80px; 
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
 }
+
+.hero {
+    margin-top: 100px; 
+}
+
+@media (max-width: 1024px) {
+    .logo img { height: clamp(100px, 12vw, 200px); }
+    .hero { margin-top: 90px; }
+}
+
+@media (max-width: 768px) {
+    .logo img { height: clamp(80px, 15vw, 180px); }
+    .hero { margin-top: 80px; }
+}
+
+@media (max-width: 480px) {
+    .logo img { height: clamp(60px, 18vw, 140px); }
+    .hero { margin-top: 70px; }
+}
+
 
 
 
