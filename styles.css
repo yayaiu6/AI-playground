@@ -101,13 +101,7 @@ nav {
     }
 }
 
-header {
-    min-height: 80px;       
-    padding: 1rem 5%;
-    display: flex;
-    align-items: center;    
-    justify-content: space-between;
-}
+
 
 
 
