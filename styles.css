@@ -72,39 +72,42 @@ nav {
 }
 
 .logo img {
-    height: clamp(120px, 10vw, 250px); 
+    height: 120px;         
+    max-height: 150px;      
     width: auto;
     object-fit: contain;
     display: block;
-    max-width: 100%;
-}
-
-header {
-    min-height: 80px; 
-    padding: 1rem 5%;
-    display: flex;
-    align-items: center;
-}
-
-.hero {
-    margin-top: 100px; 
+    transition: all 0.3s ease;
 }
 
 @media (max-width: 1024px) {
-    .logo img { height: clamp(100px, 12vw, 200px); }
-    .hero { margin-top: 90px; }
+    .logo img {
+        height: 100px;
+        max-height: 120px;
+    }
 }
 
 @media (max-width: 768px) {
-    .logo img { height: clamp(80px, 15vw, 180px); }
-    .hero { margin-top: 80px; }
+    .logo img {
+        height: 90px;
+        max-height: 110px;
+    }
 }
 
 @media (max-width: 480px) {
-    .logo img { height: clamp(60px, 18vw, 140px); }
-    .hero { margin-top: 70px; }
+    .logo img {
+        height: 75px;
+        max-height: 90px;
+    }
 }
 
+header {
+    min-height: 80px;       
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+}
 
 
 
