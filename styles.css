@@ -74,31 +74,40 @@ nav {
     align-items: center;
 }
 
-
+/* LOGO RESPONSIVE 6X */
 .logo img {
-    height: 270px;       
-    width: auto;        
+    height: clamp(200px, 15vw, 810px); 
+    width: auto;                     
     object-fit: contain;
     display: block;
+    max-width: none;                   
 }
 
+/* Media queries optional for fine-tuning on small screens */
 @media (max-width: 1024px) {
     .logo img {
-        height: 240px;
+        height: clamp(180px, 18vw, 720px);
     }
 }
 
 @media (max-width: 768px) {
     .logo img {
-        height: 210px;
+        height: clamp(160px, 20vw, 630px);
     }
 }
 
 @media (max-width: 480px) {
     .logo img {
-        height: 192px;
+        height: clamp(140px, 25vw, 576px);
     }
 }
+
+header {
+    padding: 1rem 5%;     
+    min-height: 100px;    
+}
+
+
 
 .nav-links {
     display: flex;
