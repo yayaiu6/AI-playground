@@ -44,31 +44,35 @@ body {
     flex-direction: row-reverse;
 }
 
-/* ===== HEADER REDUCED BY ONE THIRD ===== */
+@media (max-width: 480px) {
+    .industries-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 2rem; }
+}/* ===== HEADER STYLING ===== */
 header {
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border);
     z-index: 1000;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.35rem 5%; 
+    padding: 0.8rem 5%; 
     max-width: 1400px;
     margin: 0 auto;
-    height: 70px; 
+    min-height: 80px;
 }
 
 .logo img {
-    height: 100px;      
-    max-height: 120px;
+    height: 70px;      
+    max-height: 70px;
     width: auto;
     object-fit: contain;
     display: block;
@@ -76,31 +80,29 @@ nav {
 }
 
 .hero {
-    margin-top: 70px; 
+    margin-top: 0; 
 }
 
 /* Media Queries */
 @media (max-width: 1024px) {
-    nav { height: 60px; padding: 0.3rem 4%; }
-    .logo img { height: 85px; }
-    .hero { margin-top: 60px; }
+    nav { min-height: 70px; padding: 0.7rem 4%; }
+    .logo img { height: 65px; max-height: 65px; }
 }
 
 @media (max-width: 768px) {
-    nav { height: 55px; padding: 0.25rem 4%; }
-    .logo img { height: 75px; }
-    .hero { margin-top: 55px; }
+    nav { min-height: 65px; padding: 0.6rem 3%; }
+    .logo img { height: 55px; max-height: 55px; }
 }
 
 @media (max-width: 480px) {
-    nav { height: 50px; padding: 0.25rem 3%; }
-    .logo img { height: 65px; }
-    .hero { margin-top: 50px; }
+    nav { min-height: 60px; padding: 0.5rem 3%; }
+    .logo img { height: 50px; max-height: 50px; }
 }
 
-
-
-
+@media (max-width: 360px) {
+    nav { min-height: 55px; padding: 0.4rem 2%; }
+    .logo img { height: 45px; max-height: 45px; }
+}
 
 .nav-links {
     display: flex;
@@ -156,8 +158,9 @@ nav {
 }
 
 /* Hero Section */
+/* Hero Section */
 .hero {
-    margin-top: 80px;
+    margin-top: 0;  
     min-height: 50vh;
     background: linear-gradient(135deg, #667eea 0%, #00324e 100%);
     position: relative;
