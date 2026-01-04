@@ -76,30 +76,27 @@ nav {
 
 
 .logo img {
-    height: 135px;       
+    height: 270px;       
     width: auto;        
     object-fit: contain;
     display: block;
 }
 
-
 @media (max-width: 1024px) {
     .logo img {
-        height: 120px;
+        height: 240px;
     }
 }
-
 
 @media (max-width: 768px) {
     .logo img {
-        height: 105px;
+        height: 210px;
     }
 }
 
-
 @media (max-width: 480px) {
     .logo img {
-        height: 96px;
+        height: 192px;
     }
 }
 
