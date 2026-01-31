@@ -1,194 +1,350 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI E-Commerce Solutions - Your Intelligent Business Assistant</title>
-    <link rel="stylesheet" href="E-Commerce.css">
+    <title>AI E-Commerce Solutions | Intelligent Business Assistants</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    
+    <!-- Fonts: Inter (English) & Cairo (Arabic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">
-                <i class="fas fa-robot"></i>
-                <span data-en="E-Commerce" data-ar="E-Commerce">E-Commerce</span>
-            </div>
-            <button class="lang-toggle" onclick="toggleLanguage()">
-                <i class="fas fa-language"></i> <span id="lang-text">Arabic</span>
-            </button>
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Quick Contact Sidebar -->
-    <div class="quick-contact">
-        <a href="mailto:yahyamahroof35@gmail.com" class="quick-contact-item" title="Email">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1', // Indigo
+                        secondary: '#8b5cf6', // Violet
+                        dark: '#0f172a', // Slate 900
+                        light: '#f8fafc', // Slate 50
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'spin-slow': 'spin 3s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed; inset: 0; background: #ffffff; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader {
+            width: 48px; height: 48px;
+            border: 5px solid #6366f1;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-light text-slate-600 font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Quick Contact Sidebar (Desktop) -->
+    <div class="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-3 rtl:right-auto rtl:left-4">
+        <a href="mailto:yahyamahroof35@gmail.com" class="w-10 h-10 bg-white/80 backdrop-blur shadow-lg rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all hover:scale-110 border border-slate-200">
             <i class="fas fa-envelope"></i>
         </a>
-        <a href="https://wa.me/+201001866276" class="quick-contact-item" title="WhatsApp">
+        <a href="https://wa.me/+201001866276" class="w-10 h-10 bg-white/80 backdrop-blur shadow-lg rounded-full flex items-center justify-center text-green-500 hover:bg-green-500 hover:text-white transition-all hover:scale-110 border border-slate-200">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="https://www.facebook.com/yahya.m.marouf.2025" class="quick-contact-item" title="Facebook">
+        <a href="https://www.facebook.com/yahya.m.marouf.2025" class="w-10 h-10 bg-white/80 backdrop-blur shadow-lg rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all hover:scale-110 border border-slate-200">
             <i class="fab fa-facebook"></i>
         </a>
     </div>
 
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex-shrink-0 flex items-center">
+                <a href="#" class="block">
+                    <!-- LOGO UPDATED HERE -->
+                    <img src="../yayaiu6_logo.png" alt="Logo" class="h-10 w-auto object-contain">
+                </a>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleLanguage()" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-primary hover:text-white rounded-full transition-all duration-300 border border-slate-200">
+                    <i class="fas fa-globe"></i>
+                    <span id="lang-text">Arabic</span>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-600 hover:text-primary focus:outline-none text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-8">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-2xl text-slate-500">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#home" class="text-xl font-medium text-slate-800" onclick="closeMenu()">Home</a>
+        <a href="#services" class="text-xl font-medium text-slate-800" onclick="closeMenu()">Services</a>
+        <a href="#solutions" class="text-xl font-medium text-slate-800" onclick="closeMenu()">Why Us</a>
+        <div class="flex gap-6 mt-8">
+            <a href="mailto:yahyamahroof35@gmail.com" class="text-2xl text-primary"><i class="fas fa-envelope"></i></a>
+            <a href="https://wa.me/+201001866276" class="text-2xl text-green-500"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 data-en="Chatbots for Your Business" data-ar="روبوتات محادثة ذكية لعملك">Chatbots for Your Business</h1>
-            <p data-en="24/7 smart chat assistants specialized in your business" data-ar="عزز تجربة العملاء مع مساعدين آليين أذكياء يعملون على مدار الساعة ومتخصصين في مجال عملك">24/7 smart chat assistants specialized in your business</p>
-            <a href="#services" class="hero-cta">
-                <i class="fas fa-rocket"></i>
-                <span data-en="Explore Our Chatbots" data-ar="استكشف روبوتات المحادثة">Explore Our Chatbots</span>
-            </a>
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 rounded-full bg-primary/10 blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 rounded-full bg-secondary/10 blur-3xl animate-pulse"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="opacity-0 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                    AI E-Commerce Integration
+                </span>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight" data-en="Chatbots for Your Business" data-ar="روبوتات محادثة ذكية لعملك">
+                    Chatbots for Your Business
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed" data-en="24/7 smart chat assistants specialized in your business to boost sales and engagement." data-ar="عزز تجربة العملاء مع مساعدين آليين أذكياء يعملون على مدار الساعة ومتخصصين في مجال عملك.">
+                    24/7 smart chat assistants specialized in your business to boost sales and engagement.
+                </p>
+                <div class="flex justify-center gap-4">
+                    <a href="#services" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-secondary text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-primary/30 transition-all hover:-translate-y-1">
+                        <i class="fas fa-rocket"></i>
+                        <span data-en="Explore Our Chatbots" data-ar="استكشف روبوتات المحادثة">Explore Our Chatbots</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Services Section (Main Chatbots) -->
-    <section class="industries" id="services">
-        <div class="container">
-            <h2 class="section-title" data-en="Our AI Chatbot Services" data-ar="خدمات روبوتات المحادثة الذكية">Our AI Chatbot Services</h2>
-            <div class="industries-grid">
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 opacity-0 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4" data-en="Our AI Chatbot Services" data-ar="خدمات روبوتات المحادثة الذكية">Our AI Chatbot Services</h2>
+                <div class="w-20 h-1.5 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 <!-- Fashion Chatbot -->
-                <div class="industry-card">
-                    <div class="demo-badge" data-en="Live Demo" data-ar="تجربة مباشرة">Live Demo</div>
-                    <div class="industry-icon">
-                        <img src="./static/sutrastores_logo.png" alt="Fashion" style="width: 200px; height: 200px;">
+                <div class="group relative bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-primary/30 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 opacity-0 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span data-en="Live Demo" data-ar="تجربة مباشرة">Live Demo</span>
                     </div>
-                    <h3 class="industry-name" data-en="Sutra Agent Fashion Assistant" data-ar="Sutra AI Agent Fashion Assistant">Sutra AI Agent Fashion Assistant</h3>
-                    <p data-en="An AI chatbot specialized in fashion retail, clothing recommendations, and style advice." data-ar="روبوت محادثة ذكي يعتمد على الذكاء الاصطناعي، متخصص في تجارة الأزياء بالتجزئة، تقديم توصيات للملابس، وتزويد نصائح للأنماط.">An AI chatbot specialized in fashion retail, clothing recommendations, and style advice.</p>
-                    <a href="https://ai-playground.duckdns.org/sutra" class="try-demo">
-                        <i class="fas fa-arrow-right"></i>
-                        <span data-en="Try Fashion Bot" data-ar="جرب وكيل سُتره">Try Sutra AI</span>
-                    </a>
+                    
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-48 h-48 mb-6 overflow-hidden rounded-xl bg-white p-4 shadow-sm">
+                            <img src="./static/sutrastores_logo.png" alt="Fashion" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3" data-en="Sutra Agent Fashion Assistant" data-ar="Sutra AI Agent Fashion Assistant">Sutra AI Agent Fashion Assistant</h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed" data-en="An AI chatbot specialized in fashion retail, clothing recommendations, and style advice." data-ar="روبوت محادثة ذكي يعتمد على الذكاء الاصطناعي، متخصص في تجارة الأزياء بالتجزئة، تقديم توصيات للملابس، وتزويد نصائح للأنماط.">An AI chatbot specialized in fashion retail, clothing recommendations, and style advice.</p>
+                        
+                        <a href="https://ai-playground.duckdns.org/sutra" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
+                            <span data-en="Try Sutra AI" data-ar="جرب وكيل سُتره">Try Sutra AI</span>
+                            <i class="fas fa-arrow-right rtl:rotate-180"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Hardware Tech Chatbot -->
-                <div class="industry-card">
-                    <div class="demo-badge" data-en="Live Demo" data-ar="تجربة مباشرة">Live Demo</div>
-                    <div class="industry-icon">
-                        <img src="./static/hardwareTech_logo.png" alt="Hardware" style="width: 200px; height: 200px;">
+                <div class="group relative bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:border-primary/30 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 opacity-0 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span data-en="Live Demo" data-ar="تجربة مباشرة">Live Demo</span>
                     </div>
-                    <h3 class="industry-name" data-en="Hardware & Tech Assistant" data-ar="Hardware & Tech Assistant">Hardware & Tech Assistant</h3>
-                    <p data-en="AI integrated with a database containing 2,300 hardware products." data-ar="روبوت محادثة بالذكاء الاصطناعي مدمج مع قاعدة بيانات تحتوي على أكثر من 2300 منتج من الأجهزة.">AI integrated with a database containing 2,300 hardware products.</p>
-                    <a href="https://ai-playground.duckdns.org/hardware" class="try-demo">
-                        <i class="fas fa-arrow-right"></i>
-                        <span data-en="Try Tech Bot" data-ar="جرب روبوت التقنية">Try Tech Bot</span>
-                    </a>
-                </div>
-        </div>
-    </section>
-
-    <!-- Solutions Section -->
-    <section class="solutions" id="solutions">
-        <div class="container">
-            <h2 class="section-title" data-en="Why Choose Our AI Chatbots?" data-ar="لماذا تختار روبوتات المحادثة لدينا؟">Why Choose Our AI Chatbots?</h2>
-            <div class="solutions-grid">
-                <div class="solution-card">
-                    <i class="fas fa-brain" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                    <h3 data-en="Intelligent & Context-Aware" data-ar="ذكي ويفهم السياق">Intelligent & Context-Aware</h3>
-                    <p data-en="Advanced AI that understands customer needs and provides personalized recommendations based on conversation history" data-ar="ذكاء اصطناعي متقدم يفهم احتياجات العملاء ويقدم توصيات مخصصة بناءً على سياق المحادثة">Advanced AI that understands customer needs and provides personalized recommendations based on conversation history</p>
-                    <a href="https://wa.me/+201001866276" class="demo-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</a>
-                </div>
-
-                <div class="solution-card">
-                    <i class="fas fa-clock" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                    <h3 data-en="24/7 Availability" data-ar="متاح على مدار الساعة">24/7 Availability</h3>
-                    <p data-en="Never miss a customer inquiry. Our chatbots work round the clock to assist your customers anytime, anywhere" data-ar="لا تفوت أي استفسار من العملاء. روبوتات المحادثة لدينا تعمل على مدار الساعة لمساعدة عملائك في أي وقت ومن أي مكان">Never miss a customer inquiry. Our chatbots work round the clock to assist your customers anytime, anywhere</p>
-                    <a href="https://wa.me/+201001866276" class="demo-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</a>
-                </div>
-
-                <div class="solution-card">
-                    <i class="fas fa-database" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                    <h3 data-en="Real-Time Product Database" data-ar="قاعدة بيانات فورية للمنتجات">Real-Time Product Database</h3>
-                    <p data-en="Connected directly to your inventory with accurate pricing, descriptions, and availability information updated in real-time" data-ar="متصل مباشرة بمخزونك مع معلومات دقيقة عن الأسعار والأوصاف والتوفر يتم تحديثها فورياً">Connected directly to your inventory with accurate pricing, descriptions, and availability information updated in real-time</p>
-                    <a href="https://wa.me/+201001866276" class="demo-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</a>
-                </div>
-
-                <div class="solution-card">
-                    <i class="fas fa-language" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                    <h3 data-en="Multilingual Support" data-ar="دعم متعدد اللغات">Multilingual Support</h3>
-                    <p data-en="Communicate with customers in their preferred language. Our chatbots support both English and Arabic seamlessly" data-ar="تواصل مع العملاء بلغتهم المفضلة. روبوتات المحادثة لدينا تدعم الإنجليزية والعربية بسلاسة">Communicate with customers in their preferred language. Our chatbots support both English and Arabic seamlessly</p>
-                    <a href="https://wa.me/+201001866276" class="demo-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</a>
+                    
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-48 h-48 mb-6 overflow-hidden rounded-xl bg-white p-4 shadow-sm">
+                            <img src="./static/hardwareTech_logo.png" alt="Hardware" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3" data-en="Hardware & Tech Assistant" data-ar="Hardware & Tech Assistant">Hardware & Tech Assistant</h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed" data-en="AI integrated with a database containing 2,300 hardware products." data-ar="روبوت محادثة بالذكاء الاصطناعي مدمج مع قاعدة بيانات تحتوي على أكثر من 2300 منتج من الأجهزة.">AI integrated with a database containing 2,300 hardware products.</p>
+                        
+                        <a href="https://ai-playground.duckdns.org/hardware" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
+                            <span data-en="Try Tech Bot" data-ar="جرب روبوت التقنية">Try Tech Bot</span>
+                            <i class="fas fa-arrow-right rtl:rotate-180"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Solutions (Features) Section -->
+    <section id="solutions" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4" data-en="Why Choose Our AI Chatbots?" data-ar="لماذا تختار روبوتات المحادثة لدينا؟">Why Choose Our AI Chatbots?</h2>
+                <p class="text-slate-500 text-lg" data-en="Enterprise-grade features tailored for growth" data-ar="ميزات بمستوى المؤسسات مصممة للنمو">Enterprise-grade features tailored for growth</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 hover:border-indigo-100 group">
+                    <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-primary text-2xl mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-en="Intelligent Context" data-ar="ذكاء السياق">Intelligent Context</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-en="Understand customer needs and provide personalized recommendations." data-ar="فهم احتياجات العملاء وتقديم توصيات مخصصة.">Understand customer needs and provide personalized recommendations.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 hover:border-indigo-100 group">
+                    <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center text-secondary text-2xl mb-4 group-hover:bg-secondary group-hover:text-white transition-colors">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-en="24/7 Availability" data-ar="متاح 24/7">24/7 Availability</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-en="Never miss a customer inquiry. Assist customers anytime, anywhere." data-ar="لا تفوت أي استفسار. ساعد عملائك في أي وقت وأي مكان.">Never miss a customer inquiry. Assist customers anytime, anywhere.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 hover:border-indigo-100 group">
+                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-2xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-en="Real-Time Data" data-ar="بيانات فورية">Real-Time Data</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-en="Connected directly to your inventory with accurate pricing updates." data-ar="متصل مباشرة بمخزونك مع تحديثات دقيقة للأسعار.">Connected directly to your inventory with accurate pricing updates.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-100 hover:border-indigo-100 group">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-teal-600 text-2xl mb-4 group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2" data-en="Multilingual" data-ar="متعدد اللغات">Multilingual</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed" data-en="Communicate in preferred languages. English and Arabic supported." data-ar="تواصل باللغات المفضلة. دعم للإنجليزية والعربية.">Communicate in preferred languages. English and Arabic supported.</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://wa.me/+201001866276" class="inline-flex items-center gap-2 text-primary font-semibold hover:text-secondary transition-colors">
+                    <span data-en="Contact us for a custom solution" data-ar="تواصل معنا لحل مخصص">Contact us for a custom solution</span>
+                    <i class="fas fa-arrow-right rtl:rotate-180"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="https://github.com/yayaiu6" data-en="About Us" data-ar="من نحن">About Us</a>
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Links -->
+                <div class="flex gap-6 text-sm font-medium">
+                    <a href="https://github.com/yayaiu6" class="hover:text-white transition-colors" data-en="About Us" data-ar="من نحن">About Us</a>
+                    <a href="#" class="hover:text-white transition-colors" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a>
                 </div>
-                <div class="social-links">
-                    <a href="mailto:yahyamahroof35@gmail.com" title="Email">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                    </a>
-                    <a href="https://wa.me/+201001866276" title="WhatsApp">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/yahya-mahrouf" title="LinkedIn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </a>
-                    <a href="https://www.facebook.com/yahya.m.marouf.2025" title="Facebook">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </a>
-                    <a href="https://x.com/YahyaMahro" title="X">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                    </a>
-                </div>
-                <p style="margin-top: 2rem; opacity: 0.7;" data-en="© 2025 . All rights reserved." data-ar="© 2025  جميع الحقوق محفوظة.">© 2025 . All rights reserved.</p>
-            </div>
-        </footer>
 
-    <!-- Language Toggle Script -->
+                <!-- Socials -->
+                <div class="flex gap-4">
+                    <a href="mailto:yahyamahroof35@gmail.com" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://wa.me/+201001866276" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 hover:text-white transition-all">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/yahya-mahrouf" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 pt-8 border-t border-slate-800 text-xs text-slate-600">
+                <p data-en="© 2025 AI Solutions. All rights reserved." data-ar="© 2025 AI Solutions. جميع الحقوق محفوظة.">© 2025 AI Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
     <script>
-        // Make cards fully visible immediately on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.industry-card, .solution-card, .review-card, .offer-card, .contact-card').forEach(el => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            });
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
         });
-        
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+
+        // Language Toggle Logic
         let currentLang = 'en';
         
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
             const html = document.documentElement;
+            const langText = document.getElementById('lang-text');
             
             if (currentLang === 'ar') {
                 html.setAttribute('dir', 'rtl');
                 html.setAttribute('lang', 'ar');
-                document.getElementById('lang-text').textContent = 'English';
+                html.classList.remove('font-sans');
+                html.classList.add('font-arabic');
+                langText.textContent = 'English';
             } else {
                 html.setAttribute('dir', 'ltr');
                 html.setAttribute('lang', 'en');
-                document.getElementById('lang-text').textContent = 'Arabic';
+                html.classList.remove('font-arabic');
+                html.classList.add('font-sans');
+                langText.textContent = 'Arabic'; // Changed from 'العربية' to 'Arabic' for button state
             }
             
-            // Update all text elements
+            // Update all elements with data attributes
             document.querySelectorAll('[data-en]').forEach(element => {
                 const text = currentLang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-ar');
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -199,51 +355,20 @@
             });
         }
         
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-        
-        // Fade in animations on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
+        // Trigger animations on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
-        
-        document.querySelectorAll('.industry-card, .solution-card, .review-card, .offer-card, .contact-card').forEach(el => {
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-fade-in-up').forEach(el => {
+            // el.style.animationPlayState = 'paused'; // Optional: if you want to wait for scroll
             observer.observe(el);
         });
     </script>
-    <script>
-
-    document.querySelectorAll('.industry-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const link = card.querySelector('.try-demo');
-            if (link && link.href) {
-                window.open(link.href, '_blank');
-            }
-        });
-    });
-</script>
 </body>
 </html>
-
-
-
