@@ -1,123 +1,238 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">    
-    <title>AI Handwriting Extraction - OCR Demo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="OCR-Demo.css">
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div class="demo-badge">Free Demo</div>
-            <h1><i class="fas fa-magic"></i> Handwriting Extraction</h1>
-            <p class="subtitle">Transform handwritten documents into digital text using advanced AI technology</p>
-        </div>
-
-        <div class="feature-info">
-            <h3><i class="fas fa-lightbulb"></i> What This Does</h3>
-            <p>Boost your business with our AI OCR! Quickly and accurately extract handwritten text from documents, forms, and notes. Easily integrate into your systems to save time and streamline your workflow.</p>
-        </div>
-
-        <div class="upload-area" id="uploadArea">
-            <div class="upload-icon">📤</div>
-            <div class="upload-text">Click to select an image or drag it here</div>
-            <div class="upload-hint">Supported formats: PNG, JPG, JPEG</div>
-            <input type="file" id="fileInput" accept="image/png,image/jpeg,image/jpg">
-        </div>
-        <div class="example-section">
-            <button class="btn-example" id="tryExampleBtn">
-                <i class="fas fa-image"></i>
-                <span>Use Example Image</span>
-            </button>
-        </div>      
-
-        <div class="preview-container" id="previewContainer">
-            <img id="imagePreview" alt="Preview">
-        </div>
-
-        <div class="error-message message" id="errorMessage"></div>
-        <div class="warning-message message" id="warningMessage"></div>
-
-        <button class="btn" id="extractBtn" disabled>
-            <i class="fas fa-bolt"></i>
-            <span>Extract Text with AI</span>
-        </button>
-
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Processing your image with AI...</p>
-        </div>
-
-        <div class="result-container" id="resultContainer">
-            <div class="result-header">
-                <span><i class="fas fa-check-circle"></i> Extracted Text</span>
-                <span class="success-icon">✓</span>
-            </div>
-            <div class="result-text" id="resultText"></div>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fas fa-language"></i>
-                <h4>Multi-Language</h4>
-                <p>Supports Arabic, English, and multiple languages</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-bolt"></i>
-                <h4>Fast Processing</h4>
-                <p>Get results in seconds with powerful AI</p>
-            </div>
-            <div class="feature-card">
-                <i class="fas fa-shield-alt"></i>
-                <h4>Accurate Results</h4>
-                <p>High precision text extraction technology</p>
-            </div>
-        </div>
-    </div>
+    <title>AI Handwriting OCR | Smart Extraction</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Footer moved outside container -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://github.com/yayaiu6">About Us</a>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for text area */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Smooth fade transition */
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-brand-600 text-white p-1.5 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                    </svg>
+                </div>
+                <span class="font-bold text-lg tracking-tight text-slate-900">AI OCR<span class="text-brand-600">.extract</span></span>
             </div>
-            <div class="social-links">
-                <a href="mailto:yahyamahroof35@gmail.com" title="Email">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            <span class="px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full border border-green-200">Free Demo</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
+                Transform Handwriting to <span class="text-brand-600 bg-brand-50 px-2 rounded-lg">Digital Text</span>
+            </h1>
+            <p class="text-slate-500 max-w-2xl mx-auto text-lg">
+                Instantly extract text from notes, forms, and documents using advanced AI.
+            </p>
+        </div>
+
+        <!-- App Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            
+            <!-- Left Column: Upload & Preview -->
+            <div class="space-y-6">
+                
+                <!-- Upload Zone -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <div id="uploadArea" class="group relative border-2 border-dashed border-slate-300 rounded-xl p-8 transition-all duration-200 ease-in-out hover:border-brand-500 hover:bg-slate-50 cursor-pointer text-center">
+                        <input type="file" id="fileInput" class="hidden" accept="image/png,image/jpeg,image/jpg">
+                        
+                        <div class="flex flex-col items-center justify-center space-y-3 pointer-events-none">
+                            <div class="p-3 bg-brand-50 text-brand-600 rounded-full group-hover:scale-110 transition-transform duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                </svg>
+                            </div>
+                            <div class="text-slate-600">
+                                <span class="font-semibold text-brand-600">Click to upload</span> or drag and drop
+                            </div>
+                            <p class="text-xs text-slate-400">PNG, JPG or JPEG (Max 5MB)</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Example Button -->
+                    <div class="mt-4 flex justify-center">
+                        <button id="tryExampleBtn" class="text-sm text-slate-500 hover:text-brand-600 flex items-center gap-1.5 transition-colors py-2 px-4 rounded-full hover:bg-slate-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                            </svg>
+                            Try with example image
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Preview Box -->
+                <div id="previewContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-4 fade-in">
+                    <p class="text-sm font-medium text-slate-500 mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-500"></span> Selected Image
+                    </p>
+                    <div class="relative bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center min-h-[200px]">
+                        <img id="imagePreview" class="max-h-[400px] w-auto object-contain" alt="Preview">
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div id="errorMessage" class="hidden p-4 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mt-0.5 flex-shrink-0">
+                        <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
                     </svg>
+                    <span id="errorText"></span>
+                </div>
+            </div>
+
+            <!-- Right Column: Results & Controls -->
+            <div class="space-y-6">
+                
+                <!-- Action Button -->
+                <button id="extractBtn" disabled class="w-full py-4 px-6 bg-slate-200 text-slate-400 font-semibold rounded-xl shadow-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-not-allowed disabled:opacity-70 group">
+                    <span class="btn-text">Extract Text with AI</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 group-enabled:animate-pulse">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                    </svg>
+                </button>
+
+                <!-- Processing State (Skeleton) -->
+                <div id="loading" class="hidden space-y-4">
+                    <div class="flex items-center gap-2 text-brand-600 text-sm font-medium animate-pulse">
+                        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Processing image...
+                    </div>
+                    <div class="h-64 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                        <div class="animate-pulse space-y-3">
+                            <div class="h-4 bg-slate-200 rounded w-3/4"></div>
+                            <div class="h-4 bg-slate-200 rounded"></div>
+                            <div class="h-4 bg-slate-200 rounded w-5/6"></div>
+                            <div class="h-4 bg-slate-200 rounded w-1/2"></div>
+                            <div class="h-4 bg-slate-200 rounded w-4/5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Area -->
+                <div id="resultContainer" class="hidden fade-in h-full">
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col h-full min-h-[300px]">
+                        <div class="bg-slate-50 border-b border-slate-100 px-5 py-3 flex justify-between items-center">
+                            <div class="flex items-center gap-2 text-green-700 font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                                </svg>
+                                Extraction Complete
+                            </div>
+                            <button id="copyBtn" class="text-xs font-semibold text-slate-500 hover:text-brand-600 bg-white border border-slate-200 hover:border-brand-200 px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                                </svg>
+                                Copy Text
+                            </button>
+                        </div>
+                        <div id="resultText" class="p-5 text-slate-700 font-mono text-sm leading-relaxed whitespace-pre-wrap overflow-y-auto max-h-[400px] custom-scrollbar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-6 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" />
+                    </svg>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">Multi-Language</h3>
+                <p class="text-sm text-slate-500">Accurate support for Arabic, English, and various mixed-language documents.</p>
+            </div>
+            <div class="p-6 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                    </svg>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">High Speed</h3>
+                <p class="text-sm text-slate-500">Optimized processing ensures you get results in seconds, even on mobile connections.</p>
+            </div>
+            <div class="p-6 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-10 h-10 bg-green-50 text-green-600 rounded-lg flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 5.523-4.477 10-10 10S1 17.523 1 12 5.477 2 12 2s10 4.477 10 10z" />
+                    </svg>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">Precision AI</h3>
+                <p class="text-sm text-slate-500">Utilizes state-of-the-art models to decipher messy and cursive handwriting.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="mailto:yahyamahroof35@gmail.com" class="hover:text-white transition-colors"><span class="sr-only">Email</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </a>
-                <a href="https://wa.me/+201001866276" title="WhatsApp">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
-                    </svg>
+                <a href="https://www.linkedin.com/in/yahya-mahrouf" class="hover:text-white transition-colors"><span class="sr-only">LinkedIn</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
-                <a href="https://www.linkedin.com/in/yahya-mahrouf" title="LinkedIn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                </a>
-                <a href="https://www.facebook.com/yahya.m.marouf.2025" title="Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-                <a href="https://x.com/YahyaMahro" title="X">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
+                <a href="https://github.com/yayaiu6" class="hover:text-white transition-colors"><span class="sr-only">GitHub</span>
+                   <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
                 </a>
             </div>
-            <p style="margin-top: 2rem; opacity: 0.7;">© 2025 yahya-mahrouf. All rights reserved.</p>
+            <p class="text-sm">© 2025 yahya-mahrouf. Powered by AI.</p>
         </div>
     </footer>
 
     <script>
         const API_URL = 'https://9af2752adec6.ngrok-free.app';
 
+        // DOM Elements
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
         const previewContainer = document.getElementById('previewContainer');
@@ -127,74 +242,121 @@
         const resultContainer = document.getElementById('resultContainer');
         const resultText = document.getElementById('resultText');
         const errorMessage = document.getElementById('errorMessage');
-        const warningMessage = document.getElementById('warningMessage');
+        const errorText = document.getElementById('errorText');
+        const tryExampleBtn = document.getElementById('tryExampleBtn');
+        const copyBtn = document.getElementById('copyBtn');
 
         let selectedFile = null;
-        // Load example image
-        document.getElementById('tryExampleBtn').addEventListener('click', async () => {
-            try {
-                const response = await fetch('example.png'); 
-                const blob = await response.blob();
-                const file = new File([blob], 'example.png', { type: 'image/png' });
-                handleFile(file);
-            } catch (error) {
-                showError('Failed to load example image');
-            }
-        });
 
-        uploadArea.addEventListener('click', () => {
-            fileInput.click();
-        });
+        // --- Event Listeners ---
 
-        fileInput.addEventListener('change', (e) => {
-            handleFile(e.target.files[0]);
-        });
+        // File Selection
+        uploadArea.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
 
+        // Drag & Drop Visuals
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
-            uploadArea.classList.add('dragover');
+            uploadArea.classList.add('border-brand-500', 'bg-brand-50');
         });
 
         uploadArea.addEventListener('dragleave', () => {
-            uploadArea.classList.remove('dragover');
+            uploadArea.classList.remove('border-brand-500', 'bg-brand-50');
         });
 
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
-            uploadArea.classList.remove('dragover');
-            const file = e.dataTransfer.files[0];
-            handleFile(file);
+            uploadArea.classList.remove('border-brand-500', 'bg-brand-50');
+            handleFile(e.dataTransfer.files[0]);
         });
 
+        // Example Button
+        tryExampleBtn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            try {
+                // Using a placeholder image for demo purposes if example.png isn't local
+                const response = await fetch('example.png'); 
+                if(!response.ok) throw new Error("Example image not found");
+                const blob = await response.blob();
+                const file = new File([blob], 'example.png', { type: 'image/png' });
+                handleFile(file);
+            } catch (error) {
+                showError('Could not load example image. Please upload one manually.');
+            }
+        });
+
+        // Copy Button
+        copyBtn.addEventListener('click', () => {
+            const text = resultText.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHtml = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-green-600"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg> Copied!`;
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHtml;
+                }, 2000);
+            });
+        });
+
+        // Main Logic
         function handleFile(file) {
             if (!file) return;
 
             const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
             if (!validTypes.includes(file.type)) {
-                showError('Only PNG, JPG, and JPEG formats are supported');
+                showError('Invalid file type. Please use PNG or JPG.');
                 return;
             }
 
             selectedFile = file;
+            errorMessage.classList.add('hidden');
+            resultContainer.classList.add('hidden');
             
+            // Preview
             const reader = new FileReader();
             reader.onload = (e) => {
                 imagePreview.src = e.target.result;
-                previewContainer.style.display = 'block';
-                extractBtn.disabled = false;
-                hideMessages();
-                resultContainer.style.display = 'none';
+                previewContainer.classList.remove('hidden');
+                enableExtractButton();
             };
             reader.readAsDataURL(file);
         }
 
+        function enableExtractButton() {
+            extractBtn.disabled = false;
+            extractBtn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+            extractBtn.classList.add('bg-brand-600', 'text-white', 'hover:bg-brand-700', 'shadow-md', 'hover:shadow-lg');
+            extractBtn.querySelector('.btn-text').textContent = "Extract Text Now";
+        }
+
+        function disableExtractButton() {
+            extractBtn.disabled = true;
+            extractBtn.classList.add('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
+            extractBtn.classList.remove('bg-brand-600', 'text-white', 'hover:bg-brand-700', 'shadow-md', 'hover:shadow-lg');
+            extractBtn.querySelector('.btn-text').textContent = "Processing...";
+        }
+
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorMessage.classList.remove('hidden');
+            loading.classList.add('hidden');
+            disableExtractButton(); 
+            // If file is valid but error happened later, re-enable button
+            if(selectedFile) enableExtractButton();
+        }
+
+        // API Extraction
         extractBtn.addEventListener('click', async () => {
             if (!selectedFile) return;
 
-            hideMessages();
-            loading.style.display = 'block';
-            extractBtn.disabled = true;
-            resultContainer.style.display = 'none';
+            disableExtractButton();
+            loading.classList.remove('hidden');
+            resultContainer.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            
+            // Scroll to results on mobile
+            if(window.innerWidth < 1024) {
+               loading.scrollIntoView({behavior: "smooth", block: "center"});
+            }
 
             const formData = new FormData();
             formData.append('file', selectedFile);
@@ -207,42 +369,25 @@
 
                 const data = await response.json();
 
-                if (!response.ok) {
-                    throw new Error(data.error || 'Failed to extract text');
-                }
+                if (!response.ok) throw new Error(data.error || 'Server error occurred');
 
-                if (data.success) {
-                    if (data.text) {
-                        resultText.textContent = data.text;
-                        resultContainer.style.display = 'block';
-                    } else {
-                        showWarning('No text found in the image. Please try another image.');
-                    }
+                if (data.success && data.text) {
+                    resultText.textContent = data.text;
+                    resultContainer.classList.remove('hidden');
+                } else {
+                    showError('No text found in this image. Try a clearer image.');
                 }
 
             } catch (error) {
-                showError(`Error: ${error.message}`);
+                showError(error.message || 'Connection failed. Please try again.');
             } finally {
-                loading.style.display = 'none';
+                loading.classList.add('hidden');
+                // Re-enable button state
                 extractBtn.disabled = false;
+                extractBtn.querySelector('.btn-text').textContent = "Extract Text Again";
+                extractBtn.classList.remove('cursor-not-allowed');
             }
         });
-
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-        }
-
-        function showWarning(message) {
-            warningMessage.textContent = message;
-            warningMessage.style.display = 'block';
-        }
-
-        function hideMessages() {
-            errorMessage.style.display = 'none';
-            warningMessage.style.display = 'none';
-        }
     </script>
 </body>
-
 </html>
