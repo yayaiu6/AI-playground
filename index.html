@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (via CDN for standalone usage) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -66,9 +66,6 @@
             animation: rotation 1s linear infinite;
         }
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* Hide scrollbar when mobile menu is open */
-        body.overflow-hidden { overflow: hidden; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-600 font-sans antialiased selection:bg-primary selection:text-white transition-colors duration-300">
@@ -143,10 +140,8 @@
 
     <!-- Hero Section -->
     <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <!-- Background Gradient -->
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-blue-50 opacity-90"></div>
-            <!-- Decorative blobs -->
             <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl"></div>
             <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
         </div>
@@ -166,9 +161,6 @@
                     <i class="fas fa-rocket"></i>
                     <span id="explore-text">Try Free Demo</span>
                 </a>
-                <a href="#offers-title" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-3.5 rounded-full font-semibold shadow-sm transition-all hover:-translate-y-1">
-                    <span>Learn More</span>
-                </a>
             </div>
         </div>
     </section>
@@ -182,7 +174,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Card 1 -->
+                <!-- Cards (Same structure as before) -->
                 <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
                     <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-primary text-xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
@@ -193,7 +185,6 @@
                     <a href="https://yayaiu6.github.io/AI-playground/E-Commerce" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
                 </div>
 
-                <!-- Card 2 -->
                 <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
                     <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -204,7 +195,6 @@
                     <a href="https://yayaiu6.github.io/AI-playground/OCR-Demo" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
                 </div>
 
-                <!-- Card 3 -->
                 <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div class="absolute top-4 right-4 bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Example" data-ar="مثال">Example</div>
                     <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors">
@@ -215,7 +205,6 @@
                     <a href="https://yayaiu6.github.io/AI-playground/Education" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
                 </div>
 
-                <!-- Card 4 -->
                 <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
                     <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 text-xl mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
@@ -233,62 +222,32 @@
     <section id="industries" class="py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 id="industries-title" class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">Industries We Serve</h2>
-            
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-                <!-- Active Item -->
+                <!-- Active Items -->
                 <a href="E-Commerce/" class="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center transition-all hover:border-primary">
                     <i class="fas fa-store text-3xl text-primary mb-3 group-hover:scale-110 transition-transform"></i>
                     <h4 class="font-semibold text-slate-800" data-en="E-Commerce" data-ar="التجارة الإلكترونية">E-Commerce</h4>
                 </a>
-                
-                <!-- Active Item -->
                 <a href="Education/" class="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center transition-all hover:border-primary">
                     <i class="fas fa-graduation-cap text-3xl text-primary mb-3 group-hover:scale-110 transition-transform"></i>
                     <h4 class="font-semibold text-slate-800" data-en="Education" data-ar="التعليم">Education</h4>
                 </a>
-
-                <!-- Active Item -->
                 <a href="https://recru-ai.duckdns.org/admin" class="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center transition-all hover:border-primary">
                     <i class="fas fa-users text-3xl text-primary mb-3 group-hover:scale-110 transition-transform"></i>
                     <h4 class="font-semibold text-slate-800" data-en="HR" data-ar="الموارد البشرية">HR</h4>
                 </a>
-
-                <!-- Inactive Items -->
+                <!-- Coming Soon Items -->
                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
                     <i class="fas fa-university text-3xl text-slate-400 mb-3"></i>
                     <h4 class="font-semibold text-slate-500 mb-2" data-en="Banking" data-ar="المصارف">Banking</h4>
                     <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
-
                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
                     <i class="fas fa-hospital text-3xl text-slate-400 mb-3"></i>
                     <h4 class="font-semibold text-slate-500 mb-2" data-en="Healthcare" data-ar="الرعاية الصحية">Healthcare</h4>
                     <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
-
-                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
-                    <i class="fas fa-home text-3xl text-slate-400 mb-3"></i>
-                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Real Estate" data-ar="العقارات">Real Estate</h4>
-                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                
-                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
-                    <i class="fas fa-utensils text-3xl text-slate-400 mb-3"></i>
-                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Food" data-ar="الأغذية">Food</h4>
-                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-
                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
-                    <i class="fas fa-shipping-fast text-3xl text-slate-400 mb-3"></i>
-                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Logistics" data-ar="اللوجستيات">Logistics</h4>
-                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
-                    <i class="fas fa-balance-scale text-3xl text-slate-400 mb-3"></i>
-                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Legal" data-ar="القانون">Legal</h4>
-                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
                     <i class="fas fa-laptop-code text-3xl text-slate-400 mb-3"></i>
                     <h4 class="font-semibold text-slate-500 mb-2" data-en="Tech" data-ar="التكنولوجيا">Tech</h4>
                     <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
@@ -305,7 +264,7 @@
             <p class="text-center text-slate-500 mb-12" data-en="Real feedback from our clients" data-ar="آراء حقيقية من عملائنا">Real feedback from our clients</p>
             
             <div id="ratingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Skeleton Loader (Hidden when data loads) -->
+                <!-- Skeleton Loaders -->
                 <div class="animate-pulse bg-slate-50 p-6 rounded-2xl border border-slate-100 h-48 skeleton-loader">
                     <div class="flex justify-between mb-4">
                         <div class="h-4 bg-slate-200 rounded w-1/3"></div>
@@ -313,22 +272,9 @@
                     </div>
                     <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
                     <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
-                    <div class="h-3 bg-slate-200 rounded w-2/3"></div>
                 </div>
                 <div class="animate-pulse bg-slate-50 p-6 rounded-2xl border border-slate-100 h-48 skeleton-loader hidden md:block">
-                    <div class="flex justify-between mb-4">
-                        <div class="h-4 bg-slate-200 rounded w-1/3"></div>
-                        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
-                    </div>
-                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
-                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
-                </div>
-                <div class="animate-pulse bg-slate-50 p-6 rounded-2xl border border-slate-100 h-48 skeleton-loader hidden lg:block">
-                    <div class="flex justify-between mb-4">
-                        <div class="h-4 bg-slate-200 rounded w-1/3"></div>
-                        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
-                    </div>
-                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                    <div class="h-4 bg-slate-200 rounded w-1/3 mb-4"></div>
                     <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
                 </div>
             </div>
@@ -342,27 +288,22 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-4" data-en="How we serve your organization" data-ar="كيف نخدم مؤسستك">How we serve your organization</h2>
                 <p class="text-indigo-200 text-lg" id="offers-subtitle">Unlock premium features and custom integration.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Offer 1 -->
                 <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
                     <i class="fas fa-cogs text-3xl text-secondary mb-4"></i>
                     <h3 class="text-xl font-bold mb-3" data-en="Custom Integration" data-ar="تكامل مخصص">Custom Integration</h3>
-                    <p class="text-slate-300 leading-relaxed" data-en="We make AI solutions work seamlessly with your existing platform to maximize value." data-ar="نجعل حلول الذكاء الاصطناعي تعمل بسلاسة مع منصتك الحالية.">We make AI solutions work seamlessly with your existing platform.</p>
+                    <p class="text-slate-300 leading-relaxed" data-en="We make AI solutions work seamlessly with your existing platform." data-ar="نجعل حلول الذكاء الاصطناعي تعمل بسلاسة مع منصتك الحالية.">We make AI solutions work seamlessly with your existing platform.</p>
                 </div>
-                <!-- Offer 2 -->
                 <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
                     <i class="fas fa-brain text-3xl text-secondary mb-4"></i>
                     <h3 class="text-xl font-bold mb-3" data-en="Custom AI Models" data-ar="نماذج ذكاء اصطناعي مخصصة">Custom AI Models</h3>
                     <p class="text-slate-300 leading-relaxed" data-en="Tailored AI, trained on your data to achieve your goals with accuracy." data-ar="ذكاء اصطناعي مُخصص، يتعلم من بياناتك فقط ليخدم أهدافك بدقة.">Tailored AI, trained on your data to achieve your goals with accuracy.</p>
                 </div>
-                <!-- Offer 3 -->
                 <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
                     <i class="fas fa-rocket text-3xl text-secondary mb-4"></i>
                     <h3 class="text-xl font-bold mb-3" data-en="Idea to Product" data-ar="من فكرة إلى منتج">Idea to Product</h3>
                     <p class="text-slate-300 leading-relaxed" data-en="We transform your ideas into AI tools tailored to meet your needs." data-ar="نحن نحول أفكارك إلى أدوات مصممة خصيصًا لتلبية احتياجاتك.">We transform your ideas into AI tools tailored to meet your needs.</p>
                 </div>
-                <!-- Offer 4 -->
                 <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
                     <i class="fas fa-sync-alt text-3xl text-secondary mb-4"></i>
                     <h3 class="text-xl font-bold mb-3" data-en="Workflow Automation" data-ar="أتمتة سير العمل">Workflow Automation</h3>
@@ -376,7 +317,6 @@
     <section id="contact" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 id="contact-title" class="text-3xl font-bold text-center text-slate-900 mb-12">Connect With Us</h2>
-            
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <a href="mailto:yahyamahroof35@gmail.com" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
                     <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
@@ -384,28 +324,24 @@
                     </div>
                     <span class="font-semibold text-slate-700">Email</span>
                 </a>
-
                 <a href="https://wa.me/+201001866276" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
                     <div class="w-12 h-12 flex items-center justify-center bg-green-100 text-green-600 rounded-full mb-3 group-hover:bg-green-600 group-hover:text-white transition-colors">
                         <i class="fab fa-whatsapp text-xl"></i>
                     </div>
                     <span class="font-semibold text-slate-700">WhatsApp</span>
                 </a>
-
                 <a href="https://www.linkedin.com/in/yahya-mahrouf" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
                     <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-blue-700 rounded-full mb-3 group-hover:bg-blue-700 group-hover:text-white transition-colors">
                         <i class="fab fa-linkedin text-xl"></i>
                     </div>
                     <span class="font-semibold text-slate-700">LinkedIn</span>
                 </a>
-
                 <a href="https://www.facebook.com/yahya.m.marouf.2025" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
                     <div class="w-12 h-12 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                         <i class="fab fa-facebook text-xl"></i>
                     </div>
                     <span class="font-semibold text-slate-700">Facebook</span>
                 </a>
-
                 <a href="https://x.com/YahyaMahro" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
                     <div class="w-12 h-12 flex items-center justify-center bg-slate-200 text-slate-800 rounded-full mb-3 group-hover:bg-black group-hover:text-white transition-colors">
                         <i class="fab fa-twitter text-xl"></i>
@@ -428,66 +364,69 @@
         </div>
     </footer>
 
-    <!-- Firebase & Logic Script -->
+    <!-- Firebase & Application Logic -->
     <script type="module">
-        // Import Firebase (Using CDN for single file compatibility)
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        // Import Firebase SDK (Using stable v10.8.0 to ensure compatibility)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // CONFIG PLACEHOLDER: Ensure you have your config here or imported
-        // Since we are in a single file demo, I'm defining a placeholder variable.
-        // In production, paste your actual firebaseConfig object here.
+        // Only works on the main domain 😁 خليك في حالك بقا 
         const firebaseConfig = {
-            // apiKey: "YOUR_API_KEY",
-            // authDomain: "YOUR_PROJECT.firebaseapp.com",
-            // projectId: "YOUR_PROJECT_ID",
-            // ...
+            apiKey: "AIzaSyAXofkSy3vfz7GuTgj6-S-rK2rsnUQp_J0",
+            authDomain: "ai-playground-ratings.firebaseapp.com",
+            projectId: "ai-playground-ratings",
+            storageBucket: "ai-playground-ratings.firebasestorage.app",
+            messagingSenderId: "112573912701",
+            appId: "1:112573912701:web:b381d9c41871025f49c314",
+            measurementId: "G-8LJN7YJZMS"
         };
 
-        // Initialize Firebase safely
+        // Initialize Firebase
         let db;
         try {
-            // Check if config is set (mock check for demo)
-            if(firebaseConfig.apiKey) {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-            } else {
-                console.warn("Firebase config missing in script. Check code comments.");
-            }
-        } catch (e) {
-            console.error("Firebase Init Error:", e);
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            console.log("Firebase Connected Successfully");
+        } catch (error) {
+            console.error("Firebase Connection Error:", error);
         }
 
         // --- UI Logic ---
 
-        // Preloader Logic
+        // 1. Preloader Logic
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        });
-
-        // Mobile Menu
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        const icon = btn.querySelector('i');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-            
-            if(menu.classList.contains('hidden')){
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            } else {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.classList.remove('overflow-hidden');
+                }, 500);
             }
         });
 
-        // Language Logic
+        // 2. Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn ? btn.querySelector('i') : null;
+
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+                if (icon) {
+                    if (menu.classList.contains('hidden')) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    } else {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    }
+                }
+            });
+        }
+
+        // 3. Language Switching Logic
         const translations = {
             en: {
                 'page-title': 'AI Solutions - Transform Your Business',
@@ -540,11 +479,9 @@
                 if(mobileLangBtn) mobileLangBtn.textContent = 'العربية';
             }
 
-            // Update simple IDs
             Object.keys(translations[lang]).forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
-                    // Specific logic for hero title to keep the gradient span
                     if(id === 'hero-title') {
                         if(lang === 'ar') element.innerHTML = `ادمج الذكاء الاصطناعي <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">في أعمالك</span>`;
                         else element.innerHTML = `Transform Your Business <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">with AI</span>`;
@@ -554,42 +491,25 @@
                 }
             });
 
-            // Update data attributes
             document.querySelectorAll('[data-en]').forEach(el => {
                 el.textContent = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
             });
         }
 
-        document.getElementById('lang-toggle').addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
-        document.getElementById('mobile-lang-toggle')?.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
+        const langToggle = document.getElementById('lang-toggle');
+        if (langToggle) langToggle.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
+        
+        const mobileLangToggle = document.getElementById('mobile-lang-toggle');
+        if (mobileLangToggle) mobileLangToggle.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
 
-        // --- Async Ratings Loader ---
+        // 4. Async Ratings Loader (Connected to real DB)
         async function loadRatings() {
             const list = document.getElementById('ratingsList');
-            if (!db) {
-                // If DB is missing (demo mode), remove skeletons and show message
-                setTimeout(() => {
-                    const skeletons = document.querySelectorAll('.skeleton-loader');
-                    skeletons.forEach(s => s.remove());
-                    // Add mock data for UI demo if no DB
-                    /* 
-                    list.innerHTML = `
-                         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
-                            <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
-                                <h4 class="font-bold text-slate-800">Demo User</h4>
-                                <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
-                            </div>
-                            <p class="text-slate-600 italic">"The database is not connected in this code preview, but this is how a review looks."</p>
-                        </div>
-                    `;
-                    */
-                   // For now, leave empty or show message
-                   list.innerHTML += `<div class="col-span-full text-center text-slate-400 py-4">Database config required to load ratings.</div>`;
-                }, 1500);
-                return;
-            }
+            if (!list) return;
 
             try {
+                if (!db) throw new Error("Database not initialized");
+
                 const q = query(collection(db, 'ratings'), orderBy('timestamp', 'desc'), limit(6));
                 const snapshot = await getDocs(q);
 
@@ -597,7 +517,7 @@
                 document.querySelectorAll('.skeleton-loader').forEach(el => el.remove());
 
                 if (snapshot.empty) {
-                    list.innerHTML = '<div class="col-span-full text-center text-slate-500">No ratings yet.</div>';
+                    list.innerHTML = '<div class="col-span-full text-center text-slate-500 py-8">No ratings yet. Be the first!</div>';
                     return;
                 }
 
@@ -605,40 +525,55 @@
                     const data = doc.data();
                     const card = document.createElement('div');
                     card.className = "bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all animate-fade-in";
+                    
+                    // Securely handle text content
+                    const name = data.name || 'Anonymous';
+                    const stars = '⭐'.repeat(data.stars || 5);
+                    const comment = data.comment || 'No comment provided.';
+
                     card.innerHTML = `
                         <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
                             <h4 class="font-bold text-slate-800 flex items-center gap-2">
-                                <i class="fas fa-user-circle text-slate-300 text-xl"></i> ${data.name || 'Anonymous'}
+                                <i class="fas fa-user-circle text-slate-300 text-xl"></i> ${escapeHtml(name)}
                             </h4>
-                            <div class="text-yellow-400 text-xs tracking-widest">${'⭐'.repeat(data.stars || 5)}</div>
+                            <div class="text-yellow-400 text-xs tracking-widest">${stars}</div>
                         </div>
                         <p class="text-slate-600 italic leading-relaxed relative pl-4">
                             <span class="absolute left-0 top-0 text-3xl text-indigo-200 leading-none">"</span>
-                            ${data.comment || 'No comment provided.'}
+                            ${escapeHtml(comment)}
                         </p>
                     `;
                     list.appendChild(card);
                 });
             } catch (err) {
-                console.error("Ratings Error", err);
+                console.error("Ratings Load Error:", err);
                 document.querySelectorAll('.skeleton-loader').forEach(el => el.remove());
-                list.innerHTML = '<div class="col-span-full text-center text-red-400">Unable to load ratings at this time.</div>';
+                list.innerHTML = '<div class="col-span-full text-center text-red-400 py-4">Unable to load ratings. Please check connection.</div>';
             }
         }
 
-        // Initialize logic
+        // Helper to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Start loading ratings
         loadRatings();
 
-        // Smooth Scroll for anchor links
+        // 5. Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                menu.classList.add('hidden'); // Close mobile menu if open
-                menu.classList.remove('flex');
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                if (menu) {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                }
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
