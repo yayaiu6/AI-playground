@@ -1,383 +1,646 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" id="html-root">
+<html lang="en" dir="ltr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">AI Solutions - Transform Your Business</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script type="module" src="script.js" defer></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', // Indigo 600
+                        secondary: '#0EA5E9', // Sky 500
+                        dark: '#0F172A', // Slate 900
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Preloader Styles */
+        #preloader {
+            position: fixed; inset: 0; background: #ffffff; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .loader {
+            width: 48px; height: 48px;
+            border: 5px solid #4F46E5;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Hide scrollbar when mobile menu is open */
+        body.overflow-hidden { overflow: hidden; }
+    </style>
 </head>
-<body>
-    <!-- Quick Contact Sidebar -->
-    <div class="quick-contact">
-        <a href="mailto:yahyamahroof35@gmail.com" class="quick-contact-item" title="Email">
+<body class="bg-slate-50 text-slate-600 font-sans antialiased selection:bg-primary selection:text-white transition-colors duration-300">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <span class="loader"></span>
+    </div>
+
+    <!-- Quick Contact Sidebar (Floating) -->
+    <div class="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 rtl:right-auto rtl:left-4 hidden md:flex">
+        <a href="mailto:yahyamahroof35@gmail.com" class="w-10 h-10 bg-white/80 backdrop-blur shadow-lg rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all hover:scale-110 border border-slate-200">
             <i class="fas fa-envelope"></i>
         </a>
-        <a href="https://wa.me/+201001866276" class="quick-contact-item" title="WhatsApp">
+        <a href="https://wa.me/+201001866276" class="w-10 h-10 bg-white/80 backdrop-blur shadow-lg rounded-full flex items-center justify-center text-green-500 hover:bg-green-500 hover:text-white transition-all hover:scale-110 border border-slate-200">
             <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="https://www.linkedin.com/in/yahya-mahrouf" class="quick-contact-item" title="LinkedIn">
+        <a href="https://www.linkedin.com/in/yahya-mahrouf" class="w-10 h-10 bg-white/80 backdrop-blur shadow-lg rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all hover:scale-110 border border-slate-200">
             <i class="fab fa-linkedin"></i>
         </a>
     </div>
+
     <!-- Header -->
-    <header>
-        <nav>
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300" id="main-header">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Logo -->
-            <div class="logo">
+            <div class="flex-shrink-0 flex items-center gap-2">
                 <a href="https://github.com/yayaiu6">
-                <img src="yayaiu6_logo.png" alt="Eshraq Logo">
+                    <img src="yayaiu6_logo.png" alt="Logo" class="h-10 w-auto object-contain">
+                </a>
             </div>
     
-            <!-- Navigation Links -->
-            <ul class="nav-links">
-                <li><a href="#home" id="nav-home">Home</a></li>
-                <li><a href="#offers-title" id="">Solutions</a></li>
-                <li><a href="#contact" id="nav-contact">Contact</a></li>
-                <button class="lang-toggle" id="lang-toggle">العربية</button>
-            </ul>
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8">
+                <ul class="flex gap-6 text-sm font-medium text-slate-700">
+                    <li><a href="#home" id="nav-home" class="hover:text-primary transition-colors">Home</a></li>
+                    <li><a href="#solutions" id="nav-solutions" class="hover:text-primary transition-colors">Solutions</a></li>
+                    <li><a href="#contact" id="nav-contact" class="hover:text-primary transition-colors">Contact</a></li>
+                </ul>
+                
+                <div class="flex items-center gap-4">
+                    <button id="lang-toggle" class="px-4 py-2 text-sm font-medium text-slate-600 border border-slate-300 rounded-full hover:border-primary hover:text-primary transition-all">
+                        العربية
+                    </button>
+                    <a href="#solutions" id="free-demo-btn" class="flex items-center gap-2 bg-primary hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-indigo-500/30 transition-all hover:-translate-y-0.5">
+                        <i class="fas fa-play-circle"></i>
+                        <span id="free-demo-text">Free Demo</span>
+                    </a>
+                </div>
+            </div>
     
-            <!-- Free Demo Button -->
-            <a href="#solutions" class="free-demo-btn" id="free-demo-btn">
-                <i class="fas fa-play-circle"></i>
-                <span id="free-demo-text">Free Demo</span>
-            </a>
-    
-            <!-- Mobile Menu Icon -->
-            <div class="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-slate-600 hover:text-primary focus:outline-none p-2">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
         </nav>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 shadow-xl md:hidden flex-col p-4 space-y-4 animate-fade-in">
+            <a href="#home" class="block text-slate-700 font-medium hover:text-primary">Home</a>
+            <a href="#solutions" class="block text-slate-700 font-medium hover:text-primary">Solutions</a>
+            <a href="#contact" class="block text-slate-700 font-medium hover:text-primary">Contact</a>
+            <hr class="border-slate-100">
+            <div class="flex justify-between items-center">
+                <button id="mobile-lang-toggle" class="text-slate-600 font-medium">العربية</button>
+                <a href="#solutions" class="bg-primary text-white px-4 py-2 rounded-full text-sm">Free Demo</a>
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 id="hero-title">Transform Your Business with AI</h1>
-            <p id="hero-subtitle">Ready-to-integrate practical solutions for your commercial or educational platforms</p>
-            <a href="#solutions" class="hero-cta" id="hero-cta">
-                <i class="fas fa-rocket"></i>
-                <span id="explore-text">Try Free Demo</span>
-            </a>
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Gradient -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-blue-50 opacity-90"></div>
+            <!-- Decorative blobs -->
+            <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl"></div>
         </div>
-    </section>
-    <!-- Solutions Section -->
-    <section class="solutions" id="solutions">
-        <div class="container">
-            <h2 class="section-title" id="solutions-title">Our AI Solutions</h2>
-            <div class="solutions-grid">
-                <div class="solution-card">
-                    <div class="demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
-                    <h3 data-en="Chatbots & AI Agents" data-ar="روبوتات المحادثة والوكلاء الافتراضيون">
-                        <i class="fas fa-robot"></i> Chatbots & AI Agents
-                    </h3>
-                    <p data-en="Intelligent conversational AI that handles customer queries 24/7" data-ar="ذكاء اصطناعي محادثة ذكي يتعامل مع استفسارات العملاء على مدار الساعة">Intelligent conversational AI that handles customer queries 24/7</p>
-                    <a href="https://yayaiu6.github.io/AI-playground/E-Commerce" class="demo-link" data-en="Try Demo Now" data-ar="جرب العرض الآن">Try Demo Now</a>
-                </div>
-                <div class="solution-card">
-                    <div class="demo-badge" data-en="Free Demo" data-ar="شاهد مثال">Free Demo</div>
-                    <h3 data-en="OCR- Handwriting Extraction" data-ar="OCR- Handwriting Extraction">
-                        <i class="fas fa-file-alt"></i> OCR- Handwriting Extraction
-                    </h3>
-                    <p data-en="Handwriting Extraction – Instantly turn handwritten text into digital data with AI. Fast, accurate, and easy to integrate." data-ar="استخراج الكتابة اليدوية - حوّل النصوص المكتوبة بخط اليد إلى بيانات رقمية فورًا باستخدام الذكاء الاصطناعي. سريع ودقيق وسهل التكامل.">Handwriting Extraction – Instantly turn handwritten text into digital data with AI. Fast, accurate, and easy to integrate.</p>
-                    <a href="https://yayaiu6.github.io/AI-playground/OCR-Demo" class="demo-link" data-en="Try Demo Now" data-ar="جرب العرض الآن">Try Demo Now</a>
-                </div>
-                <div class="solution-card">
-                    <div class="demo-badge" data-en="See example" data-ar="شاهد مثال">See example</div>
-                    <h3 data-en="Real-Time Lecture Translation" data-ar="ترجمة المحاضرات في الوقت الفعلي">
-                        <i class="fas fa-file-alt"></i> Real-Time Lecture Translation
-                    </h3>
-                    <p data-en="Our system automatically transcribes lectures and translates them into multiple languages instantly" data-ar="يقوم نظامنا تلقائيًا بنسخ المحاضرات وترجمتها إلى لغات متعددة على الفور">Our system automatically transcribes lectures and translates them into multiple languages instantly</p>
-                    <a href="https://yayaiu6.github.io/AI-playground/Education" class="demo-link" data-en="Try Demo Now" data-ar="جرب العرض الآن">Try Demo Now</a>
-                </div>
-                <div class="solution-card">
-                    <div class="demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
-                    <h3 data-en="ATS Systems" data-ar="أنظمة إدارة التوظيف">
-                        <i class="fas fa-user-check"></i> ATS Systems
-                    </h3>
-                    <p data-en="Smart recruitment systems that screen, rank, and match candidates automatically" data-ar="أنظمة توظيف ذكية تفحص وترتب وتطابق المرشحين تلقائيًا">Smart recruitment systems that screen, rank, and match candidates automatically</p>
-                    <a href="https://recru-ai.duckdns.org/admin" class="demo-link" data-en="Try Demo Now" data-ar="جرب العرض الآن">Try Demo Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Industries Section -->
-    <section class="industries" id="industries">
-        <div class="container">
-            <h2 class="section-title" id="industries-title">Industries We Serve</h2>
-            <div class="industries-grid">
-                <!-- E-Commerce - Active -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="industry-name" data-en="E-Commerce" data-ar="التجارة الإلكترونية">E-Commerce</div>
-                    <a href="E-Commerce/" class="try-demo" data-en="Try Free Demo →" data-ar="تجربة مجانية ←">
-                        Try Free Demo →</a>
-                </div>
-                <!-- Education - Active -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="industry-name" data-en="Education" data-ar="التعليم">Education</div>
-                    <a href="Education/" class="try-demo" data-en="Try Free Demo →" data-ar="تجربة مجانية ←">
-                        Try Free Demo →</a>
-                </div>
-                         <!-- Human Resources - Active -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="industry-name" data-en="Human Resources" data-ar="الموارد البشرية والتوظيف">Human Resources</div>
-                    <a href="https://recru-ai.duckdns.org/admin" class="try-demo" data-en="Try Free Demo →" data-ar="تجربة مجانية ←">
-                        Try Free Demo →</a>
-                </div>
-                <!-- Banking - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="industry-name" data-en="Banking" data-ar="المصارف">Banking</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                <!-- Healthcare - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-hospital"></i>
-                    </div>
-                    <div class="industry-name" data-en="Healthcare" data-ar="الرعاية الصحية">Healthcare</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                <!-- Real Estate - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="industry-name" data-en="Real Estate" data-ar="العقارات">Real Estate</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                <!-- Food & Beverage - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <div class="industry-name" data-en="Food & Beverage" data-ar="الأغذية والمشروبات">Food & Beverage</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                <!-- Logistics - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-shipping-fast"></i>
-                    </div>
-                    <div class="industry-name" data-en="Logistics" data-ar="اللوجستيات">Logistics</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                <!-- Legal - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <div class="industry-name" data-en="Legal" data-ar="القانون">Legal</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-                <!-- Technology & Telecommunications - Coming Soon -->
-                <div class="industry-card">
-                    <div class="industry-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="industry-name" data-en="Technology" data-ar="التكنولوجيا والاتصالات">
-                        Technology & Telecommunications</div>
-                    <span class="coming-soon" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
-                </div>
-            </div>
-        </div>
-    </section>
-<style>
-.coming-soon {
-    display: inline-block;
-    padding: 8px 20px;
-    background: #e0e0e0;
-    color: #666;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: not-allowed;
-    margin-top: 10px;
-}
-/* Optional: Make the entire card look disabled */
-.industry-card:has(.coming-soon) {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-.industry-card:has(.coming-soon):hover {
-    transform: none;
-}
-</style>
 
-        <!-- Our Ratings Section -->
-    <section class="ratings" id="our-ratings">
-        <div class="container">
-            <h2 data-en="What Our Clients Say" data-ar="ماذا يقول عملاؤنا">What Our Clients Say</h2>
-            <p class="ratings-subtitle" data-en="Real feedback from our clients" data-ar="Real feedback from our clients">
-                Real feedback from our clients
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold uppercase tracking-wider mb-6 animate-fade-in">
+                AI Powered Future
+            </span>
+            <h1 id="hero-title" class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight animate-fade-in">
+                Transform Your Business <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">with AI</span>
+            </h1>
+            <p id="hero-subtitle" class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in opacity-0" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+                Ready-to-integrate practical solutions for your commercial or educational platforms. Boost efficiency and cut costs today.
             </p>
-            <div id="ratingsList" class="ratings-grid">
-                <div class="ratings-loading">Loading ratings...</div>
-            </div>           
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in opacity-0" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
+                <a href="#solutions" id="hero-cta" class="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg transition-all hover:-translate-y-1">
+                    <i class="fas fa-rocket"></i>
+                    <span id="explore-text">Try Free Demo</span>
+                </a>
+                <a href="#offers-title" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-3.5 rounded-full font-semibold shadow-sm transition-all hover:-translate-y-1">
+                    <span>Learn More</span>
+                </a>
+            </div>
         </div>
     </section>
-<!-- Exclusive Offers -->
-    <section class="offers">
-        <div class="container">
-            <div class="offers-content">
-                <h2 id="offers-title">How do we serve your organization</h2>
-                <p id="offers-subtitle">Join our community and unlock premium features and priority support</p>
-                <div class="offer-cards">
-                    <div class="offer-card">
-                        <div class="offer-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <div class="offer-title" data-en="Custom Integration for Your Platform" data-ar="تكامل مخصص لمنصتك">Custom Integration for Your Platform</div>
-                        <p data-en="We make AI solutions work seamlessly with your existing platform to maximize value." data-ar="نجعل حلول الذكاء الاصطناعي تعمل بسلاسة مع منصتك الحالية لتحقيق أقصى قيمة">We make AI solutions work seamlessly with your existing platform to maximize value.</p>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 id="solutions-title" class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Our AI Solutions</h2>
+                <div class="w-20 h-1.5 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
+                    <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-primary text-xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-robot"></i>
                     </div>
-                    <div class="offer-card">
-                        <div class="offer-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div class="offer-title" data-en="Custom Tools for Your Ideas" data-ar="أدوات مخصصة لأفكارك">Custom Tools for Your Ideas</div>
-                        <p data-en="We transform your ideas into AI tools tailored to meet your needs, delivering real impact and unique value." data-ar="نحن نحول أفكارك إلى أدوات مصممة خصيصًا لتلبية احتياجاتك وإحداث تأثير حقيقي وقيمة فريدة.">We turn your ideas into powerful AI-driven tools, designed specifically for your needs to create real impact and unique value.</p>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-en="Chatbots & AI Agents" data-ar="روبوتات المحادثة">Chatbots & AI Agents</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6" data-en="Intelligent conversational AI that handles customer queries 24/7." data-ar="ذكاء اصطناعي محادثة ذكي يتعامل مع استفسارات العملاء على مدار الساعة.">Intelligent conversational AI that handles customer queries 24/7.</p>
+                    <a href="https://yayaiu6.github.io/AI-playground/E-Commerce" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-file-alt"></i>
                     </div>
-                    <div class="offer-card">
-                        <div class="offer-icon">
-                            <i class="fas fa-sync-alt"></i>
-                        </div>
-                        <div class="offer-title" data-en="Seamless Workflow Automation" data-ar="أتمتة سير العمل بسلاسة">Seamless Workflow Automation</div>
-                        <p data-en="Automate repetitive tasks and integrate AI with your existing tools to reduce time and costs." data-ar="أتمتة العمليات المتكررة وربط الذكاء الاصطناعي مع أدواتك الحالية لتقليل الوقت والتكلفة.">Automate repetitive tasks and integrate AI with your existing tools to reduce time and costs.</p>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-en="Handwriting OCR" data-ar="استخراج خط اليد">Handwriting OCR</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6" data-en="Turn handwritten text into digital data instantly." data-ar="حوّل النصوص المكتوبة بخط اليد إلى بيانات رقمية فورًا.">Turn handwritten text into digital data instantly.</p>
+                    <a href="https://yayaiu6.github.io/AI-playground/OCR-Demo" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-4 right-4 bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Example" data-ar="مثال">Example</div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-language"></i>
                     </div>
-                    <div class="offer-card">
-                        <div class="offer-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <div class="offer-title" data-en="Custom AI, Powered by Your Data" data-ar="ذكاء اصطناعي, خبير مؤسستك">Custom AI, Powered by Your Data</div>
-                        <p data-en="Tailored AI, trained on your data to achieve your goals with accuracy." data-ar="ذكاء اصطناعي مُخصص، يتعلم من بياناتك فقط ليخدم أهدافك بدقة">Tailored AI, trained on your data to achieve your goals with accuracy.</p>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-en="Live Translation" data-ar="الترجمة الفورية">Live Translation</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6" data-en="Real-time lecture transcription and translation." data-ar="نسخ وترجمة المحاضرات في الوقت الفعلي.">Real-time lecture transcription and translation.</p>
+                    <a href="https://yayaiu6.github.io/AI-playground/Education" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group relative bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md demo-badge" data-en="Free Demo" data-ar="عرض مجاني">Free Demo</div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 text-xl mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-user-check"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-en="ATS Systems" data-ar="أنظمة التوظيف">ATS Systems</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6" data-en="Smart recruitment screening and ranking." data-ar="أنظمة توظيف ذكية لفرز وترتيب المرشحين.">Smart recruitment screening and ranking.</p>
+                    <a href="https://recru-ai.duckdns.org/admin" class="inline-flex items-center text-primary font-semibold text-sm hover:underline" data-en="Try Demo Now →" data-ar="جرب العرض الآن ←">Try Demo Now →</a>
                 </div>
             </div>
         </div>
     </section>
 
-<!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title" id="contact-title">Connect With Us</h2>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#6366f1">
-                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                        </svg>
-                    </div>
-                    <div class="contact-title" data-en="Email" data-ar="البريد الإلكتروني">Email</div>
-                    <a href="mailto:yahyamahroof35@gmail.com" class="contact-link">yahyamahroof35@gmail.com</a>
+    <!-- Industries Section -->
+    <section id="industries" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="industries-title" class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">Industries We Serve</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+                <!-- Active Item -->
+                <a href="E-Commerce/" class="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center transition-all hover:border-primary">
+                    <i class="fas fa-store text-3xl text-primary mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-semibold text-slate-800" data-en="E-Commerce" data-ar="التجارة الإلكترونية">E-Commerce</h4>
+                </a>
+                
+                <!-- Active Item -->
+                <a href="Education/" class="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center transition-all hover:border-primary">
+                    <i class="fas fa-graduation-cap text-3xl text-primary mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-semibold text-slate-800" data-en="Education" data-ar="التعليم">Education</h4>
+                </a>
+
+                <!-- Active Item -->
+                <a href="https://recru-ai.duckdns.org/admin" class="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center transition-all hover:border-primary">
+                    <i class="fas fa-users text-3xl text-primary mb-3 group-hover:scale-110 transition-transform"></i>
+                    <h4 class="font-semibold text-slate-800" data-en="HR" data-ar="الموارد البشرية">HR</h4>
+                </a>
+
+                <!-- Inactive Items -->
+                <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-university text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Banking" data-ar="المصارف">Banking</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#25D366">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
-                        </svg>
-                    </div>
-                    <div class="contact-title" data-en="WhatsApp" data-ar="واتساب">WhatsApp</div>
-                    <a href="https://wa.me/+201001866276" class="contact-link" data-en="Chat Now" data-ar="ابدأ المحادثة">Chat Now</a>
+
+                <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-hospital text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Healthcare" data-ar="الرعاية الصحية">Healthcare</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#0077B5">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                    </div>
-                    <div class="contact-title" data-en="LinkedIn" data-ar="لينكد إن">LinkedIn</div>
-                    <a href="https://www.linkedin.com/in/yahya-mahrouf" class="contact-link" data-en="Follow Us" data-ar="تابعنا">Follow Us</a>
+
+                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-home text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Real Estate" data-ar="العقارات">Real Estate</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#1877F2">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </div>
-                    <div class="contact-title" data-en="Facebook" data-ar="فيسبوك">Facebook</div>
-                    <a href="https://www.facebook.com/yahya.m.marouf.2025" class="contact-link" data-en="Like Page" data-ar="أعجبني">Like Page</a>
+                
+                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-utensils text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Food" data-ar="الأغذية">Food</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#000000">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                        </svg>
-                    </div>
-                    <div class="contact-title" data-en="X (Twitter)" data-ar="إكس (تويتر)">X (Twitter)</div>
-                    <a href="https://x.com/YahyaMahro" class="contact-link" data-en="Follow" data-ar="متابعة">Follow</a>
+
+                <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-shipping-fast text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Logistics" data-ar="اللوجستيات">Logistics</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
+                </div>
+                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-balance-scale text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Legal" data-ar="القانون">Legal</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
+                </div>
+                 <div class="bg-slate-100 p-6 rounded-xl border border-slate-200 text-center opacity-70 cursor-not-allowed grayscale">
+                    <i class="fas fa-laptop-code text-3xl text-slate-400 mb-3"></i>
+                    <h4 class="font-semibold text-slate-500 mb-2" data-en="Tech" data-ar="التكنولوجيا">Tech</h4>
+                    <span class="text-[10px] bg-slate-200 px-2 py-1 rounded text-slate-500 uppercase tracking-wide" data-en="Coming Soon" data-ar="قريباً">Coming Soon</span>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Ratings Section -->
+    <section class="py-20 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-green-400"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-2" data-en="What Our Clients Say" data-ar="ماذا يقول عملاؤنا">What Our Clients Say</h2>
+            <p class="text-center text-slate-500 mb-12" data-en="Real feedback from our clients" data-ar="آراء حقيقية من عملائنا">Real feedback from our clients</p>
+            
+            <div id="ratingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skeleton Loader (Hidden when data loads) -->
+                <div class="animate-pulse bg-slate-50 p-6 rounded-2xl border border-slate-100 h-48 skeleton-loader">
+                    <div class="flex justify-between mb-4">
+                        <div class="h-4 bg-slate-200 rounded w-1/3"></div>
+                        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+                    </div>
+                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                    <div class="h-3 bg-slate-200 rounded w-2/3"></div>
+                </div>
+                <div class="animate-pulse bg-slate-50 p-6 rounded-2xl border border-slate-100 h-48 skeleton-loader hidden md:block">
+                    <div class="flex justify-between mb-4">
+                        <div class="h-4 bg-slate-200 rounded w-1/3"></div>
+                        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+                    </div>
+                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                </div>
+                <div class="animate-pulse bg-slate-50 p-6 rounded-2xl border border-slate-100 h-48 skeleton-loader hidden lg:block">
+                    <div class="flex justify-between mb-4">
+                        <div class="h-4 bg-slate-200 rounded w-1/3"></div>
+                        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+                    </div>
+                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                    <div class="h-3 bg-slate-200 rounded w-full mb-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section id="offers-title" class="py-20 bg-gradient-to-br from-slate-900 to-indigo-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-en="How we serve your organization" data-ar="كيف نخدم مؤسستك">How we serve your organization</h2>
+                <p class="text-indigo-200 text-lg" id="offers-subtitle">Unlock premium features and custom integration.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Offer 1 -->
+                <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
+                    <i class="fas fa-cogs text-3xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3" data-en="Custom Integration" data-ar="تكامل مخصص">Custom Integration</h3>
+                    <p class="text-slate-300 leading-relaxed" data-en="We make AI solutions work seamlessly with your existing platform to maximize value." data-ar="نجعل حلول الذكاء الاصطناعي تعمل بسلاسة مع منصتك الحالية.">We make AI solutions work seamlessly with your existing platform.</p>
+                </div>
+                <!-- Offer 2 -->
+                <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
+                    <i class="fas fa-brain text-3xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3" data-en="Custom AI Models" data-ar="نماذج ذكاء اصطناعي مخصصة">Custom AI Models</h3>
+                    <p class="text-slate-300 leading-relaxed" data-en="Tailored AI, trained on your data to achieve your goals with accuracy." data-ar="ذكاء اصطناعي مُخصص، يتعلم من بياناتك فقط ليخدم أهدافك بدقة.">Tailored AI, trained on your data to achieve your goals with accuracy.</p>
+                </div>
+                <!-- Offer 3 -->
+                <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
+                    <i class="fas fa-rocket text-3xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3" data-en="Idea to Product" data-ar="من فكرة إلى منتج">Idea to Product</h3>
+                    <p class="text-slate-300 leading-relaxed" data-en="We transform your ideas into AI tools tailored to meet your needs." data-ar="نحن نحول أفكارك إلى أدوات مصممة خصيصًا لتلبية احتياجاتك.">We transform your ideas into AI tools tailored to meet your needs.</p>
+                </div>
+                <!-- Offer 4 -->
+                <div class="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl hover:bg-white/20 transition-all">
+                    <i class="fas fa-sync-alt text-3xl text-secondary mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3" data-en="Workflow Automation" data-ar="أتمتة سير العمل">Workflow Automation</h3>
+                    <p class="text-slate-300 leading-relaxed" data-en="Automate repetitive tasks to reduce time and costs." data-ar="أتمتة العمليات المتكررة لتقليل الوقت والتكلفة.">Automate repetitive tasks to reduce time and costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 id="contact-title" class="text-3xl font-bold text-center text-slate-900 mb-12">Connect With Us</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <a href="mailto:yahyamahroof35@gmail.com" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <span class="font-semibold text-slate-700">Email</span>
+                </a>
+
+                <a href="https://wa.me/+201001866276" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 flex items-center justify-center bg-green-100 text-green-600 rounded-full mb-3 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </div>
+                    <span class="font-semibold text-slate-700">WhatsApp</span>
+                </a>
+
+                <a href="https://www.linkedin.com/in/yahya-mahrouf" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-blue-700 rounded-full mb-3 group-hover:bg-blue-700 group-hover:text-white transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </div>
+                    <span class="font-semibold text-slate-700">LinkedIn</span>
+                </a>
+
+                <a href="https://www.facebook.com/yahya.m.marouf.2025" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </div>
+                    <span class="font-semibold text-slate-700">Facebook</span>
+                </a>
+
+                <a href="https://x.com/YahyaMahro" class="flex flex-col items-center p-6 bg-slate-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="w-12 h-12 flex items-center justify-center bg-slate-200 text-slate-800 rounded-full mb-3 group-hover:bg-black group-hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </div>
+                    <span class="font-semibold text-slate-700">X (Twitter)</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-<footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a>
-                <a href="#" data-en="Terms of Service" data-ar="شروط الخدمة">Terms of Service</a>
-                <a href="https://github.com/yayaiu6" data-en="About Us" data-ar="من نحن">About Us</a>
-                <a href="#solutions" data-en="Free Demos" data-ar="العروض المجانية">Free Demos</a>
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex flex-wrap justify-center gap-6 mb-8 text-sm">
+                <a href="https://github.com/yayaiu6" class="hover:text-white transition-colors">About Us</a>
             </div>
-            <div class="social-links">
-                <a href="mailto:yahyamahroof35@gmail.com" title="Email">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                </a>
-                <a href="https://wa.me/+201001866276" title="WhatsApp">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/>
-                    </svg>
-                </a>
-                <a href="https://www.linkedin.com/in/yahya-mahrouf" title="LinkedIn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                </a>
-                <a href="https://www.facebook.com/yahya.m.marouf.2025" title="Facebook">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                </a>
-                <a href="https://x.com/YahyaMahro" title="X">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                </a>
+            <div class="text-sm opacity-60">
+                &copy; 2025 yahya-mahrouf. All rights reserved.
             </div>
-            <p style="margin-top: 2rem; opacity: 0.7;" data-en="© 2025 yahya-mahrouf. All rights reserved." data-ar="© 2025 جميع الحقوق محفوظة.">© 2025 yahya-mahrouf. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Firebase & Logic Script -->
+    <script type="module">
+        // Import Firebase (Using CDN for single file compatibility)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // CONFIG PLACEHOLDER: Ensure you have your config here or imported
+        // Since we are in a single file demo, I'm defining a placeholder variable.
+        // In production, paste your actual firebaseConfig object here.
+        const firebaseConfig = {
+            // apiKey: "YOUR_API_KEY",
+            // authDomain: "YOUR_PROJECT.firebaseapp.com",
+            // projectId: "YOUR_PROJECT_ID",
+            // ...
+        };
+
+        // Initialize Firebase safely
+        let db;
+        try {
+            // Check if config is set (mock check for demo)
+            if(firebaseConfig.apiKey) {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+            } else {
+                console.warn("Firebase config missing in script. Check code comments.");
+            }
+        } catch (e) {
+            console.error("Firebase Init Error:", e);
+        }
+
+        // --- UI Logic ---
+
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+
+        // Mobile Menu
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+            
+            if(menu.classList.contains('hidden')){
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Language Logic
+        const translations = {
+            en: {
+                'page-title': 'AI Solutions - Transform Your Business',
+                'nav-home': 'Home',
+                'nav-solutions': 'Solutions',
+                'nav-contact': 'Contact',
+                'free-demo-text': 'Free Demo',
+                'hero-title': 'Transform Your Business with AI',
+                'hero-subtitle': 'Ready-to-integrate practical solutions for your commercial or educational platforms',
+                'explore-text': 'Try Free Demo',
+                'industries-title': 'Industries We Serve',
+                'solutions-title': 'Our AI Solutions',
+                'offers-subtitle': 'Join our community and unlock premium features',
+                'contact-title': 'Connect With Us'
+            },
+            ar: {
+                'nav-home': 'الرئيسية',
+                'nav-solutions': 'الحلول',
+                'nav-contact': 'التواصل',
+                'free-demo-text': 'تجربة مجانية',
+                'hero-title': 'ادمج الذكاء الاصطناعي في أعمالك',
+                'hero-subtitle': 'ذكاء أسرع.. وقت أقل.. أرباح أكثر',
+                'explore-text': 'تجربة مجانية',
+                'industries-title': 'القطاعات التي نخدمها',
+                'solutions-title': 'حلولنا للذكاء الاصطناعي',
+                'offers-subtitle': 'انضم إلى مجتمعنا واكتشف الميزات المتقدمة',
+                'contact-title': 'تواصل معنا'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const html = document.documentElement;
+            const langBtn = document.getElementById('lang-toggle');
+            const mobileLangBtn = document.getElementById('mobile-lang-toggle');
+
+            if (lang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                html.classList.remove('font-sans');
+                html.classList.add('font-arabic');
+                if(langBtn) langBtn.textContent = 'English';
+                if(mobileLangBtn) mobileLangBtn.textContent = 'English';
+            } else {
+                html.setAttribute('dir', 'ltr');
+                html.classList.remove('font-arabic');
+                html.classList.add('font-sans');
+                if(langBtn) langBtn.textContent = 'العربية';
+                if(mobileLangBtn) mobileLangBtn.textContent = 'العربية';
+            }
+
+            // Update simple IDs
+            Object.keys(translations[lang]).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    // Specific logic for hero title to keep the gradient span
+                    if(id === 'hero-title') {
+                        if(lang === 'ar') element.innerHTML = `ادمج الذكاء الاصطناعي <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">في أعمالك</span>`;
+                        else element.innerHTML = `Transform Your Business <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">with AI</span>`;
+                    } else {
+                        element.textContent = translations[lang][id];
+                    }
+                }
+            });
+
+            // Update data attributes
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+            });
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
+        document.getElementById('mobile-lang-toggle')?.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'ar' : 'en'));
+
+        // --- Async Ratings Loader ---
+        async function loadRatings() {
+            const list = document.getElementById('ratingsList');
+            if (!db) {
+                // If DB is missing (demo mode), remove skeletons and show message
+                setTimeout(() => {
+                    const skeletons = document.querySelectorAll('.skeleton-loader');
+                    skeletons.forEach(s => s.remove());
+                    // Add mock data for UI demo if no DB
+                    /* 
+                    list.innerHTML = `
+                         <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
+                                <h4 class="font-bold text-slate-800">Demo User</h4>
+                                <div class="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p class="text-slate-600 italic">"The database is not connected in this code preview, but this is how a review looks."</p>
+                        </div>
+                    `;
+                    */
+                   // For now, leave empty or show message
+                   list.innerHTML += `<div class="col-span-full text-center text-slate-400 py-4">Database config required to load ratings.</div>`;
+                }, 1500);
+                return;
+            }
+
+            try {
+                const q = query(collection(db, 'ratings'), orderBy('timestamp', 'desc'), limit(6));
+                const snapshot = await getDocs(q);
+
+                // Remove skeletons
+                document.querySelectorAll('.skeleton-loader').forEach(el => el.remove());
+
+                if (snapshot.empty) {
+                    list.innerHTML = '<div class="col-span-full text-center text-slate-500">No ratings yet.</div>';
+                    return;
+                }
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all animate-fade-in";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-100">
+                            <h4 class="font-bold text-slate-800 flex items-center gap-2">
+                                <i class="fas fa-user-circle text-slate-300 text-xl"></i> ${data.name || 'Anonymous'}
+                            </h4>
+                            <div class="text-yellow-400 text-xs tracking-widest">${'⭐'.repeat(data.stars || 5)}</div>
+                        </div>
+                        <p class="text-slate-600 italic leading-relaxed relative pl-4">
+                            <span class="absolute left-0 top-0 text-3xl text-indigo-200 leading-none">"</span>
+                            ${data.comment || 'No comment provided.'}
+                        </p>
+                    `;
+                    list.appendChild(card);
+                });
+            } catch (err) {
+                console.error("Ratings Error", err);
+                document.querySelectorAll('.skeleton-loader').forEach(el => el.remove());
+                list.innerHTML = '<div class="col-span-full text-center text-red-400">Unable to load ratings at this time.</div>';
+            }
+        }
+
+        // Initialize logic
+        loadRatings();
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                menu.classList.add('hidden'); // Close mobile menu if open
+                menu.classList.remove('flex');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
