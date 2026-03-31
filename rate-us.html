@@ -5,399 +5,523 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rate Us - AI Solutions</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
+
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        google: ['"Google Sans"', 'Roboto', 'Arial', 'sans-serif'],
+                        googleText: ['"Google Sans Text"', 'Roboto', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        surface: {
+                            DEFAULT: '#ffffff',
+                            dim: '#f9f9fc',
+                            container: '#f0f0f5',
+                            variant: '#e1e2ec',
+                        },
+                        primary: {
+                            DEFAULT: '#1a73e8',
+                            container: '#d3e3fd',
+                            on: '#ffffff',
+                            dark: '#174ea6',
+                        },
+                        outline: {
+                            DEFAULT: '#747775',
+                            variant: '#c4c7c5',
+                        },
+                        onSurface: {
+                            DEFAULT: '#1f1f1f',
+                            variant: '#444746',
+                        },
+                        error: '#d93025',
+                        success: '#1e8e3e',
+                        star: '#f9ab00',
+                        starHover: '#fbbc04',
+                    },
+                    boxShadow: {
+                        elevation1: '0 1px 2px rgba(0,0,0,0.1), 0 1px 3px 1px rgba(0,0,0,0.06)',
+                        elevation2: '0 1px 3px rgba(0,0,0,0.12), 0 4px 8px 3px rgba(0,0,0,0.06)',
+                    },
+                }
+            }
+        }
+    </script>
+
     <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        /* M3 State Layer */
+        .state-layer {
+            position: relative;
+            overflow: hidden;
+        }
+        .state-layer::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: currentColor;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        .state-layer:hover::after { opacity: 0.08; }
+        .state-layer:active::after { opacity: 0.12; }
+
+        /* Ripple */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.16;
+            transform: scale(0);
+            animation: rippleAnim 0.5s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
         }
 
-        body {
-            background: var(--primary-gradient);
-            min-height: 100vh;
-            display: flex;
+        /* Star Buttons */
+        .star-btn {
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .star-btn:hover { transform: scale(1.2); }
+        .star-btn:active { transform: scale(0.9); }
+        .star-svg {
+            fill: #c4c7c5;
+            transition: fill 0.15s;
+            pointer-events: none;
+        }
+        .star-btn.selected .star-svg {
+            fill: #f9ab00;
+        }
+        .star-btn.preview .star-svg {
+            fill: #fbbc04;
+        }
+
+        /* M3 Outlined Text Field */
+        .m3-field {
+            position: relative;
+        }
+        .m3-field input,
+        .m3-field textarea {
+            width: 100%;
+            padding: 16px;
+            padding-top: 24px;
+            font-size: 16px;
+            line-height: 1.5;
+            border: 1px solid #747775;
+            border-radius: 4px;
+            background: transparent;
+            outline: none;
+            transition: border-color 0.15s;
+            font-family: 'Google Sans Text', sans-serif;
+            color: #1f1f1f;
+            caret-color: #1a73e8;
+        }
+        .m3-field input:hover,
+        .m3-field textarea:hover {
+            border-color: #1f1f1f;
+        }
+        .m3-field input:focus,
+        .m3-field textarea:focus {
+            border-color: #1a73e8;
+            border-width: 2px;
+            padding: 15px;
+            padding-top: 23px;
+        }
+        .m3-field label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #747775;
+            pointer-events: none;
+            transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+            background: white;
+            padding: 0 4px;
+            font-family: 'Google Sans Text', sans-serif;
+        }
+        .m3-field.textarea-field label {
+            top: 24px;
+        }
+        .m3-field input:focus ~ label,
+        .m3-field input:not(:placeholder-shown) ~ label,
+        .m3-field textarea:focus ~ label,
+        .m3-field textarea:not(:placeholder-shown) ~ label {
+            top: 0;
+            font-size: 12px;
+            color: #1a73e8;
+        }
+        .m3-field input:not(:focus):not(:placeholder-shown) ~ label,
+        .m3-field textarea:not(:focus):not(:placeholder-shown) ~ label {
+            color: #747775;
+        }
+
+        /* M3 Filled Button */
+        .m3-btn-filled {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .rating-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
-            padding: 2.5rem;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-
-        .header-icon {
-            font-size: 3.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        /* Star Rating System */
-        .star-rating-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 1.5rem 0;
-        }
-
-        .star-icon {
-            font-size: 3rem;
-            cursor: pointer;
-            color: #e0e0e0;
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-
-        .star-icon:hover {
-            transform: scale(1.15);
-        }
-
-        .star-icon.active {
-            color: #ffd700;
-        }
-
-        .star-icon.hover-preview {
-            color: #ffed4e;
-        }
-
-        /* Form Styling */
-        .form-label {
-            font-weight: 600;
-            color: #1e1b4b;
-            margin-bottom: 0.5rem;
-        }
-
-        .required {
-            color: #ef4444;
-        }
-
-        .form-control, .form-control:focus {
-            border-radius: 10px;
-            border: 2px solid #e2e8f0;
-            padding: 0.8rem 1rem;
-            background: #f8fafc;
-        }
-
-        .form-control:focus {
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
-        }
-
-        /* Submit Button */
-        .btn-submit {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            gap: 8px;
+            height: 48px;
+            padding: 0 24px;
+            border-radius: 24px;
+            font-family: 'Google Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            background: #1a73e8;
+            color: white;
             border: none;
-            padding: 1rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: box-shadow 0.2s, background 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .m3-btn-filled:hover {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 4px 8px 3px rgba(0,0,0,0.06);
+        }
+        .m3-btn-filled:disabled {
+            background: rgba(31, 31, 31, 0.12);
+            color: rgba(31, 31, 31, 0.38);
+            cursor: default;
+            box-shadow: none;
         }
 
-        .btn-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        /* Snackbar */
+        .m3-snackbar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            min-width: 320px;
+            max-width: 560px;
+            padding: 14px 16px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Google Sans Text', sans-serif;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0, 0, 0, 1), opacity 0.3s;
+        }
+        .m3-snackbar.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .m3-snackbar.success { background: #1e8e3e; color: white; }
+        .m3-snackbar.error { background: #d93025; color: white; }
+        .m3-snackbar .close-btn {
+            margin-left: auto;
+            opacity: 0.8;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: inherit;
+            padding: 4px;
+            display: flex;
+        }
+        .m3-snackbar .close-btn:hover { opacity: 1; }
+
+        /* Page Transition */
+        .page-enter { animation: pageSlideUp 0.5s cubic-bezier(0.2, 0, 0, 1) both; }
+        @keyframes pageSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-submit:disabled {
-            opacity: 0.6;
+        /* Progress */
+        .m3-progress {
+            width: 20px; height: 20px;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
-
-        /* Back Button */
-        .back-btn {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s ease;
-        }
-
-        .back-btn:hover {
-            color: #764ba2;
-        }
-
-        /* Character Counter */
-        .char-counter {
-            font-size: 0.875rem;
-            color: #64748b;
-            text-align: right;
-            margin-top: 0.25rem;
-        }
-
-        /* Spinner Animation */
-        .spinner-border-sm {
-            width: 18px;
-            height: 18px;
-            border-width: 3px;
-        }
-
-        @media (max-width: 768px) {
-            .rating-container {
-                padding: 2rem 1.5rem;
-            }
-            
-            .star-icon {
-                font-size: 2.5rem;
-            }
-            
-            .header-icon {
-                font-size: 3rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .rating-container {
-                padding: 1.5rem 1rem;
-            }
-            
-            .star-icon {
-                font-size: 2rem;
-            }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body>
-    <div class="rating-container">
-        <!-- Back Button -->
-        <a href="index.html" class="back-btn d-inline-flex align-items-center gap-2 mb-4">
-            <i class="fas fa-arrow-left"></i>
-            <span>Back to Home</span>
-        </a>
+<body class="bg-surface-dim min-h-screen font-googleText">
 
-        <!-- Header -->
-        <div class="text-center mb-4">
-            <div class="header-icon">⭐</div>
-            <h1 class="gradient-text fs-2 mb-2">Rate Your Experience</h1>
-            <p class="text-muted">We'd love to hear your feedback!</p>
+    <!-- Top App Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-outline-variant/30">
+        <div class="max-w-3xl mx-auto px-4 h-16 flex items-center gap-3">
+            <a href="index.html" class="state-layer w-10 h-10 rounded-full flex items-center justify-center text-onSurface-variant hover:text-onSurface transition-colors" aria-label="Back">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </a>
+            <h1 class="font-google text-lg font-medium text-onSurface">Rate your experience</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 px-4 max-w-xl mx-auto page-enter">
+
+        <div class="bg-white rounded-2xl shadow-elevation1 overflow-hidden">
+
+            <!-- Hero -->
+            <div class="px-6 pt-8 pb-6 text-center border-b border-outline-variant/20">
+                <div class="w-16 h-16 rounded-2xl bg-primary-container flex items-center justify-center mx-auto mb-4">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#1a73e8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                </div>
+                <h2 class="font-google text-2xl font-medium text-onSurface mb-1">How did we do?</h2>
+                <p class="text-onSurface-variant text-sm">Your feedback helps us improve our services</p>
+            </div>
+
+            <!-- Form -->
+            <form id="ratingForm" class="p-6 space-y-6">
+
+                <!-- Stars -->
+                <div>
+                    <p class="text-sm font-medium text-onSurface mb-1">Overall rating <span class="text-error">*</span></p>
+                    <div class="flex items-center gap-1 py-3" id="starRating">
+                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="1" aria-label="1 star">
+                            <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </button>
+                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="2" aria-label="2 stars">
+                            <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </button>
+                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="3" aria-label="3 stars">
+                            <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </button>
+                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="4" aria-label="4 stars">
+                            <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </button>
+                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="5" aria-label="5 stars">
+                            <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                        </button>
+                        <span id="ratingLabel" class="ml-3 inline-flex items-center gap-1 px-4 py-1.5 rounded-lg text-sm font-medium font-googleText bg-surface-container text-onSurface-variant opacity-0 transition-all duration-200 scale-95"></span>
+                    </div>
+                    <input type="hidden" id="ratingValue" name="rating" required>
+                </div>
+
+                <div class="h-px bg-outline-variant/30"></div>
+
+                <!-- Name -->
+                <div class="m3-field">
+                    <input type="text" id="name" name="name" placeholder=" " required maxlength="50" autocomplete="name">
+                    <label for="name">Full name *</label>
+                </div>
+
+                <!-- Email -->
+                <div class="m3-field">
+                    <input type="email" id="email" name="email" placeholder=" " maxlength="100" autocomplete="email">
+                    <label for="email">Email address</label>
+                </div>
+
+                <!-- Phone -->
+                <div class="m3-field">
+                    <input type="tel" id="phone" name="phone" placeholder=" " maxlength="20" autocomplete="tel">
+                    <label for="phone">Phone number</label>
+                </div>
+
+                <!-- Comment -->
+                <div class="m3-field textarea-field">
+                    <textarea id="comment" name="comment" rows="4" placeholder=" " maxlength="500"></textarea>
+                    <label for="comment">Tell us more (optional)</label>
+                    <div class="flex justify-end mt-1">
+                        <span class="text-xs text-outline"><span id="charCount">0</span>/500</span>
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="flex justify-end pt-2">
+                    <button type="submit" class="m3-btn-filled state-layer w-full sm:w-auto" id="submitBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                        <span>Submit feedback</span>
+                    </button>
+                </div>
+            </form>
         </div>
 
-        <!-- Alert Box -->
-        <div id="alertBox"></div>
+        <p class="text-center text-xs text-outline mt-6">Your responses are collected securely and may be used to improve our services.</p>
+    </main>
 
-        <!-- Rating Form -->
-        <form id="ratingForm">
-            <!-- Star Rating -->
-            <div class="mb-4">
-                <label class="form-label">How was your experience? <span class="required">*</span></label>
-                <div class="star-rating-wrapper" id="starRating">
-                    <i class="bi bi-star-fill star-icon" data-rating="1"></i>
-                    <i class="bi bi-star-fill star-icon" data-rating="2"></i>
-                    <i class="bi bi-star-fill star-icon" data-rating="3"></i>
-                    <i class="bi bi-star-fill star-icon" data-rating="4"></i>
-                    <i class="bi bi-star-fill star-icon" data-rating="5"></i>
-                </div>
-                <input type="hidden" id="ratingValue" name="rating" required>
-            </div>
+    <div id="snackbarContainer"></div>
 
-            <!-- Name -->
-            <div class="mb-3">
-                <label for="name" class="form-label">Your Name <span class="required">*</span></label>
-                <input type="text" class="form-control" id="name" name="name" required maxlength="50">
-            </div>
-
-            <!-- Email -->
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email" maxlength="100">
-            </div>
-
-            <!-- Phone -->
-            <div class="mb-3">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" name="phone"  maxlength="20">
-            </div>
-
-            <!-- Comment -->
-            <div class="mb-4">
-                <label for="comment" class="form-label">Your Feedback</label>
-                <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="Tell us about your experience..." maxlength="500"></textarea>
-                <div class="char-counter">
-                    <span id="charCount">0</span> / 500 characters
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary btn-submit w-100" id="submitBtn">
-                <i class="fas fa-paper-plane me-2"></i>
-                <span>Submit Rating</span>
-            </button>
-        </form>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script type="module">
-        import { db } from './firebase-config.js';
-        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
-
-        // DOM Elements
+    <!-- UI Logic (non-module so it always runs) -->
+    <script>
         const starRating = document.getElementById('starRating');
-        const stars = starRating.querySelectorAll('.star-icon');
+        const stars = starRating.querySelectorAll('.star-btn');
         const ratingValue = document.getElementById('ratingValue');
+        const ratingLabel = document.getElementById('ratingLabel');
         const form = document.getElementById('ratingForm');
         const submitBtn = document.getElementById('submitBtn');
-        const alertBox = document.getElementById('alertBox');
+        const snackbarContainer = document.getElementById('snackbarContainer');
         const commentField = document.getElementById('comment');
         const charCount = document.getElementById('charCount');
 
+        const ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'];
+        const ratingColors = ['', '#d93025', '#ea8600', '#f9ab00', '#1e8e3e', '#1a73e8'];
         let selectedRating = 0;
 
-        // Star Rating Logic
+        // Ripple
+        document.querySelectorAll('.state-layer').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = el.getBoundingClientRect();
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                el.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 500);
+            });
+        });
+
         function setRating(rating) {
             selectedRating = rating;
             ratingValue.value = rating;
-            
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
+            stars.forEach((btn, i) => {
+                btn.classList.toggle('selected', i < rating);
+                btn.classList.remove('preview');
             });
+            ratingLabel.textContent = ratingLabels[rating] || '';
+            ratingLabel.style.color = ratingColors[rating];
+            ratingLabel.style.opacity = rating ? '1' : '0';
+            ratingLabel.style.transform = rating ? 'scale(1)' : 'scale(0.95)';
         }
 
         function showHoverPreview(rating) {
-            stars.forEach((star, index) => {
-                star.classList.remove('hover-preview');
-                if (index < rating && !star.classList.contains('active')) {
-                    star.classList.add('hover-preview');
-                }
+            stars.forEach((btn, i) => {
+                btn.classList.toggle('preview', i < rating && !btn.classList.contains('selected'));
             });
+            if (rating > selectedRating) {
+                ratingLabel.textContent = ratingLabels[rating];
+                ratingLabel.style.color = ratingColors[rating];
+                ratingLabel.style.opacity = '1';
+                ratingLabel.style.transform = 'scale(1)';
+            }
         }
 
         function clearHoverPreview() {
-            stars.forEach(star => {
-                star.classList.remove('hover-preview');
-            });
+            stars.forEach(btn => btn.classList.remove('preview'));
+            ratingLabel.textContent = ratingLabels[selectedRating] || '';
+            ratingLabel.style.color = ratingColors[selectedRating];
+            ratingLabel.style.opacity = selectedRating ? '1' : '0';
+            ratingLabel.style.transform = selectedRating ? 'scale(1)' : 'scale(0.95)';
         }
 
-        // Event Listeners for Stars
-        stars.forEach((star) => {
-            star.addEventListener('click', () => {
-                const rating = parseInt(star.dataset.rating);
-                setRating(rating);
-            });
-
-            star.addEventListener('mouseenter', () => {
-                const rating = parseInt(star.dataset.rating);
-                showHoverPreview(rating);
-            });
+        stars.forEach(btn => {
+            btn.addEventListener('click', () => setRating(parseInt(btn.dataset.rating)));
+            btn.addEventListener('mouseenter', () => showHoverPreview(parseInt(btn.dataset.rating)));
         });
+        starRating.addEventListener('mouseleave', clearHoverPreview);
 
-        starRating.addEventListener('mouseleave', () => {
-            clearHoverPreview();
-        });
-
-        // Character Counter
         commentField.addEventListener('input', () => {
             charCount.textContent = commentField.value.length;
         });
 
-        // Show Alert Function
-        function showAlert(message, type) {
-            const iconClass = type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill';
-            const bgClass = type === 'success' ? 'alert-success' : 'alert-danger';
-            
-            alertBox.innerHTML = `
-                <div class="alert ${bgClass} d-flex align-items-center alert-dismissible fade show" role="alert">
-                    <i class="bi bi-${iconClass} me-2 fs-5"></i>
-                    <div>${message}</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+        function showSnackbar(message, type) {
+            const existing = snackbarContainer.querySelector('.m3-snackbar');
+            if (existing) existing.remove();
+
+            const snackbar = document.createElement('div');
+            snackbar.className = `m3-snackbar ${type}`;
+            snackbar.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="${type === 'success' ? 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' : 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'}"/></svg>
+                <span>${message}</span>
+                <button class="close-btn" aria-label="Close">✕</button>
             `;
-            
+            snackbarContainer.appendChild(snackbar);
+            requestAnimationFrame(() => requestAnimationFrame(() => snackbar.classList.add('show')));
+
+            snackbar.querySelector('.close-btn').addEventListener('click', () => {
+                snackbar.classList.remove('show');
+                setTimeout(() => snackbar.remove(), 300);
+            });
+
             setTimeout(() => {
-                const alert = alertBox.querySelector('.alert');
-                if (alert) {
-                    alert.classList.remove('show');
-                    setTimeout(() => alertBox.innerHTML = '', 300);
+                if (snackbar.parentElement) {
+                    snackbar.classList.remove('show');
+                    setTimeout(() => snackbar.remove(), 300);
                 }
             }, 5000);
         }
 
-        // Form Submission
+        // Expose for Firebase module
+        window._ratingApp = { setRating, showSnackbar, get selectedRating() { return selectedRating; } };
+    </script>
+
+    <!-- Firebase (module) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXofkSy3vfz7GuTgj6-S-rK2rsnUQp_J0",
+            authDomain: "ai-playground-ratings.firebaseapp.com",
+            projectId: "ai-playground-ratings",
+            storageBucket: "ai-playground-ratings.firebasestorage.app",
+            messagingSenderId: "112573912701",
+            appId: "1:112573912701:web:b381d9c41871025f49c314"
+        };
+
+        const firebaseApp = initializeApp(firebaseConfig);
+        const db = getFirestore(firebaseApp);
+
+        const form = document.getElementById('ratingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const charCount = document.getElementById('charCount');
+        const app = window._ratingApp;
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Validate rating
-            if (!selectedRating || selectedRating < 1) {
-                showAlert('Please select a star rating!', 'error');
+            if (!app.selectedRating) {
+                app.showSnackbar('Please select a star rating', 'error');
+                return;
+            }
+
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                app.showSnackbar('Please enter your name', 'error');
                 return;
             }
 
             const formData = {
-                stars: selectedRating,
-                name: document.getElementById('name').value.trim(),
+                stars: app.selectedRating,
+                name,
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 comment: document.getElementById('comment').value.trim(),
                 timestamp: serverTimestamp()
             };
 
-            if (!formData.name) {
-                showAlert('Please provide your name!', 'error');
-                return;
-            }
-
-            // Disable button and show loading
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `
-                <span class="spinner-border spinner-border-sm me-2"></span>
-                <span>Submitting...</span>
-            `;
+            submitBtn.innerHTML = '<div class="m3-progress"></div><span>Submitting…</span>';
 
             try {
                 await addDoc(collection(db, 'ratings'), formData);
-                showAlert('Thank you for your feedback! 🎉', 'success');
-                
-                // Reset form
+                app.showSnackbar('Thanks for your feedback!', 'success');
                 form.reset();
-                setRating(0);
+                app.setRating(0);
                 charCount.textContent = '0';
-
-                // Redirect after 2 seconds
-                setTimeout(() => {
-                    window.location.href = 'index.html#our-ratings';
-                }, 2000);
+                setTimeout(() => { window.location.href = 'index.html#our-ratings'; }, 2000);
             } catch (error) {
-                console.error('Error submitting rating:', error);
-                showAlert('Failed to submit rating. Please try again.', 'error');
+                console.error('Error:', error);
+                app.showSnackbar('Something went wrong. Please try again.', 'error');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `
-                    <i class="fas fa-paper-plane me-2"></i>
-                    <span>Submit Rating</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    <span>Submit feedback</span>
                 `;
             }
         });
