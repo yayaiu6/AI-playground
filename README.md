@@ -1,8 +1,6 @@
 # 🤖 AI Playground - Transform Your Business with AI
 
-[![Live Demo](https://img.shields.io/badge/demo-online-brightgreen.svg)](https://yayaiu6.github.io/AI-playground/)
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue.svg)](https://github.com/yayaiu6/AI-playground)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![<!-- ISLAMWARE -->](https://islamware.cybertopia.xyz/badges/html-xml.svg)](https://islamware.cybertopia.xyz)
 
 > **Empowering businesses and education with ready-to-integrate AI solutions.** Experience the future of intelligent automation through live, interactive demos across multiple industries.
 
