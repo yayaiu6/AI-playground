@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting to Home</title>
+    <script>
+
+        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+
+            setTimeout(() => {
+                window.location.replace('/');
+            }, 100);
+        }
+    </script>
+</head>
+<body style="background: #f8fafc; text-align: center; font-family: sans-serif; padding-top: 50px; color: #334155;">
+    <h2>Loading...</h2>
+</body>
+</html>
