@@ -202,47 +202,12 @@ function App() {
   useEffect(() => {
     const el = videoRef.current
     if (!el) return
+    el.playbackRate = 2
 
     const onReady = () => setVideoReady(true)
     el.addEventListener('canplaythrough', onReady)
     if (el.readyState >= 4) setVideoReady(true)
-
-    let forward = true
-    let lastTime = 0
-    const speed = 2
-
-    el.currentTime = 0
-    el.play()
-
-    const tick = (now: number) => {
-      if (lastTime === 0) lastTime = now
-      const delta = (now - lastTime) / 1000
-      lastTime = now
-
-      if (el.duration) {
-        if (forward) {
-          el.currentTime += delta * speed
-          if (el.currentTime >= el.duration - 0.05) {
-            el.currentTime = el.duration - 0.05
-            forward = false
-          }
-        } else {
-          el.currentTime -= delta * speed
-          if (el.currentTime <= 0.05) {
-            el.currentTime = 0.05
-            forward = true
-          }
-        }
-      }
-
-      requestAnimationFrame(tick)
-    }
-
-    requestAnimationFrame(tick)
-
-    return () => {
-      el.removeEventListener('canplaythrough', onReady)
-    }
+    return () => el.removeEventListener('canplaythrough', onReady)
   }, [])
 
   useEffect(() => {
@@ -309,7 +274,9 @@ function App() {
         <section id="home" className="relative min-h-screen overflow-hidden bg-[#f0f0ee]">
           <video
             ref={videoRef}
+            autoPlay
             muted
+            loop
             playsInline
             preload="auto"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
