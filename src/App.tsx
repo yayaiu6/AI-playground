@@ -207,7 +207,28 @@ function App() {
     const onReady = () => setVideoReady(true)
     el.addEventListener('canplaythrough', onReady)
     if (el.readyState >= 4) setVideoReady(true)
-    return () => el.removeEventListener('canplaythrough', onReady)
+
+    let forward = true
+
+    const onEnded = () => {
+      if (forward) {
+        forward = false
+        el.playbackRate = -2
+        el.play()
+      } else {
+        forward = true
+        el.playbackRate = 2
+        el.play()
+      }
+    }
+
+    el.addEventListener('ended', onEnded)
+    el.play()
+
+    return () => {
+      el.removeEventListener('canplaythrough', onReady)
+      el.removeEventListener('ended', onEnded)
+    }
   }, [])
 
   useEffect(() => {
@@ -276,7 +297,6 @@ function App() {
             ref={videoRef}
             autoPlay
             muted
-            loop
             playsInline
             preload="auto"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
