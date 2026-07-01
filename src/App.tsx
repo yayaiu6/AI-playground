@@ -198,22 +198,50 @@ function App() {
   const [videoReady, setVideoReady] = useState(false)
   const [ratings, setRatings] = useState<Rating[]>([])
   const [ratingsLoading, setRatingsLoading] = useState(true)
-  const [invert, setInvert] = useState(false)
 
   useEffect(() => {
     const el = videoRef.current
     if (!el) return
-    el.playbackRate = 2
 
     const onReady = () => setVideoReady(true)
     el.addEventListener('canplaythrough', onReady)
     if (el.readyState >= 4) setVideoReady(true)
-    return () => el.removeEventListener('canplaythrough', onReady)
-  }, [])
 
-  useEffect(() => {
-    const interval = setInterval(() => setInvert((prev) => !prev), 3000)
-    return () => clearInterval(interval)
+    el.currentTime = 0
+
+    let forward = true
+    let lastTime = 0
+    const speed = 1.5
+
+    const tick = (now: number) => {
+      if (lastTime === 0) lastTime = now
+      const delta = (now - lastTime) / 1000
+      lastTime = now
+
+      if (el.duration) {
+        if (forward) {
+          el.currentTime += delta * speed
+          if (el.currentTime >= el.duration) {
+            el.currentTime = el.duration
+            forward = false
+          }
+        } else {
+          el.currentTime -= delta * speed
+          if (el.currentTime <= 0) {
+            el.currentTime = 0
+            forward = true
+          }
+        }
+      }
+
+      requestAnimationFrame(tick)
+    }
+
+    requestAnimationFrame(tick)
+
+    return () => {
+      el.removeEventListener('canplaythrough', onReady)
+    }
   }, [])
 
   useEffect(() => {
@@ -280,12 +308,10 @@ function App() {
         <section id="home" className="relative min-h-screen overflow-hidden bg-[#f0f0ee]">
           <video
             ref={videoRef}
-            autoPlay
             muted
-            loop
             playsInline
             preload="auto"
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'} ${invert ? 'invert' : ''}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4"
           />
 
