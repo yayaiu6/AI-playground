@@ -499,7 +499,7 @@ function App() {
               </h2>
               <div className="w-12 h-1 bg-primary mx-auto rounded-full mb-8" />
               <p className="text-base text-slate-500 leading-relaxed max-w-3xl mx-auto">
-Results driven Machine Learning Operations Engineer with experience in designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.
+Results driven Machine Learning Operations Engineer with experience in designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real world solutions
 
 Proficient in Python, Flask, Django, and FastAPI, with experience deploying applications on Ubuntu virtual machines. Experienced in backend development, including REST APIs, WebSockets, and real-time systems, with basic frontend integration skills.
 
