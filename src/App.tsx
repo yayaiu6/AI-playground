@@ -198,6 +198,7 @@ function App() {
   const [videoReady, setVideoReady] = useState(false)
   const [ratings, setRatings] = useState<Rating[]>([])
   const [ratingsLoading, setRatingsLoading] = useState(true)
+  const [invert, setInvert] = useState(false)
 
   useEffect(() => {
     const el = videoRef.current
@@ -208,6 +209,11 @@ function App() {
     el.addEventListener('canplaythrough', onReady)
     if (el.readyState >= 4) setVideoReady(true)
     return () => el.removeEventListener('canplaythrough', onReady)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => setInvert((prev) => !prev), 3000)
+    return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
@@ -279,7 +285,7 @@ function App() {
             loop
             playsInline
             preload="auto"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'} ${invert ? 'invert' : ''}`}
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4"
           />
 
