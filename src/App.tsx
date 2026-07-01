@@ -207,11 +207,12 @@ function App() {
     el.addEventListener('canplaythrough', onReady)
     if (el.readyState >= 4) setVideoReady(true)
 
-    el.currentTime = 0
-
     let forward = true
     let lastTime = 0
-    const speed = 1.5
+    const speed = 2
+
+    el.currentTime = 0
+    el.play()
 
     const tick = (now: number) => {
       if (lastTime === 0) lastTime = now
@@ -221,14 +222,14 @@ function App() {
       if (el.duration) {
         if (forward) {
           el.currentTime += delta * speed
-          if (el.currentTime >= el.duration) {
-            el.currentTime = el.duration
+          if (el.currentTime >= el.duration - 0.05) {
+            el.currentTime = el.duration - 0.05
             forward = false
           }
         } else {
           el.currentTime -= delta * speed
-          if (el.currentTime <= 0) {
-            el.currentTime = 0
+          if (el.currentTime <= 0.05) {
+            el.currentTime = 0.05
             forward = true
           }
         }
