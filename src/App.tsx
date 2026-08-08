@@ -109,7 +109,7 @@ const projects = [
     icon: BookOpen,
     title: 'Quran Recitation AI',
     desc: 'Test your memorization using AI voice recognition to detect and correct reading mistakes.',
-    url: 'https://aitarteel.frp.cybertopia.xyz',
+    url: "https://quran-tracker.yahya-mahroof.site',
     color: 'emerald',
     accent: 'emerald-600',
   },
