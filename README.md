@@ -1,32 +1,51 @@
-# React + TypeScript + Vite
+# Yahya Mahroof — AI Playground 😄🤍
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This repository is my personal AI playground.
 
-Currently, two official plugins are available:
+I use it to share some of the AI systems and experiments I've built, along with live demos and projects I'm currently working on.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Most of my work is around AI engineering, backend development, and MLOps — particularly building AI systems, deploying models, and integrating them into real applications.
 
-## React Compiler
+**Website:** [yahya-mahroof.site](https://yahya-mahroof.site)
+**GitHub:** [github.com/yayaiu6](https://github.com/yayaiu6)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Projects
 
-## Expanding the Oxlint configuration
+### AI English Tutor
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+An AI tutor for practicing English through interactive conversations.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+[Live demo →](https://english-tutor.yahya-mahroof.site)
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Handwriting OCR
+
+A handwriting recognition experiment for converting handwritten content into text.
+
+[Live demo →](https://yahya-mahroof.site/OCR-Demo)
+
+### Quran Recitation AI
+
+A speech recognition system built for Quran recitation practice and tracking.
+
+[Live demo →](https://quran-tracker.yahya-mahroof.site)
+
+### AI ATS
+
+An experimental applicant tracking system that uses AI to assist with CV screening.
+
+[Live demo →](https://ats.yahya-mahroof.site/admin)
+
+## About this repository
+
+The portfolio itself is a React + TypeScript application.
+
+Most of the UI lives in `src/App.tsx`, while `public/` contains static assets and some standalone demos, including the OCR demo.
+
+Firestore is used for the small ratings/testimonials feature on the website.
+
+## Contact
+
+**Email:** [yahyamahroof35@gmail.com](mailto:yahyamahroof35@gmail.com)
+**LinkedIn:** [linkedin.com/in/yahya-mahrouf](https://www.linkedin.com/in/yahya-mahrouf)
+**GitHub:** [github.com/yayaiu6](https://github.com/yayaiu6)
+**WhatsApp:** [+20 100 186 6276](https://wa.me/201001866276)
