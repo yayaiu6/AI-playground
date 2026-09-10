@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fafbfd;
+  --grid: #e8ecf1;
+  --grid-strong: #d0d6e0;
+  --node-bg: #ffffff;
+  --node-border: #c5cdd8;
+  --node-shadow: rgba(30, 40, 60, 0.08);
+  --accent: #2563eb;
+  --accent-light: #eff4ff;
+  --accent-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-dim: #64748b;
+  --text-faint: #94a3b8;
+  --arrow: #94a3b8;
+  --arrow-accent: #2563eb;
+  --green: #16a34a;
+  --orange: #ea580c;
+  --purple: #7c3aed;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --node-radius: 6px;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  z-index: 10000;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+}
+.skip-nav:focus { top: 0; }
+
+/* === HEADER === */
+.arch-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+  border-bottom: 1px solid var(--grid-strong);
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid var(--accent);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.header-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-badge::before { animation: none; }
+}
+
+.arch-title {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.arch-title span {
+  color: var(--accent);
+}
+
+.arch-role {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: var(--text-dim);
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+/* === MAIN CONTAINER === */
+.arch-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+/* === SECTION NODE === */
+.arch-section {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.arch-section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.arch-section-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* === NODE BOX === */
+.node {
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  border-radius: var(--node-radius);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 1px 3px var(--node-shadow);
+  position: relative;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.node:hover {
+  box-shadow: 0 4px 12px var(--node-shadow);
+  border-color: var(--accent);
+}
+
+.node-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--grid);
+}
+
+.node-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.node-icon.blue { background: var(--accent); }
+.node-icon.green { background: var(--green); }
+.node-icon.orange { background: var(--orange); }
+.node-icon.purple { background: var(--purple); }
+
+.node-title {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.node-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.node-body {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* === CONNECTOR LINES === */
+.connector {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.connector::before {
+  content: '';
+  width: 2px;
+  height: 30px;
+  background: var(--arrow);
+  display: block;
+}
+
+.connector-arrow::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--arrow);
+  display: block;
+  margin: -4px auto 0;
+}
+
+/* === SKILLS TECH STACK === */
+.tech-stack {
+  position: relative;
+}
+
+.stack-layer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--grid);
+  border-radius: var(--node-radius);
+  margin-bottom: 4px;
+  background: var(--node-bg);
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.stack-layer:hover {
+  border-color: var(--accent);
+}
+
+.stack-layer::after {
+  content: '';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  width: 10px;
+  height: 2px;
+  background: var(--arrow);
+}
+
+.stack-layer-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  min-width: 80px;
+}
+
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.stack-chip {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--node-border);
+  border-radius: 3px;
+  color: var(--text-dim);
+  background: transparent;
+}
+
+.stack-chip.highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+/* === PROJECT NODES GRID === */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.project-node {
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  border-radius: var(--node-radius);
+  padding: 1.2rem;
+  box-shadow: 0 1px 3px var(--node-shadow);
+  position: relative;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.project-node:hover {
+  box-shadow: 0 4px 12px var(--node-shadow);
+  border-color: var(--accent);
+}
+
+.project-node::before {
+  content: attr(data-id);
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: white;
+  background: var(--accent);
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px;
+}
+
+.project-node-title {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.project-node-desc {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.project-node-url {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s;
+}
+
+.project-node-url:hover { color: var(--accent-dark); }
+
+.project-node-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--green);
+  margin-top: 0.5rem;
+}
+
+.project-node-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+}
+
+/* === OSS NODES === */
+.oss-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.oss-node {
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  border-radius: var(--node-radius);
+  padding: 1rem 1.2rem;
+  box-shadow: 0 1px 3px var(--node-shadow);
+}
+
+.oss-node-name {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.oss-node-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  display: flex;
+  gap: 1rem;
+}
+
+/* === CONTACT === */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+
+.contact-node {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--grid);
+  border-radius: var(--node-radius);
+  background: var(--node-bg);
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-node:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px var(--node-shadow);
+}
+
+.contact-node-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.contact-node-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  word-break: break-all;
+}
+
+/* === RATINGS === */
+.ratings-section{margin-bottom:3rem}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s}
+.rating-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:#111827}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:#6b7280;margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:#4b5563;margin:0;padding-top:.75rem;border-top:1px solid #f3f4f6;font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid #d1d5db;border-radius:8px;color:#374151;text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:#f9fafb;border-color:#9ca3af;color:#111827}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+
+/* === STATS BAR === */
+.stats-bar {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--grid);
+  border-bottom: 1px solid var(--grid);
+  margin: 2rem 0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+/* === FOOTER === */
+.arch-footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--grid);
+}
+
+.arch-footer-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+/* === ANIMATION === */
+@keyframes node-appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-node {
+  animation: node-appear 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-node { animation: none; opacity: 1; }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .arch-container { padding: 2rem 1rem; }
+  .node { padding: 1rem 1.2rem; }
+  .stats-bar { gap: 1rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .oss-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .stack-layer::after { display: none; }
+  .connector::before { height: 20px; }
+}
+</style>
+<script type="module" src="/shared/firebase-ratings.js"></script>
+</head>
+<body>
+<a href="#main" class="skip-nav">Skip to content</a>
+
+<header class="arch-header">
+  <div class="header-badge">system online</div>
+  <h1 class="arch-title">Yahya <span>Mahroof</span></h1>
+  <p class="arch-role">ML / MLOps Engineer</p>
+</header>
+
+<main id="main" class="arch-container">
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- ABOUT NODE -->
+  <section class="arch-section animate-node" aria-label="About">
+    <div class="arch-section-label">Node: Profile</div>
+    <div class="node">
+      <div class="node-header">
+        <div class="node-icon blue">YM</div>
+        <div>
+          <div class="node-title">Profile</div>
+          <div class="node-subtitle">About the Engineer</div>
+        </div>
+      </div>
+      <p class="node-body">Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+    </div>
+  </section>
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- STATS -->
+  <section class="arch-section animate-node" aria-label="Statistics">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-value">14+</span>
+        <span class="stat-label">Projects</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">3+</span>
+        <span class="stat-label">Years</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">Satisfaction</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- SKILLS STACK -->
+  <section class="arch-section animate-node" aria-label="Skills">
+    <div class="arch-section-label">Layer: Technology Stack</div>
+    <div class="node tech-stack">
+      <div class="node-header">
+        <div class="node-icon purple">TS</div>
+        <div>
+          <div class="node-title">Technology Stack</div>
+          <div class="node-subtitle">Skills &amp; Tools</div>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-label">Languages</div>
+        <div class="stack-chips">
+          <span class="stack-chip highlight">Python</span>
+          <span class="stack-chip highlight">TypeScript</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-label">Frameworks</div>
+        <div class="stack-chips">
+          <span class="stack-chip">Flask</span>
+          <span class="stack-chip">Django</span>
+          <span class="stack-chip">FastAPI</span>
+          <span class="stack-chip">React</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-label">ML/AI</div>
+        <div class="stack-chips">
+          <span class="stack-chip highlight">TensorFlow</span>
+          <span class="stack-chip highlight">PyTorch</span>
+        </div>
+      </div>
+      <div class="stack-layer">
+        <div class="stack-layer-label">Infra</div>
+        <div class="stack-chips">
+          <span class="stack-chip">Docker</span>
+          <span class="stack-chip">Ubuntu</span>
+          <span class="stack-chip highlight">CI/CD</span>
+          <span class="stack-chip highlight">GPU Deployment</span>
+          <span class="stack-chip">Git</span>
+          <span class="stack-chip">Firebase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- PROJECTS -->
+  <section class="arch-section animate-node" aria-label="Projects">
+    <div class="arch-section-label">Module: Projects</div>
+    <div class="projects-grid">
+      <article class="project-node" data-id="01">
+        <h3 class="project-node-title">AI English Tutor</h3>
+        <p class="project-node-desc">Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.</p>
+        <a href="https://english-tutor.yahya-mahroof.site/" class="project-node-url" target="_blank" rel="noopener">english-tutor.yahya-mahroof.site</a>
+        <div class="project-node-status">deployed</div>
+      </article>
+      <article class="project-node" data-id="02">
+        <h3 class="project-node-title">Handwriting OCR</h3>
+        <p class="project-node-desc">Turn handwritten text into digital data instantly with high accuracy for easier documentation.</p>
+        <a href="https://yahya-mahroof.site/OCR-Demo" class="project-node-url" target="_blank" rel="noopener">yahya-mahroof.site/OCR-Demo</a>
+        <div class="project-node-status">deployed</div>
+      </article>
+      <article class="project-node" data-id="03">
+        <h3 class="project-node-title">Quran Recitation AI</h3>
+        <p class="project-node-desc">Test your memorization using AI voice recognition to detect and correct reading mistakes.</p>
+        <a href="https://quran-tracker.yahya-mahroof.site" class="project-node-url" target="_blank" rel="noopener">quran-tracker.yahya-mahroof.site</a>
+        <div class="project-node-status">deployed</div>
+      </article>
+      <article class="project-node" data-id="04">
+        <h3 class="project-node-title">AI ATS System</h3>
+        <p class="project-node-desc">Automatically compare applicant CVs against job descriptions to screen the best candidates.</p>
+        <a href="https://ats.yahya-mahroof.site/admin" class="project-node-url" target="_blank" rel="noopener">ats.yahya-mahroof.site/admin</a>
+        <div class="project-node-status">deployed</div>
+      </article>
+    </div>
+  </section>
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- OPEN SOURCE -->
+  <section class="arch-section animate-node" aria-label="Open Source">
+    <div class="arch-section-label">Repository: Open Source</div>
+    <div class="oss-grid">
+      <div class="oss-node">
+        <div class="oss-node-name"><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Quran Tracker</a></div>
+        <div class="oss-node-meta">
+          <span>★ 134</span>
+          <span>⑂ 15</span>
+        </div>
+      </div>
+      <div class="oss-node">
+        <div class="oss-node-name"><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">OCR</a></div>
+        <div class="oss-node-meta">
+          <span>★ 9</span>
+          <span>⑂ 1</span>
+        </div>
+      </div>
+      <div class="oss-node">
+        <div class="oss-node-name"><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Messenger Bot</a></div>
+        <div class="oss-node-meta">
+          <span>★ 5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- RATINGS -->
+  <section class="arch-section animate-node" aria-label="Client Testimonials">
+    <div class="arch-section-label">Module: Testimonials</div>
+    <div class="node">
+      <div class="node-header">
+        <div class="node-icon green">FB</div>
+        <div>
+          <div class="node-title">Client Feedback</div>
+          <div class="node-subtitle">Testimonials &amp; Ratings</div>
+        </div>
+      </div>
+      <div id="ratings-display" class="ratings-grid"></div>
+      <a href="/rate-us.html" class="rate-link">Rate Us</a>
+    </div>
+  </section>
+
+  <div class="connector connector-arrow" aria-hidden="true"></div>
+
+  <!-- CONTACT -->
+  <section class="arch-section animate-node" aria-label="Contact">
+    <div class="arch-section-label">Endpoint: Contact</div>
+    <div class="contact-grid">
+      <a href="mailto:yahyamahroof35@gmail.com" class="contact-node">
+        <div class="contact-node-icon">@</div>
+        <div class="contact-node-text">yahyamahroof35@gmail.com</div>
+      </a>
+      <a href="https://github.com/yayaiu6" class="contact-node" target="_blank" rel="noopener">
+        <div class="contact-node-icon">GH</div>
+        <div class="contact-node-text">github.com/yayaiu6</div>
+      </a>
+      <a href="https://linkedin.com/in/yahya-mahrouf" class="contact-node" target="_blank" rel="noopener">
+        <div class="contact-node-icon">IN</div>
+        <div class="contact-node-text">linkedin.com/in/yahya-mahrouf</div>
+      </a>
+      <a href="https://wa.me/201001866276" class="contact-node" target="_blank" rel="noopener">
+        <div class="contact-node-icon">WA</div>
+        <div class="contact-node-text">wa.me/201001866276</div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="arch-footer">
+  <p class="arch-footer-text">Yahya Mahroof — ML/MLOps Engineer · System Architecture v1.0</p>
+</footer>
+
+<script>
+(function() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    document.querySelectorAll('.animate-node').forEach(el => { el.style.opacity = '1'; });
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.animate-node').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

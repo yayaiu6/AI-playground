@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yahya Mahroof — ML/MLOps Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #e8e4de;
+      --fg: #111111;
+      --accent: #cc0000;
+      --tape: rgba(255, 220, 100, 0.65);
+      --paper: #f5f2ec;
+      --grain-opacity: 0.04;
+    }
+
+    html {
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--fg);
+      background: var(--bg);
+      scroll-behavior: smooth;
+      position: relative;
+    }
+
+    body {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: var(--grain-opacity);
+      mix-blend-mode: multiply;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(ellipse at 30% 20%, rgba(0,0,0,0.03) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 70%, rgba(0,0,0,0.04) 0%, transparent 50%);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'Special Elite', monospace;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-underline-offset: 3px;
+    }
+
+    a:focus-visible {
+      outline: 2px dashed var(--accent);
+      outline-offset: 2px;
+    }
+
+    .skip-nav {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: var(--fg);
+      color: var(--paper);
+      padding: 8px 16px;
+      z-index: 10001;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+
+    .skip-nav:focus {
+      top: 0;
+    }
+
+    /* ---- GRAIN LINES ---- */
+    .grain-line {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9997;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.012) 2px,
+        rgba(0,0,0,0.012) 3px
+      );
+      inset: 0;
+    }
+
+    /* ---- CONTAINER ---- */
+    .zine-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 0;
+      position: relative;
+    }
+
+    /* ---- PAPER CARD ---- */
+    .paper {
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 24px 20px;
+      position: relative;
+      box-shadow: 2px 3px 6px rgba(0,0,0,0.08);
+    }
+
+    .paper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 40%, rgba(0,0,0,0.03) 100%);
+      pointer-events: none;
+    }
+
+    /* ---- TAPE DECORATION ---- */
+    .tape {
+      position: absolute;
+      width: 80px;
+      height: 28px;
+      background: var(--tape);
+      z-index: 2;
+      opacity: 0.9;
+      border-radius: 1px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .tape-top {
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+    }
+
+    .tape-tl {
+      top: -8px;
+      left: 10px;
+      transform: rotate(-5deg);
+    }
+
+    .tape-tr {
+      top: -8px;
+      right: 10px;
+      transform: rotate(3deg);
+    }
+
+    .tape-bl {
+      bottom: -8px;
+      left: 20px;
+      transform: rotate(2deg);
+    }
+
+    /* ---- TORN EDGE ---- */
+    .torn-bottom::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: var(--paper);
+      clip-path: polygon(
+        0% 0%, 3% 40%, 6% 10%, 10% 50%, 14% 20%, 18% 60%, 22% 15%,
+        26% 45%, 30% 10%, 34% 55%, 38% 25%, 42% 50%, 46% 5%, 50% 40%,
+        54% 15%, 58% 55%, 62% 20%, 66% 50%, 70% 10%, 74% 45%, 78% 25%,
+        82% 60%, 86% 15%, 90% 50%, 94% 10%, 98% 40%, 100% 0%, 100% 100%, 0% 100%
+      );
+      z-index: 1;
+    }
+
+    .torn-top::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: var(--bg);
+      clip-path: polygon(
+        0% 100%, 2% 60%, 5% 90%, 9% 40%, 13% 80%, 17% 35%, 21% 85%,
+        25% 50%, 29% 90%, 33% 30%, 37% 75%, 41% 45%, 45% 85%, 49% 40%,
+        53% 80%, 57% 30%, 61% 70%, 65% 45%, 69% 90%, 73% 35%, 77% 80%,
+        81% 50%, 85% 85%, 89% 30%, 93% 75%, 97% 45%, 100% 100%
+      );
+      z-index: 1;
+    }
+
+    /* ---- PIN ---- */
+    .pin {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--fg);
+      background: var(--paper);
+      z-index: 3;
+      box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    }
+
+    .pin::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .pin-red {
+      border-color: var(--accent);
+    }
+
+    .pin-red::after {
+      background: var(--fg);
+    }
+
+    /* ---- HEADER ---- */
+    .header-zone {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .header-main {
+      transform: rotate(-0.8deg);
+    }
+
+    .header-main h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+
+    .header-main h1 span {
+      color: var(--accent);
+    }
+
+    .header-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      margin-top: 6px;
+      color: var(--fg);
+      transform: rotate(1.5deg);
+      display: inline-block;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    .header-tape {
+      position: absolute;
+      top: -8px;
+      right: 20%;
+      width: 90px;
+      height: 28px;
+      background: var(--tape);
+      transform: rotate(-8deg);
+      z-index: 5;
+      opacity: 0.9;
+    }
+
+    .header-photo {
+      width: 130px;
+      height: 150px;
+      background: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--paper);
+      transform: rotate(2.5deg);
+      position: relative;
+      border: 3px solid var(--fg);
+      box-shadow: 4px 4px 0 var(--accent);
+    }
+
+    /* ---- SECTION LABELS ---- */
+    .section-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: inline-block;
+      position: relative;
+      margin-bottom: 14px;
+      transform: rotate(-1deg);
+    }
+
+    .section-label::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: rotate(0.5deg);
+    }
+
+    /* ---- BIO / ABOUT ---- */
+    .about-zone {
+      grid-column: 1 / -1;
+      transform: rotate(0.3deg);
+      margin: 8px 0 6px;
+    }
+
+    .bio {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      padding: 18px 20px;
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.12);
+      position: relative;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+    }
+
+    .bio::before {
+      content: '"';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--accent);
+      position: absolute;
+      top: -8px;
+      left: 8px;
+      line-height: 1;
+      opacity: 0.4;
+    }
+
+    /* ---- STATS ---- */
+    .stats-zone {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 6px 0 8px;
+      position: relative;
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 2px solid var(--fg);
+      padding: 16px 24px;
+      text-align: center;
+      min-width: 150px;
+      transform: rotate(var(--r, 0deg));
+      position: relative;
+      box-shadow: 3px 3px 0 var(--fg);
+    }
+
+    .stat-card:nth-child(1) { --r: -2deg; }
+    .stat-card:nth-child(2) { --r: 1.5deg; }
+    .stat-card:nth-child(3) { --r: -1deg; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      display: block;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      text-transform: lowercase;
+      color: var(--fg);
+    }
+
+    /* ---- SKILLS ---- */
+    .skills-zone {
+      grid-column: 1 / -1;
+      margin: 4px 0 8px;
+      transform: rotate(-0.4deg);
+    }
+
+    .skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 16px;
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.12);
+      position: relative;
+    }
+
+    .skill-tag {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.8rem;
+      background: var(--fg);
+      color: var(--paper);
+      padding: 4px 10px;
+      display: inline-block;
+      transform: rotate(var(--sr, 0deg));
+      border: 1px solid var(--fg);
+    }
+
+    .skill-tag:nth-child(odd) { --sr: -1deg; }
+    .skill-tag:nth-child(even) { --sr: 0.8deg; }
+    .skill-tag:nth-child(3n) { --sr: -0.5deg; }
+
+    .skill-tag:nth-child(5n+1) {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ---- PROJECTS ---- */
+    .projects-zone {
+      grid-column: 1 / -1;
+      margin: 4px 0 8px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      position: relative;
+    }
+
+    .project-card {
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 18px 16px;
+      transform: rotate(var(--pr, 0deg));
+      position: relative;
+      box-shadow: 2px 3px 5px rgba(0,0,0,0.07);
+      transition: transform 0.2s ease;
+    }
+
+    .project-card:nth-child(1) { --pr: -1.2deg; }
+    .project-card:nth-child(2) { --pr: 0.8deg; }
+    .project-card:nth-child(3) { --pr: 0.6deg; }
+    .project-card:nth-child(4) { --pr: -0.5deg; }
+
+    .project-card:hover {
+      transform: rotate(0deg) scale(1.01);
+      box-shadow: 4px 5px 10px rgba(0,0,0,0.12);
+    }
+
+    .project-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      color: var(--fg);
+      border-bottom: 1px dashed rgba(0,0,0,0.2);
+      padding-bottom: 4px;
+    }
+
+    .project-card h3 .num {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-right: 4px;
+    }
+
+    .project-card a {
+      font-size: 0.8rem;
+      word-break: break-all;
+      color: var(--accent);
+    }
+
+    .project-desc {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .project-card .card-tape {
+      position: absolute;
+      top: -6px;
+      right: 12px;
+      width: 50px;
+      height: 22px;
+      background: var(--tape);
+      transform: rotate(4deg);
+      z-index: 2;
+      opacity: 0.85;
+    }
+
+    .project-card:nth-child(2) .card-tape {
+      right: auto;
+      left: 12px;
+      transform: rotate(-6deg);
+    }
+
+    /* ---- OPEN SOURCE ---- */
+    .opensource-zone {
+      grid-column: 1 / -1;
+      margin: 4px 0 8px;
+      transform: rotate(0.3deg);
+    }
+
+    .opensource-list {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .opensource-list li {
+      background: var(--paper);
+      border: 2px solid var(--fg);
+      padding: 14px 18px;
+      flex: 1;
+      min-width: 200px;
+      transform: rotate(var(--or, 0deg));
+      position: relative;
+      box-shadow: 2px 2px 0 var(--fg);
+    }
+
+    .opensource-list li:nth-child(1) { --or: -1deg; }
+    .opensource-list li:nth-child(2) { --or: 0.5deg; }
+    .opensource-list li:nth-child(3) { --or: -0.7deg; }
+
+    .repo-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .repo-meta {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    .pin-os {
+      position: absolute;
+      top: -5px;
+      right: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: var(--paper);
+      z-index: 3;
+    }
+
+    .pin-os::after {
+      content: '';
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--fg);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ---- RATINGS ---- */
+    .ratings-zone {
+      grid-column: 1 / -1;
+      margin: 4px 0 8px;
+      transform: rotate(0.2deg);
+    }
+    .ratings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      position: relative;
+    }
+    .rating-card {
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 18px 16px;
+      transform: rotate(var(--rr, 0deg));
+      position: relative;
+      box-shadow: 2px 3px 5px rgba(0,0,0,0.07);
+      border-radius: 12px;
+      transition: transform 0.2s;
+    }
+    .rating-card:hover {
+      transform: rotate(0deg) scale(1.01);
+      box-shadow: 4px 5px 10px rgba(0,0,0,0.12);
+    }
+    .rating-card:nth-child(1) { --rr: -0.8deg; }
+    .rating-card:nth-child(2) { --rr: 0.6deg; }
+    .rating-card:nth-child(3) { --rr: 0.4deg; }
+    .rating-card:nth-child(4) { --rr: -0.3deg; }
+    .rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+    .rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+    .rating-info{flex:1;min-width:0}
+    .rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+    .rating-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-transform:uppercase;color:var(--fg);font-weight:700}
+    .rating-stars{display:flex;gap:2px;flex-shrink:0}
+    .rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:rgba(0,0,0,0.5);margin-top:.25rem}
+    .rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+    .rating-comment{font-family:'Special Elite',monospace;font-size:.85rem;color:var(--fg);line-height:1.5;opacity:0.7;margin:0;padding-top:.75rem;border-top:1px solid rgba(0,0,0,0.1);font-style:italic}
+    .ratings-empty{opacity:.5;text-align:center;padding:2rem}
+    .rate-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+    }
+    .rate-link:hover { text-decoration-style: wavy; }
+
+    @media (max-width: 768px) {
+      .ratings-grid { grid-template-columns: 1fr; }
+      .rating-card { transform: rotate(0deg) !important; }
+    }
+
+    /* ---- CONTACT ---- */
+    .contact-zone {
+      grid-column: 1 / -1;
+      margin: 4px 0 8px;
+      transform: rotate(-0.3deg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .contact-item {
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.15);
+      padding: 14px 12px;
+      text-align: center;
+      position: relative;
+      transform: rotate(var(--cr, 0deg));
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.06);
+    }
+
+    .contact-item:nth-child(1) { --cr: -1.5deg; }
+    .contact-item:nth-child(2) { --cr: 0.7deg; }
+    .contact-item:nth-child(3) { --cr: -0.4deg; }
+    .contact-item:nth-child(4) { --cr: 1deg; }
+
+    .contact-item .contact-type {
+      font-family: 'Caveat', cursive;
+      font-size: 0.85rem;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-item a {
+      font-size: 0.85rem;
+      color: var(--fg);
+      word-break: break-all;
+    }
+
+    .contact-item:hover {
+      background: var(--fg);
+    }
+
+    .contact-item:hover a {
+      color: var(--paper);
+      text-decoration: none;
+    }
+
+    .contact-item:hover .contact-type {
+      color: var(--accent);
+    }
+
+    /* ---- FOOTER ---- */
+    .footer-zone {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 20px 16px;
+      margin-top: 6px;
+      position: relative;
+      transform: rotate(0.2deg);
+    }
+
+    .footer-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--fg);
+    }
+
+    .footer-line {
+      width: 60%;
+      margin: 8px auto;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--fg) 0px,
+        var(--fg) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+    }
+
+    .footer-sub {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.4);
+      margin-top: 6px;
+    }
+
+    /* ---- NAV ---- */
+    .nav-zone {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+      transform: rotate(-0.2deg);
+    }
+
+    .nav-zone a {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--fg);
+      text-decoration: none;
+      padding: 4px 12px;
+      border: 1px solid var(--fg);
+      display: inline-block;
+      transform: rotate(var(--nr, 0deg));
+      position: relative;
+    }
+
+    .nav-zone a:nth-child(1) { --nr: -0.8deg; }
+    .nav-zone a:nth-child(2) { --nr: 0.5deg; }
+    .nav-zone a:nth-child(3) { --nr: -0.3deg; }
+    .nav-zone a:nth-child(4) { --nr: 0.7deg; }
+    .nav-zone a:nth-child(5) { --nr: -0.6deg; }
+
+    .nav-zone a:hover {
+      background: var(--fg);
+      color: var(--paper);
+      text-decoration: none;
+    }
+
+    .nav-zone a:focus-visible {
+      outline: 2px dashed var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---- DECORATIVE SCRIBBLES ---- */
+    .scribble {
+      position: absolute;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .scribble-star {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: var(--accent);
+      transform: rotate(15deg);
+      opacity: 0.5;
+    }
+
+    .scribble-arrow {
+      width: 40px;
+      height: 20px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-30deg);
+      opacity: 0.4;
+    }
+
+    .scribble-circle {
+      width: 50px;
+      height: 50px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      opacity: 0.2;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .zine-container {
+        grid-template-columns: 1fr;
+        padding: 12px 10px;
+      }
+
+      .header-zone {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .header-main {
+        transform: rotate(0);
+        text-align: center;
+      }
+
+      .header-subtitle {
+        transform: rotate(0);
+      }
+
+      .header-photo {
+        width: 100px;
+        height: 115px;
+        transform: rotate(1deg);
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stats-zone {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stat-card {
+        transform: rotate(0deg) !important;
+      }
+
+      .project-card {
+        transform: rotate(0deg) !important;
+      }
+
+      .skill-tag {
+        transform: none !important;
+      }
+
+      .nav-zone {
+        justify-content: center;
+      }
+
+      .nav-zone a {
+        transform: none !important;
+      }
+
+      .paper {
+        padding: 18px 14px;
+      }
+
+      .scribble {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      html {
+        font-size: 14px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .opensource-list {
+        flex-direction: column;
+      }
+
+      .opensource-list li {
+        min-width: auto;
+      }
+
+      .header-tape {
+        display: none;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .about-zone {
+        transform: rotate(-0.2deg);
+      }
+
+      .header-photo {
+        width: 140px;
+        height: 160px;
+      }
+    }
+
+    /* ---- PRINT ---- */
+    @media print {
+      body::before,
+      body::after,
+      .grain-line,
+      .tape,
+      .card-tape,
+      .pin,
+      .pin-os,
+      .scribble {
+        display: none;
+      }
+
+      .paper {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain-line"></div>
+  <a href="#main-content" class="skip-nav">Skip to content</a>
+
+  <div class="zine-container">
+    <!-- HEADER -->
+    <header class="header-zone">
+      <div class="header-tape"></div>
+      <div class="header-main paper torn-bottom">
+        <div class="tape tape-top"></div>
+        <h1>Yahya<br><span>Mahroof</span></h1>
+        <div class="header-subtitle">ML / MLOps Engineer</div>
+      </div>
+      <div class="header-photo" aria-hidden="true">
+        <span>YM</span>
+      </div>
+    </header>
+
+    <!-- NAV -->
+    <nav class="nav-zone" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#opensource">Open Source</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- ABOUT -->
+    <section class="about-zone paper torn-top torn-bottom" id="about">
+      <div class="scribble scribble-circle" style="top:-18px;right:30px;"></div>
+      <div class="section-label">About Me</div>
+      <p class="bio">
+        Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.
+      </p>
+      <div class="pin pin-red" style="top:8px;right:10px;"></div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-zone" id="stats">
+      <div class="stat-card">
+        <span class="stat-number">14+</span>
+        <span class="stat-label">projects</span>
+        <div class="pin pin-red" style="top:-5px;left:10px;"></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">3+</span>
+        <span class="stat-label">years</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">satisfaction</span>
+        <div class="pin" style="top:-5px;right:8px;"></div>
+      </div>
+      <div class="scribble scribble-star" style="top:-20px;left:5%;">&#10022;</div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills-zone paper" id="skills">
+      <div class="tape tape-tr"></div>
+      <div class="section-label">Skills</div>
+      <div class="skills-wrap">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">Django</span>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Ubuntu</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">GPU Deployment</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Firebase</span>
+      </div>
+      <div class="scribble scribble-arrow" style="bottom:-12px;right:18px;"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects-zone" id="projects">
+      <div class="section-label">Projects</div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="card-tape"></div>
+          <h3><span class="num">#1</span> AI English Tutor</h3>
+          <a href="https://english-tutor.yahya-mahroof.site/" target="_blank" rel="noopener noreferrer">english-tutor.yahya-mahroof.site</a>
+          <p class="project-desc">Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.</p>
+          <div class="pin pin-red" style="top:-4px;left:8px;"></div>
+        </div>
+        <div class="project-card">
+          <div class="card-tape"></div>
+          <h3><span class="num">#2</span> Handwriting OCR</h3>
+          <a href="https://yahya-mahroof.site/OCR-Demo" target="_blank" rel="noopener noreferrer">yahya-mahroof.site/OCR-Demo</a>
+          <p class="project-desc">Turn handwritten text into digital data instantly with high accuracy for easier documentation.</p>
+        </div>
+        <div class="project-card">
+          <div class="card-tape"></div>
+          <h3><span class="num">#3</span> Quran Recitation AI</h3>
+          <a href="https://quran-tracker.yahya-mahroof.site" target="_blank" rel="noopener noreferrer">quran-tracker.yahya-mahroof.site</a>
+          <p class="project-desc">Test your memorization using AI voice recognition to detect and correct reading mistakes.</p>
+          <div class="pin" style="top:-4px;right:8px;"></div>
+        </div>
+        <div class="project-card">
+          <div class="card-tape"></div>
+          <h3><span class="num">#4</span> AI ATS System</h3>
+          <a href="https://ats.yahya-mahroof.site/admin" target="_blank" rel="noopener noreferrer">ats.yahya-mahroof.site/admin</a>
+          <p class="project-desc">Automatically compare applicant CVs against job descriptions to screen the best candidates.</p>
+        </div>
+      </div>
+      <div class="scribble scribble-star" style="top:-10px;right:5%;">&#9733;</div>
+    </section>
+
+    <!-- OPEN SOURCE -->
+    <section class="opensource-zone" id="opensource">
+      <div class="section-label">Open Source</div>
+      <ul class="opensource-list">
+        <li>
+          <div class="pin-os"></div>
+          <span class="repo-name"><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer">Quran Tracker</a></span>
+          <span class="repo-meta">&#9733; 134 &mdash; &#9741; 15</span>
+        </li>
+        <li>
+          <div class="pin-os"></div>
+          <span class="repo-name"><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer">OCR</a></span>
+          <span class="repo-meta">&#9733; 9 &mdash; &#9741; 1</span>
+        </li>
+        <li>
+          <div class="pin-os"></div>
+          <span class="repo-name"><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer">Messenger Bot</a></span>
+          <span class="repo-meta">&#9733; 5</span>
+        </li>
+      </ul>
+      <div class="scribble scribble-circle" style="bottom:-15px;left:8%;"></div>
+    </section>
+
+    <!-- RATINGS -->
+    <section class="ratings-zone" id="testimonials">
+      <div class="section-label">Client Feedback</div>
+      <div id="ratings-display" class="ratings-grid"></div>
+      <a href="/rate-us.html" class="rate-link">Rate Us</a>
+      <div class="pin pin-red" style="top:-6px;right:12px;"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-zone" id="contact">
+      <div class="section-label">Contact</div>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="contact-type">Email</span>
+          <a href="mailto:yahyamahroof35@gmail.com">yahyamahroof35@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-type">GitHub</span>
+          <a href="https://github.com/yayaiu6" target="_blank" rel="noopener noreferrer">github.com/yayaiu6</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-type">LinkedIn</span>
+          <a href="https://linkedin.com/in/yahya-mahrouf" target="_blank" rel="noopener noreferrer">linkedin.com/in/yahya-mahrouf</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-type">WhatsApp</span>
+          <a href="https://wa.me/201001866276" target="_blank" rel="noopener noreferrer">wa.me/201001866276</a>
+        </div>
+      </div>
+      <div class="pin pin-red" style="top:-6px;left:20px;"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-zone">
+      <div class="footer-line"></div>
+      <p class="footer-text">&copy; 2026 Yahya Mahroof &mdash; All Rights Reserved</p>
+      <p class="footer-sub">assembled with care &amp; glue</p>
+    </footer>
+  </div>
+
+  <script src="/shared/deps.js"></script>
+  <script type="module" src="/shared/firebase-ratings.js"></script>
+  <script>
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      function randomRotate(el, range) {
+        var deg = (Math.random() * range * 2) - range;
+        var current = el.style.transform;
+        if (current) {
+          var match = current.match(/rotate\(([-\d.]+)deg\)/);
+          if (match) {
+            deg += parseFloat(match[1]);
+            deg = Math.max(-4, Math.min(4, deg));
+          }
+        }
+        el.style.transform = current ? current.replace(/rotate\([^)]+\)/, 'rotate(' + deg + 'deg)') : 'rotate(' + deg + 'deg)';
+      }
+
+      var cards = document.querySelectorAll('.project-card, .stat-card, .contact-item, .opensource-list li');
+      cards.forEach(function(card) {
+        card.addEventListener('mouseenter', function() {
+          randomRotate(this, 1);
+        });
+        card.addEventListener('mouseleave', function() {
+          var t = this.style.transform;
+          this.style.transition = 'transform 0.3s ease';
+          this.style.transform = t ? t.replace(/rotate\([^)]+\)/, 'rotate(0deg)') : '';
+          var el = this;
+          setTimeout(function() { el.style.transition = ''; }, 300);
+        });
+      });
+
+      var skillTags = document.querySelectorAll('.skill-tag');
+      skillTags.forEach(function(tag) {
+        tag.addEventListener('mouseenter', function() {
+          this.style.transform = 'rotate(0deg) scale(1.05)';
+          this.style.transition = 'transform 0.15s ease';
+          this.style.zIndex = '10';
+        });
+        tag.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+          this.style.zIndex = '';
+          setTimeout(function() { tag.style.transition = ''; }, 150);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

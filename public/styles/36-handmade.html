@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Architects+Daughter&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --paper: #f5f0e8;
+  --paper-dark: #e8dfd2;
+  --ink: #2c2416;
+  --ink-light: #5a4a32;
+  --ink-faint: #8a7a62;
+  --red-pencil: #c44d3e;
+  --blue-pencil: #3a6b8c;
+  --tape: rgba(200, 180, 130, 0.5);
+  --shadow: rgba(44, 36, 22, 0.15);
+  --font-hand: 'Caveat', cursive;
+  --font-print: 'Patrick Hand', cursive;
+  --font-label: 'Architects Daughter', cursive;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-print);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,170,150,0.15) 28px, rgba(180,170,150,0.15) 29px),
+    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(180,170,150,0.08) 28px, rgba(180,170,150,0.08) 29px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  font-family: var(--font-print);
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+}
+.skip-nav:focus { top: 0; }
+
+/* === HEADER === */
+.portfolio-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 4rem 2rem 3rem;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid var(--ink);
+  border-bottom-style: dashed;
+}
+
+.portfolio-header::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 40px;
+  background: var(--tape);
+  transform: translateX(-50%) rotate(-2deg);
+  border-radius: 2px;
+  z-index: -1;
+}
+
+.name {
+  font-family: var(--font-hand);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  position: relative;
+  display: inline-block;
+}
+
+.name::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -8px;
+  right: -8px;
+  height: 4px;
+  background: var(--red-pencil);
+  transform: rotate(-0.5deg);
+  border-radius: 2px;
+}
+
+.subtitle {
+  font-family: var(--font-label);
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: var(--blue-pencil);
+  margin-top: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* === HAND-DRAWN BORDER UTILITY === */
+.hand-box {
+  position: relative;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.hand-box::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.hand-box::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 20px;
+  width: 50px;
+  height: 14px;
+  background: var(--tape);
+  transform: rotate(1.5deg);
+  border-radius: 1px;
+}
+
+/* === SECTION TITLES === */
+.section-title {
+  font-family: var(--font-hand);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--red-pencil);
+  transform: rotate(-0.3deg);
+  border-radius: 2px;
+}
+
+/* === BIO === */
+.bio-section {
+  position: relative;
+  z-index: 2;
+}
+
+.bio-text {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--ink-light);
+  max-width: 650px;
+  position: relative;
+}
+
+.bio-text::before {
+  content: '\201C';
+  position: absolute;
+  left: -2rem;
+  top: -1rem;
+  font-size: 4rem;
+  font-family: var(--font-hand);
+  color: var(--red-pencil);
+  opacity: 0.4;
+}
+
+/* === SKILLS === */
+.skills-section { position: relative; z-index: 2; }
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.skill-tag {
+  font-family: var(--font-label);
+  font-size: 1rem;
+  padding: 0.4rem 0.9rem;
+  background: var(--paper-dark);
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  color: var(--ink);
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.skill-tag:nth-child(odd) { transform: rotate(-1deg); }
+.skill-tag:nth-child(even) { transform: rotate(0.8deg); }
+.skill-tag:nth-child(3n) { transform: rotate(-0.5deg); }
+.skill-tag:hover { transform: rotate(0deg) scale(1.05); }
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-tag:hover { transform: none; }
+}
+
+/* === STATS === */
+.stats-section {
+  position: relative;
+  z-index: 2;
+}
+
+.stats-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem 2rem;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  position: relative;
+  min-width: 160px;
+  background: var(--paper);
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  right: 8px;
+  width: 30px;
+  height: 3px;
+  background: var(--blue-pencil);
+  border-radius: 1px;
+}
+
+.stat-number {
+  font-family: var(--font-hand);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--red-pencil);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-label);
+  font-size: 0.95rem;
+  color: var(--ink-faint);
+  margin-top: 0.3rem;
+}
+
+/* === PROJECTS === */
+.projects-section { position: relative; z-index: 2; }
+
+.project-card {
+  position: relative;
+  border: 2px solid var(--ink);
+  padding: 1.8rem;
+  margin-bottom: 2rem;
+  background: var(--paper);
+  transform: rotate(-0.3deg);
+}
+
+.project-card:nth-child(even) { transform: rotate(0.4deg); }
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 30px;
+  width: 60px;
+  height: 16px;
+  background: var(--tape);
+  transform: rotate(1deg);
+  border-radius: 1px;
+  z-index: 1;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed var(--ink-faint);
+  pointer-events: none;
+}
+
+.project-number {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--red-pencil);
+  margin-bottom: 0.3rem;
+}
+
+.project-title {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.project-link {
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  color: var(--blue-pencil);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--blue-pencil);
+  transition: color 0.2s;
+}
+
+.project-desc {
+  font-family: var(--font-print);
+  font-size: 1rem;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.project-link:hover { color: var(--red-pencil); }
+
+/* === OPEN SOURCE === */
+.opensource-section { position: relative; z-index: 2; }
+
+.oss-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.oss-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--ink-faint);
+  font-family: var(--font-label);
+  font-size: 1.05rem;
+}
+
+.oss-item:last-child { border-bottom: none; }
+
+.oss-stars {
+  font-family: var(--font-hand);
+  color: var(--red-pencil);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* === CONTACT === */
+.contact-section { position: relative; z-index: 2; }
+
+.contact-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.contact-item {
+  margin-bottom: 0.8rem;
+  font-family: var(--font-label);
+  font-size: 1.05rem;
+}
+
+.contact-item a {
+  color: var(--blue-pencil);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--blue-pencil);
+  transition: color 0.2s;
+}
+
+.contact-item a:hover { color: var(--red-pencil); }
+
+/* === FOOTER === */
+.portfolio-footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 3px dashed var(--ink);
+  font-family: var(--font-hand);
+  color: var(--ink-faint);
+  font-size: 1.1rem;
+}
+
+/* === PENCIL MARGIN LINE === */
+.margin-line {
+  position: fixed;
+  left: 60px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--red-pencil);
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .margin-line { display: none; }
+  .hand-box { padding: 1.2rem; margin: 1.5rem 1rem; }
+  .portfolio-header { padding: 2.5rem 1.5rem 2rem; }
+  .bio-text::before { left: -1rem; font-size: 3rem; }
+  .stats-row { gap: 1rem; }
+  .stat-card { min-width: 120px; padding: 1rem 1.2rem; }
+}
+
+/* === FOLDED CORNER EFFECT === */
+.folded-corner {
+  position: relative;
+}
+
+.folded-corner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 30px 30px 0;
+  border-color: transparent var(--paper-dark) transparent transparent;
+  filter: drop-shadow(-1px 1px 1px var(--shadow));
+}
+
+/* === ANIMATION === */
+@keyframes sketch-in {
+  from { opacity: 0; transform: translateY(15px) rotate(-1deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+.animate-in {
+  animation: sketch-in 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in { animation: none; opacity: 1; }
+}
+
+/* === MAIN CONTENT WRAPPER === */
+.content-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .content-wrap { padding: 0 1rem; }
+}
+.ratings-section{position:relative;z-index:2;margin:2rem auto;max-width:900px}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s}
+.rating-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:#111827}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:#6b7280;margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:#4b5563;margin:0;padding-top:.75rem;border-top:1px solid #f3f4f6;font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid #d1d5db;border-radius:8px;color:#374151;text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:#f9fafb;border-color:#9ca3af;color:#111827}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+</style>
+<script type="module" src="/shared/firebase-ratings.js"></script>
+</head>
+<body>
+<div class="margin-line" aria-hidden="true"></div>
+
+<a href="#main" class="skip-nav">Skip to content</a>
+
+<header class="portfolio-header">
+  <h1 class="name">Yahya Mahroof</h1>
+  <p class="subtitle">ML / MLOps Engineer</p>
+</header>
+
+<main id="main" class="content-wrap">
+
+  <section class="bio-section hand-box animate-in" aria-label="About">
+    <h2 class="section-title">About</h2>
+    <p class="bio-text">Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+  </section>
+
+  <section class="skills-section hand-box animate-in" aria-label="Skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">Flask</span>
+      <span class="skill-tag">Django</span>
+      <span class="skill-tag">FastAPI</span>
+      <span class="skill-tag">TensorFlow</span>
+      <span class="skill-tag">PyTorch</span>
+      <span class="skill-tag">Docker</span>
+      <span class="skill-tag">Ubuntu</span>
+      <span class="skill-tag">CI/CD</span>
+      <span class="skill-tag">GPU Deployment</span>
+      <span class="skill-tag">React</span>
+      <span class="skill-tag">TypeScript</span>
+      <span class="skill-tag">Git</span>
+      <span class="skill-tag">Firebase</span>
+    </div>
+  </section>
+
+  <section class="stats-section animate-in" aria-label="Statistics">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number">14+</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Years</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section animate-in" aria-label="Projects">
+    <h2 class="section-title">Projects</h2>
+
+    <article class="project-card folded-corner">
+      <div class="project-number">01</div>
+      <h3 class="project-title">AI English Tutor</h3>
+      <p class="project-desc">Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.</p>
+      <a href="https://english-tutor.yahya-mahroof.site/" class="project-link" target="_blank" rel="noopener">english-tutor.yahya-mahroof.site ↗</a>
+    </article>
+
+    <article class="project-card folded-corner">
+      <div class="project-number">02</div>
+      <h3 class="project-title">Handwriting OCR</h3>
+      <p class="project-desc">Turn handwritten text into digital data instantly with high accuracy for easier documentation.</p>
+      <a href="https://yahya-mahroof.site/OCR-Demo" class="project-link" target="_blank" rel="noopener">yahya-mahroof.site/OCR-Demo ↗</a>
+    </article>
+
+    <article class="project-card folded-corner">
+      <div class="project-number">03</div>
+      <h3 class="project-title">Quran Recitation AI</h3>
+      <p class="project-desc">Test your memorization using AI voice recognition to detect and correct reading mistakes.</p>
+      <a href="https://quran-tracker.yahya-mahroof.site" class="project-link" target="_blank" rel="noopener">quran-tracker.yahya-mahroof.site ↗</a>
+    </article>
+
+    <article class="project-card folded-corner">
+      <div class="project-number">04</div>
+      <h3 class="project-title">AI ATS System</h3>
+      <p class="project-desc">Automatically compare applicant CVs against job descriptions to screen the best candidates.</p>
+      <a href="https://ats.yahya-mahroof.site/admin" class="project-link" target="_blank" rel="noopener">ats.yahya-mahroof.site/admin ↗</a>
+    </article>
+  </section>
+
+  <section class="opensource-section hand-box animate-in" aria-label="Open Source">
+    <h2 class="section-title">Open Source</h2>
+    <ul class="oss-list">
+      <li class="oss-item">
+        <span class="oss-stars">★ 134 · Fork 15</span>
+        <span><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Quran Tracker</a></span>
+      </li>
+      <li class="oss-item">
+        <span class="oss-stars">★ 9 · Fork 1</span>
+        <span><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">OCR</a></span>
+      </li>
+      <li class="oss-item">
+        <span class="oss-stars">★ 5</span>
+        <span><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Messenger Bot</a></span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="ratings-section hand-box animate-in" aria-label="Client Testimonials">
+    <h2 class="section-title">Client Feedback</h2>
+    <div id="ratings-display" class="ratings-grid"></div>
+    <a href="/rate-us.html" class="rate-link">Rate Us</a>
+  </section>
+
+  <section class="contact-section hand-box animate-in" aria-label="Contact">
+    <h2 class="section-title">Contact</h2>
+    <ul class="contact-list">
+      <li class="contact-item"><a href="mailto:yahyamahroof35@gmail.com">yahyamahroof35@gmail.com</a></li>
+      <li class="contact-item"><a href="https://github.com/yayaiu6" target="_blank" rel="noopener">github.com/yayaiu6</a></li>
+      <li class="contact-item"><a href="https://linkedin.com/in/yahya-mahrouf" target="_blank" rel="noopener">linkedin.com/in/yahya-mahrouf</a></li>
+      <li class="contact-item"><a href="https://wa.me/201001866276" target="_blank" rel="noopener">WhatsApp</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="portfolio-footer">
+  <p>Handcrafted with care — Yahya Mahroof</p>
+</footer>
+
+<script>
+(function() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    document.querySelectorAll('.animate-in').forEach(el => { el.style.opacity = '1'; });
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.hand-box, .stat-card, .project-card, .opensource-section, .contact-section').forEach(el => {
+    el.classList.add('animate-in');
+    observer.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

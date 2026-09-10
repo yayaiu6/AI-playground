@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<script src="/shared/deps.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#111;--bg:#f0f0f0;--surface:#fff;--border:#ddd;--accent:#6366f1;--accent2:#ec4899;--muted:#666;--shadow:0 8px 30px rgba(0,0,0,.1)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:0s!important;scroll-behavior:auto!important}.card{transform:none!important}}
+@media(prefers-color-scheme:dark){:root{--ink:#e0e0e0;--bg:#0a0a0a;--surface:#1a1a1a;--border:#333;--accent:#818cf8;--accent2:#f472b6;--muted:#999;--shadow:0 8px 30px rgba(0,0,0,.4)}}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;min-height:100vh;display:flex;flex-direction:column}
+.skip-nav{position:absolute;top:-100%;left:0;background:var(--accent);color:#fff;padding:8px 16px;z-index:200;font-size:14px;text-decoration:none}.skip-nav:focus{top:0}
+.deck-container{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px 40px;position:relative;min-height:100vh}
+.deck-header{text-align:center;margin-bottom:30px}
+.deck-header h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;letter-spacing:-1px}
+.deck-header .sub{font-size:1rem;color:var(--muted);margin-top:6px}
+.deck-counter{position:fixed;top:80px;right:30px;z-index:50;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
+.deck-counter .current{font-size:2rem;font-weight:900;color:var(--accent);display:block;line-height:1}
+.card-stack{position:relative;width:100%;max-width:520px;height:400px;perspective:1200px}
+@media(max-width:600px){.card-stack{height:350px;max-width:100%}}
+.card{position:absolute;top:0;left:0;width:100%;height:100%;background:var(--surface);border-radius:16px;box-shadow:var(--shadow);border:1px solid var(--border);cursor:grab;transition:transform .4s ease,opacity .4s ease,box-shadow .3s ease;overflow:hidden;user-select:none;-webkit-user-select:none}
+.card:active{cursor:grabbing}
+.card.active{z-index:10}
+.card.behind-1{z-index:9;transform:scale(.94) translateY(12px);opacity:.85}
+.card.behind-2{z-index:8;transform:scale(.88) translateY(24px);opacity:.65}
+.card.behind-3{z-index:7;transform:scale(.82) translateY(36px);opacity:.45}
+.card.hidden{opacity:0;pointer-events:none;transform:translateX(120%) rotate(15deg)}
+.card.swipe-left{transform:translateX(-150%) rotate(-20deg)!important;opacity:0!important;pointer-events:none}
+.card.swipe-right{transform:translateX(150%) rotate(20deg)!important;opacity:0!important;pointer-events:none}
+.card-inner{height:100%;display:flex;flex-direction:column;position:relative}
+.card-front{flex:1;padding:30px;display:flex;flex-direction:column}
+.card-front .tag{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:8px}
+.card-front h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;line-height:1.2}
+.card-front .url{font-size:11px;font-family:monospace;color:var(--accent2);text-decoration:none;word-break:break-all;margin-bottom:14px;display:block}
+.card-front .url:hover{text-decoration:underline}
+.card-front p{font-size:.9rem;color:var(--muted);line-height:1.6;flex:1}
+.card-front .stats{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.card-front .stat-pill{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600;background:var(--bg);border:1px solid var(--border)}
+.card-flip{position:absolute;inset:0;background:var(--surface);border-radius:16px;transform:rotateY(180deg);backface-visibility:hidden;padding:30px;display:flex;flex-direction:column}
+.card.flipped .card-inner{transform:rotateY(180deg)}
+.card-inner{transition:transform .6s;transform-style:preserve-3d;position:relative}
+.card-flip h3{font-size:1rem;font-weight:700;margin-bottom:12px}
+.card-flip .detail{font-size:.85rem;color:var(--muted);margin-bottom:10px;line-height:1.6}
+.card-flip .tech-stack{margin-top:auto}
+.card-flip .tech-stack h4{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:6px}
+.card-flip .tech-tags{display:flex;flex-wrap:wrap;gap:6px}
+.card-flip .tech-tag{padding:3px 10px;border-radius:12px;font-size:10px;font-weight:600;background:var(--bg);border:1px solid var(--border)}
+.card-type-badge{position:absolute;top:16px;right:16px;padding:4px 10px;border-radius:20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--accent);color:#fff}
+.card-type-badge.project{background:var(--accent)}.card-type-badge.skill{background:var(--accent2)}.card-type-badge.oss{background:#10b981}.card-type-badge.contact{background:#f59e0b}
+.flip-hint{position:absolute;bottom:12px;right:16px;font-size:10px;color:var(--muted);opacity:.6;pointer-events:none}
+.controls{display:flex;gap:12px;margin-top:24px;z-index:20}
+.controls button{width:48px;height:48px;border-radius:50%;border:2px solid var(--border);background:var(--surface);font-size:1.2rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.controls button:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.08)}
+.controls button:active{transform:scale(.95)}
+.controls .flip-btn{border-color:var(--accent2);color:var(--accent2)}
+.controls .flip-btn:hover{background:var(--accent2);color:#fff}
+.swipe-indicator{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;opacity:.5;z-index:20}
+.indicator-dots{display:flex;gap:6px;margin-top:16px;justify-content:center;position:fixed;bottom:50px;left:50%;transform:translateX(-50%);z-index:20}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s}
+.dot.active{background:var(--accent);transform:scale(1.3)}
+.hero-card{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none}
+.hero-card .tag{color:rgba(255,255,255,.8)}.hero-card h2{color:#fff}.hero-card .url{color:rgba(255,255,255,.8)}.hero-card p{color:rgba(255,255,255,.9)}
+.hero-card .stats .stat-pill{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.2);color:#fff}
+.hero-card .card-type-badge{background:rgba(255,255,255,.2)}
+.hero-card .flip-hint{color:rgba(255,255,255,.6)}
+.rating-card-content{height:100%;display:flex;flex-direction:column;padding:30px}
+.rating-card-content .tag{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:8px}
+.rating-card-content h2{font-size:1.4rem;font-weight:800;margin-bottom:16px;line-height:1.2}
+.rating-entry{padding:16px 0;border-bottom:1px solid var(--border);flex:1}
+.rating-entry:last-child{border-bottom:none}
+.rating-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rating-name{font-size:1rem;font-weight:700}
+.rating-stars{font-size:.85rem;color:var(--accent);font-weight:700}
+.rating-comment{font-size:.85rem;color:var(--muted);margin-top:8px;line-height:1.5}
+.rate-link{display:inline-block;margin-top:auto;padding:10px 20px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-size:.85rem;font-weight:600;text-align:center;transition:transform .2s}
+.rate-link:hover{transform:scale(1.05)}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s}
+.rating-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:#111827}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:#6b7280;margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:#4b5563;margin:0;padding-top:.75rem;border-top:1px solid #f3f4f6;font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid #d1d5db;border-radius:8px;color:#374151;text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:#f9fafb;border-color:#9ca3af;color:#111827}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
+</style>
+<script type="module" src="/shared/firebase-ratings.js"></script>
+</head>
+<body>
+<a href="#deck" class="skip-nav">Skip to content</a>
+
+<div class="deck-container" id="deck">
+  <div class="deck-header">
+    <h1>Yahya Mahroof</h1>
+    <div class="sub">ML/MLOps Engineer · Swipe to explore</div>
+  </div>
+
+  <div class="deck-counter"><span class="current" id="counterNum">1</span><span id="counterTotal">/ 11</span></div>
+
+  <div class="card-stack" id="cardStack">
+    <!-- Card 0: Hero -->
+    <div class="card active hero-card" data-index="0">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge">Profile</span>
+          <span class="tag">ML/MLOps Engineer</span>
+          <h2>Yahya Mahroof</h2>
+          <p>Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+          <div class="stats">
+            <span class="stat-pill">14+ Projects</span>
+            <span class="stat-pill">3+ Years</span>
+            <span class="stat-pill">100% Satisfaction</span>
+          </div>
+          <span class="flip-hint">Tap flip to see skills</span>
+        </div>
+        <div class="card-flip">
+          <h3>Technical Arsenal</h3>
+          <div class="detail">Core technologies and tools used across projects:</div>
+          <div class="tech-stack">
+            <h4>Languages & Frameworks</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">Flask</span><span class="tech-tag">Django</span><span class="tech-tag">FastAPI</span>
+              <span class="tech-tag">React</span><span class="tech-tag">TypeScript</span>
+            </div>
+          </div>
+          <div class="tech-stack" style="margin-top:12px">
+            <h4>ML & Infrastructure</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">TensorFlow</span><span class="tech-tag">PyTorch</span><span class="tech-tag">Docker</span>
+              <span class="tech-tag">Ubuntu</span><span class="tech-tag">CI/CD</span><span class="tech-tag">GPU Deploy</span>
+              <span class="tech-tag">Git</span><span class="tech-tag">Firebase</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 1: AI English Tutor -->
+    <div class="card" data-index="1">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge project">Project</span>
+          <span class="tag">AI · Education</span>
+          <h2>AI English Tutor</h2>
+          <a href="https://english-tutor.yahya-mahroof.site/" class="url" target="_blank" rel="noopener">english-tutor.yahya-mahroof.site</a>
+          <p>Intelligent tutoring system leveraging large language models for personalized English instruction with adaptive learning paths and real-time feedback.</p>
+          <div class="stats">
+            <span class="stat-pill">LLM</span><span class="stat-pill">NLP</span><span class="stat-pill">Live</span>
+          </div>
+          <span class="flip-hint">Tap flip for details</span>
+        </div>
+        <div class="card-flip">
+          <h3>AI English Tutor — Behind the Scenes</h3>
+          <div class="detail">Built a conversational AI that adapts to individual learning patterns. The system processes user input through a multi-stage pipeline: intent classification → context retrieval → response generation → pronunciation scoring.</div>
+          <div class="detail">Deployed on GPU infrastructure with auto-scaling. Response latency under 200ms for real-time conversation flow.</div>
+          <div class="tech-stack">
+            <h4>Tech Stack</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">LLM</span>
+              <span class="tech-tag">Docker</span><span class="tech-tag">GPU</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Handwriting OCR -->
+    <div class="card" data-index="2">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge project">Project</span>
+          <span class="tag">Computer Vision · OCR</span>
+          <h2>Handwriting OCR</h2>
+          <a href="https://yahya-mahroof.site/OCR-Demo" class="url" target="_blank" rel="noopener">yahya-mahroof.site/OCR-Demo</a>
+          <p>Deep learning handwriting recognition converting handwritten text to digital format with high accuracy across varied styles and conditions.</p>
+          <div class="stats">
+            <span class="stat-pill">CV</span><span class="stat-pill">OCR</span><span class="stat-pill">Live</span>
+          </div>
+          <span class="flip-hint">Tap flip for details</span>
+        </div>
+        <div class="card-flip">
+          <h3>Handwriting OCR — Behind the Scenes</h3>
+          <div class="detail">Custom CRNN architecture with CTC loss for sequence recognition. Extensive data augmentation pipeline handling rotation, noise, and varying pen pressures. Preprocessing includes adaptive thresholding and connected component analysis.</div>
+          <div class="detail">Achieved high accuracy on IAM handwriting dataset benchmark. Deployed as a REST API with batch processing support.</div>
+          <div class="tech-stack">
+            <h4>Tech Stack</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">PyTorch</span><span class="tech-tag">OpenCV</span>
+              <span class="tech-tag">Flask</span><span class="tech-tag">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Quran Recitation AI -->
+    <div class="card" data-index="3">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge project">Project</span>
+          <span class="tag">AI · Audio Processing</span>
+          <h2>Quran Recitation AI</h2>
+          <a href="https://quran-tracker.yahya-mahroof.site" class="url" target="_blank" rel="noopener">quran-tracker.yahya-mahroof.site</a>
+          <p>Real-time recitation feedback using neural networks for Tajweed compliance and pronunciation accuracy analysis.</p>
+          <div class="stats">
+            <span class="stat-pill">Audio AI</span><span class="stat-pill">Tajweed</span><span class="stat-pill">Live</span>
+          </div>
+          <span class="flip-hint">Tap flip for details</span>
+        </div>
+        <div class="card-flip">
+          <h3>Quran Recitation AI — Behind the Scenes</h3>
+          <div class="detail">Multi-model pipeline: audio preprocessing → phoneme segmentation → Tajweed rule matching → scoring. Trained on diverse recitation styles from multiple Qaris with regional accent variations.</div>
+          <div class="detail">WebSocket-based real-time streaming for live recitation analysis. 97.8% accuracy on Tajweed compliance detection across tested surahs.</div>
+          <div class="tech-stack">
+            <h4>Tech Stack</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">WebAudio</span>
+              <span class="tech-tag">WebSocket</span><span class="tech-tag">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: AI ATS System -->
+    <div class="card" data-index="4">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge project">Project</span>
+          <span class="tag">AI · Recruitment</span>
+          <h2>AI ATS System</h2>
+          <a href="https://ats.yahya-mahroof.site/admin" class="url" target="_blank" rel="noopener">ats.yahya-mahroof.site/admin</a>
+          <p>Intelligent applicant tracking with NLP resume parsing, semantic candidate matching, and automated screening pipelines.</p>
+          <div class="stats">
+            <span class="stat-pill">NLP</span><span class="stat-pill">Matching</span><span class="stat-pill">Live</span>
+          </div>
+          <span class="flip-hint">Tap flip for details</span>
+        </div>
+        <div class="card-flip">
+          <h3>AI ATS System — Behind the Scenes</h3>
+          <div class="detail">End-to-end recruitment automation: PDF/DOCX parsing → entity extraction → embedding generation → cosine similarity matching → ranked candidate lists. Built with sentence-transformers for semantic understanding.</div>
+          <div class="detail">Microservice architecture with Redis caching, Celery task queues, and PostgreSQL for structured data. Admin dashboard for pipeline monitoring.</div>
+          <div class="tech-stack">
+            <h4>Tech Stack</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">Django</span><span class="tech-tag">NLP</span>
+              <span class="tech-tag">Redis</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Open Source -->
+    <div class="card" data-index="5">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge oss">Open Source</span>
+          <span class="tag">Community</span>
+          <h2>Open Source Contributions</h2>
+          <p>Active contributor to the open source community with projects focused on AI accessibility and developer tooling.</p>
+          <div class="stats">
+            <span class="stat-pill">★ 134 Quran Tracker</span>
+            <span class="stat-pill">★ 9 OCR</span>
+            <span class="stat-pill">★ 5 Messenger Bot</span>
+          </div>
+          <span class="flip-hint">Tap flip for impact</span>
+        </div>
+        <div class="card-flip">
+          <h3>Open Source Impact</h3>
+          <div class="detail"><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline"><strong>Quran Tracker</strong></a> — 134 stars, 15 forks. Community-driven Quran memorization and recitation tracking tool used by learners worldwide.</div>
+          <div class="detail"><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline"><strong>OCR</strong></a> — 9 stars, 1 fork. Open source handwriting recognition library with pre-trained models and easy integration.</div>
+          <div class="detail"><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline"><strong>Messenger Bot</strong></a> — 5 stars. Facebook Messenger chatbot framework for automated customer support and FAQ handling.</div>
+          <div class="tech-stack">
+            <h4>Languages</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python</span><span class="tech-tag">JavaScript</span><span class="tech-tag">TypeScript</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6: Client Testimonials -->
+    <div class="card" data-index="6">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge" style="background:#10b981">Testimonials</span>
+          <span class="tag">Client Feedback</span>
+          <h2>Testimonials</h2>
+          <div class="rating-card-content">
+            <div id="ratings-display"></div>
+            <a href="/rate-us.html" class="rate-link">Rate Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 7: Contact -->
+    <div class="card" data-index="7">
+      <div class="card-inner">
+        <div class="card-front">
+          <span class="card-type-badge contact">Contact</span>
+          <span class="tag">Get in Touch</span>
+          <h2>Contact Yahya Mahroof</h2>
+          <p>Open to collaborations, consulting, and interesting ML/MLOps challenges. Let's build something that works.</p>
+          <div class="stats">
+            <span class="stat-pill">Email</span>
+            <span class="stat-pill">GitHub</span>
+            <span class="stat-pill">LinkedIn</span>
+            <span class="stat-pill">WhatsApp</span>
+          </div>
+          <span class="flip-hint">Tap flip for links</span>
+        </div>
+        <div class="card-flip">
+          <h3>Connect</h3>
+          <div class="detail"><strong>Email:</strong> yahyamahroof35@gmail.com</div>
+          <div class="detail"><strong>GitHub:</strong> <a href="https://github.com/yayaiu6" target="_blank" rel="noopener">github.com/yayaiu6</a></div>
+          <div class="detail"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/yahya-mahrouf" target="_blank" rel="noopener">linkedin.com/in/yahya-mahrouf</a></div>
+          <div class="detail"><strong>WhatsApp:</strong> <a href="https://wa.me/201001866276" target="_blank" rel="noopener">wa.me/201001866276</a></div>
+          <div class="tech-stack">
+            <h4>Preferred Contact</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Email for work</span><span class="tech-tag">WhatsApp for quick chat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="indicator-dots" id="dots"></div>
+
+  <div class="controls">
+    <button id="prevBtn" aria-label="Previous card" title="Previous">◀</button>
+    <button class="flip-btn" id="flipBtn" aria-label="Flip card" title="Flip card">⟳</button>
+    <button id="nextBtn" aria-label="Next card" title="Next">▶</button>
+  </div>
+</div>
+
+<div class="swipe-indicator">Swipe or use buttons to navigate</div>
+
+<footer>&copy; 2026 Yahya Mahroof · All Rights Reserved</footer>
+
+<script>
+(function(){
+  var prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards=document.querySelectorAll('.card');
+  var total=cards.length;
+  var current=0;
+  var isAnimating=false;
+  var dots=document.getElementById('dots');
+  var counterNum=document.getElementById('counterNum');
+  var counterTotal=document.getElementById('counterTotal');
+  counterTotal.textContent='/ '+total;
+
+  for(var i=0;i<total;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===0?' active':'');
+    dots.appendChild(d);
+  }
+  var allDots=dots.querySelectorAll('.dot');
+
+  function updateCards(){
+    cards.forEach(function(c,i){
+      c.classList.remove('active','behind-1','behind-2','behind-3','hidden','swipe-left','swipe-right','flipped');
+      if(i===current){c.classList.add('active')}
+      else if(i===current+1){c.classList.add('behind-1')}
+      else if(i===current+2){c.classList.add('behind-2')}
+      else if(i===current+3){c.classList.add('behind-3')}
+      else{c.classList.add('hidden')}
+    });
+    allDots.forEach(function(d,i){d.classList.toggle('active',i===current)});
+    counterNum.textContent=current+1;
+  }
+
+  function goNext(){
+    if(isAnimating||current>=total-1)return;
+    isAnimating=true;
+    cards[current].classList.add('swipe-right');
+    current++;
+    updateCards();
+    setTimeout(function(){isAnimating=false},400);
+  }
+
+  function goPrev(){
+    if(isAnimating||current<=0)return;
+    isAnimating=true;
+    current--;
+    cards[current].classList.remove('hidden','swipe-left','swipe-right');
+    updateCards();
+    setTimeout(function(){isAnimating=false},400);
+  }
+
+  function flipCard(){
+    cards[current].classList.toggle('flipped');
+  }
+
+  document.getElementById('nextBtn').addEventListener('click',goNext);
+  document.getElementById('prevBtn').addEventListener('click',goPrev);
+  document.getElementById('flipBtn').addEventListener('click',flipCard);
+
+  var touchStartX=0;
+  var touchStartY=0;
+  document.addEventListener('touchstart',function(e){
+    touchStartX=e.touches[0].clientX;
+    touchStartY=e.touches[0].clientY;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-touchStartX;
+    var dy=e.changedTouches[0].clientY-touchStartY;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
+      if(dx<0)goNext();else goPrev();
+    }
+  },{passive:true});
+
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' ')goNext();
+    else if(e.key==='ArrowLeft')goPrev();
+    else if(e.key==='f'||e.key==='F')flipCard();
+  });
+
+  cards.forEach(function(c){
+    c.addEventListener('click',function(e){
+      if(e.target.closest('.url'))return;
+      if(c.classList.contains('active'))flipCard();
+    });
+  });
+
+  updateCards();
+})();
+</script>
+</body>
+</html>

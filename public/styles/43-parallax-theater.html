@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<script src="/shared/deps.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#111;--bg:#0a0a0a;--accent:#f59e0b;--accent2:#8b5cf6;--glass1:rgba(255,255,255,.04);--glass2:rgba(255,255,255,.07);--glass3:rgba(255,255,255,.1);--text:#e0e0e0;--muted:#888}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.parallax-layer{transform:none!important}}
+@media(prefers-color-scheme:light){:root{--ink:#111;--bg:#f5f5f5;--text:#333;--muted:#666;--glass1:rgba(0,0,0,.03);--glass2:rgba(0,0,0,.06);--glass3:rgba(0,0,0,.09)}}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter','Segoe UI',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.7;overflow-x:hidden}
+.skip-nav{position:absolute;top:-100%;left:0;background:var(--accent);color:#000;padding:8px 16px;z-index:300;font-size:14px;text-decoration:none}.skip-nav:focus{top:0}
+.theater{position:relative;min-height:400vh}
+.parallax-layer{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;will-change:transform}
+.layer-bg{z-index:1}
+.layer-mid{z-index:2}
+.layer-fg{z-index:3}
+.parallax-layer canvas,.parallax-layer .shape{position:absolute;pointer-events:none}
+.bg-shape{position:absolute;border-radius:50%;opacity:.15;filter:blur(80px)}
+.bg-shape.s1{width:600px;height:600px;background:var(--accent);top:10%;left:-10%}
+.bg-shape.s2{width:400px;height:400px;background:var(--accent2);top:40%;right:-5%}
+.bg-shape.s3{width:500px;height:500px;background:#ec4899;bottom:10%;left:20%}
+.mid-shape{position:absolute;border:1px solid rgba(255,255,255,.08);border-radius:16px}
+.mid-shape.m1{width:300px;height:300px;top:15%;right:15%;transform:rotate(12deg)}
+.mid-shape.m2{width:200px;height:200px;top:55%;left:10%;transform:rotate(-8deg)}
+.mid-shape.m3{width:250px;height:250px;bottom:20%;right:25%;transform:rotate(5deg)}
+.fg-shape{position:absolute;width:120px;height:120px;border:1px solid rgba(255,255,255,.12);border-radius:50%}
+.fg-shape.f1{top:20%;left:20%}.fg-shape.f2{top:50%;right:20%}.fg-shape.f3{bottom:25%;left:35%}
+.content-track{position:relative;z-index:10}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 20px;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,var(--bg) 100%);z-index:-1}
+.hero h1{font-size:clamp(2.5rem,7vw,5rem);font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .subtitle{font-size:clamp(1rem,2vw,1.4rem);color:var(--muted);max-width:600px;margin:0 auto 30px}
+.stats-bar{display:flex;gap:40px;justify-content:center}
+.stats-bar .s{text-align:center}.stats-bar .n{font-size:2.2rem;font-weight:900;display:block;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.stats-bar .l{font-size:10px;text-transform:uppercase;letter-spacing:3px;color:var(--muted)}
+.scene{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:80px 20px;position:relative}
+.scene-inner{max-width:900px;width:100%}
+.scene-label{font-size:10px;text-transform:uppercase;letter-spacing:4px;color:var(--accent);margin-bottom:8px;font-weight:700}
+.scene-title{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;margin-bottom:30px;letter-spacing:-1px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:20px}
+.skill-cell{padding:12px;text-align:center;border-radius:10px;background:var(--glass1);border:1px solid rgba(255,255,255,.06);font-size:13px;font-weight:600;transition:transform .2s,border-color .2s}
+.skill-cell:hover{transform:scale(1.05);border-color:var(--accent)}
+.project-cards{display:flex;flex-direction:column;gap:20px;margin-top:20px}
+.p-card{display:grid;grid-template-columns:1fr 1.5fr;gap:30px;padding:30px;border-radius:16px;background:var(--glass2);border:1px solid rgba(255,255,255,.06);transition:transform .3s,box-shadow .3s;align-items:center}
+@media(max-width:700px){.p-card{grid-template-columns:1fr;gap:16px}}
+.p-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.p-card .info .tag{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:4px;display:block}
+.p-card .info h3{font-size:1.3rem;font-weight:700;margin-bottom:6px}
+.p-card .info a{font-size:11px;font-family:monospace;color:var(--accent2);text-decoration:none;word-break:break-all}
+.p-card .info a:hover{text-decoration:underline}
+.p-card .info p{font-size:.9rem;color:var(--muted);margin-top:10px;line-height:1.6}
+.p-card .meta{text-align:center}
+.p-card .meta .ring{width:80px;height:80px;border-radius:50%;border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:1.5rem;font-weight:900;color:var(--accent)}
+.p-card .meta .ring-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--muted)}
+.oss-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:20px}
+.oss-card{padding:20px;border-radius:12px;background:var(--glass2);border:1px solid rgba(255,255,255,.06);text-align:center;transition:transform .2s}
+.oss-card:hover{transform:translateY(-3px)}
+.oss-card h4{font-size:.95rem;margin-bottom:4px}.oss-card .st{font-size:1.4rem;font-weight:900;color:var(--accent)}.oss-card .fk{font-size:11px;color:var(--muted)}
+.contact-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}
+.c-link{display:flex;align-items:center;gap:10px;padding:16px;border-radius:12px;background:var(--glass1);border:1px solid rgba(255,255,255,.06);text-decoration:none;color:var(--text);font-size:.9rem;transition:transform .2s,border-color .2s}
+.c-link:hover{transform:translateY(-2px);border-color:var(--accent)}
+.c-link .ico{font-size:1.2rem;opacity:.7}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.5rem;transition:transform .2s,border-color .2s}
+.rating-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.2)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:rgba(255,255,255,0.95)}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:rgba(255,255,255,0.45);margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:rgba(255,255,255,0.6);margin:0;padding-top:.75rem;border-top:1px solid rgba(255,255,255,0.06);font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3);color:#fff}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+footer{text-align:center;padding:40px 20px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;position:relative;z-index:10}
+</style>
+<script type="module" src="/shared/firebase-ratings.js"></script>
+</head>
+<body>
+<a href="#main" class="skip-nav">Skip to content</a>
+
+<div class="parallax-layer layer-bg" aria-hidden="true">
+  <div class="bg-shape s1"></div>
+  <div class="bg-shape s2"></div>
+  <div class="bg-shape s3"></div>
+</div>
+<div class="parallax-layer layer-mid" aria-hidden="true">
+  <div class="mid-shape m1"></div>
+  <div class="mid-shape m2"></div>
+  <div class="mid-shape m3"></div>
+</div>
+<div class="parallax-layer layer-fg" aria-hidden="true">
+  <div class="fg-shape f1"></div>
+  <div class="fg-shape f2"></div>
+  <div class="fg-shape f3"></div>
+</div>
+
+<div class="content-track">
+  <section class="hero" aria-label="Introduction">
+    <h1>Yahya Mahroof</h1>
+    <p class="subtitle">ML/MLOps Engineer — Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+    <div class="stats-bar">
+      <div class="s"><span class="n">14+</span><span class="l">Projects</span></div>
+      <div class="s"><span class="n">3+</span><span class="l">Years</span></div>
+      <div class="s"><span class="n">100%</span><span class="l">Satisfaction</span></div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-label">Technical Skills</div>
+        <div class="scene-title">Engineering Arsenal</div>
+        <div class="skills-grid">
+          <div class="skill-cell">Python</div><div class="skill-cell">Flask</div><div class="skill-cell">Django</div><div class="skill-cell">FastAPI</div>
+          <div class="skill-cell">TensorFlow</div><div class="skill-cell">PyTorch</div><div class="skill-cell">Docker</div><div class="skill-cell">Ubuntu</div>
+          <div class="skill-cell">CI/CD</div><div class="skill-cell">GPU Deploy</div><div class="skill-cell">React</div><div class="skill-cell">TypeScript</div>
+          <div class="skill-cell">Git</div><div class="skill-cell">Firebase</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-label">Featured Projects</div>
+        <div class="scene-title">Production AI Systems</div>
+        <div class="project-cards">
+          <div class="p-card">
+            <div class="info">
+              <span class="tag">AI · Education</span>
+              <h3>AI English Tutor</h3>
+              <a href="https://english-tutor.yahya-mahroof.site/" target="_blank" rel="noopener">english-tutor.yahya-mahroof.site</a>
+              <p>Intelligent tutoring system leveraging LLMs for personalized English instruction with adaptive learning paths and real-time feedback.</p>
+            </div>
+            <div class="meta"><div class="ring">AI</div><div class="ring-label">NLP</div></div>
+          </div>
+          <div class="p-card">
+            <div class="info">
+              <span class="tag">Computer Vision · OCR</span>
+              <h3>Handwriting OCR</h3>
+              <a href="https://yahya-mahroof.site/OCR-Demo" target="_blank" rel="noopener">yahya-mahroof.site/OCR-Demo</a>
+              <p>Deep learning handwriting recognition converting handwritten text to digital format with high accuracy across varied styles.</p>
+            </div>
+            <div class="meta"><div class="ring">CV</div><div class="ring-label">Vision</div></div>
+          </div>
+          <div class="p-card">
+            <div class="info">
+              <span class="tag">AI · Audio Processing</span>
+              <h3>Quran Recitation AI</h3>
+              <a href="https://quran-tracker.yahya-mahroof.site" target="_blank" rel="noopener">quran-tracker.yahya-mahroof.site</a>
+              <p>Real-time recitation feedback using neural networks for Tajweed compliance and pronunciation accuracy analysis.</p>
+            </div>
+            <div class="meta"><div class="ring">Quran</div><div class="ring-label">Audio AI</div></div>
+          </div>
+          <div class="p-card">
+            <div class="info">
+              <span class="tag">AI · Recruitment</span>
+              <h3>AI ATS System</h3>
+              <a href="https://ats.yahya-mahroof.site/admin" target="_blank" rel="noopener">ats.yahya-mahroof.site/admin</a>
+              <p>Intelligent applicant tracking with NLP resume parsing, semantic matching, and automated screening pipelines.</p>
+            </div>
+            <div class="meta"><div class="ring">ATS</div><div class="ring-label">NLP</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-label">Open Source</div>
+        <div class="scene-title">Community Contributions</div>
+        <div class="oss-row">
+          <div class="oss-card"><h4><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Quran Tracker</a></h4><div class="st">★ 134</div><div class="fk">15 forks</div></div>
+          <div class="oss-card"><h4><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">OCR</a></h4><div class="st">★ 9</div><div class="fk">1 fork</div></div>
+          <div class="oss-card"><h4><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Messenger Bot</a></h4><div class="st">★ 5</div><div class="fk">Community</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-label">Client Feedback</div>
+        <div class="scene-title">Testimonials</div>
+        <div id="ratings-display" class="ratings-grid"></div>
+        <a href="/rate-us.html" class="rate-link">Rate Us</a>
+      </div>
+    </section>
+
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-label">Get in Touch</div>
+        <div class="scene-title">Contact</div>
+        <div class="contact-row">
+          <a href="mailto:yahyamahroof35@gmail.com" class="c-link"><span class="ico"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 4l8 6 8-6"/></svg></span> yahyamahroof35@gmail.com</a>
+          <a href="https://github.com/yayaiu6" class="c-link" target="_blank" rel="noopener"><span class="ico"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17V9h4v8H3zM13 17V2h4v15h-4zM7 17v-5h6v5"/></svg></span> github.com/yayaiu6</a>
+          <a href="https://linkedin.com/in/yahya-mahrouf" class="c-link" target="_blank" rel="noopener"><span class="ico"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M6 9v5M6 6v.01M10 14v-3.5a1.5 1.5 0 013 0V14M10 9v5"/></svg></span> linkedin.com/in/yahya-mahrouf</a>
+          <a href="https://wa.me/201001866276" class="c-link" target="_blank" rel="noopener"><span class="ico"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2a8 8 0 100 16 8 8 0 000-16z"/><path d="M10 6v4l3 2"/></svg></span> WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 Yahya Mahroof · All Rights Reserved</footer>
+</div>
+
+<script>
+(function(){
+  var prefersReduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layerBg=document.querySelector('.layer-bg');
+  var layerMid=document.querySelector('.layer-mid');
+  var layerFg=document.querySelector('.layer-fg');
+
+  if(!prefersReduced){
+    window.addEventListener('scroll',function(){
+      var y=window.scrollY;
+      layerBg.style.transform='translateY('+y*.05+'px)';
+      layerMid.style.transform='translateY('+y*.15+'px)';
+      layerFg.style.transform='translateY('+y*.3+'px)';
+    },{passive:true});
+  }
+
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.style.opacity='1';
+        if(!prefersReduced)e.target.style.transform='translateY(0)';
+      }
+    });
+  },{threshold:0.1});
+
+  document.querySelectorAll('.scene,.p-card,.oss-card,.c-link,.skill-cell').forEach(function(el){
+    el.style.opacity='0';
+    if(!prefersReduced){el.style.transition='opacity .6s ease,transform .6s ease';el.style.transform='translateY(30px)'}
+    observer.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

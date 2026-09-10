@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --hue:220;
+  --sat:45%;
+  --lum:50%;
+  --bg-light:#f0f3f8;
+  --bg-dark:#1a1d2e;
+  --text-light:#1a1d2e;
+  --text-dark:#e8eaf0;
+  --muted-light:#6b7394;
+  --muted-dark:#9ba3c2;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  line-height:1.7;
+  font-size:15px;
+  -webkit-font-smoothing:antialiased;
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+.skip-nav{
+  position:absolute;top:-100%;left:16px;
+  background:var(--bg-dark);color:#fff;
+  padding:12px 24px;border-radius:0 0 8px 8px;
+  z-index:1000;text-decoration:none;font-weight:600;
+}
+.skip-nav:focus{top:0}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(80px,10vh,160px) clamp(32px,8vw,120px);
+  background:linear-gradient(160deg,
+    hsl(220,50%,92%) 0%,
+    hsl(225,55%,88%) 30%,
+    hsl(230,60%,84%) 60%,
+    hsl(235,65%,80%) 100%
+  );
+  color:var(--text-light);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-50%;right:-30%;
+  width:80vw;height:80vw;
+  background:radial-gradient(circle,
+    hsla(220,60%,70%,.15) 0%,
+    transparent 70%
+  );
+  border-radius:50%;
+}
+.hero h1{
+  font-size:clamp(40px,6vw,80px);
+  font-weight:200;
+  letter-spacing:-0.04em;
+  line-height:1.05;
+  max-width:800px;
+  position:relative;z-index:1;
+}
+.hero .role{
+  font-size:clamp(12px,1.2vw,14px);
+  text-transform:uppercase;
+  letter-spacing:0.25em;
+  color:var(--muted-light);
+  margin-top:24px;
+  position:relative;z-index:1;
+}
+.hero .bio{
+  max-width:560px;
+  margin-top:48px;
+  font-size:15px;
+  line-height:2;
+  color:rgba(26,29,46,.7);
+  position:relative;z-index:1;
+}
+
+.stats-bar{
+  display:flex;
+  gap:clamp(32px,6vw,80px);
+  padding:60px clamp(32px,8vw,120px);
+  background:linear-gradient(180deg,
+    hsl(225,55%,88%) 0%,
+    hsl(228,58%,85%) 100%
+  );
+  color:var(--text-light);
+}
+.stat .num{
+  font-size:clamp(36px,4vw,56px);
+  font-weight:200;
+  line-height:1;
+}
+.stat .label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.2em;
+  color:var(--muted-light);
+  margin-top:8px;
+}
+
+.section-dark{
+  padding:clamp(60px,8vh,120px) clamp(32px,8vw,120px);
+  background:linear-gradient(180deg,
+    hsl(230,60%,80%) 0%,
+    hsl(235,62%,72%) 30%,
+    hsl(240,65%,60%) 100%
+  );
+  color:var(--text-dark);
+}
+.section-darker{
+  padding:clamp(60px,8vh,120px) clamp(32px,8vw,120px);
+  background:linear-gradient(180deg,
+    hsl(240,65%,60%) 0%,
+    hsl(245,60%,45%) 50%,
+    hsl(250,55%,30%) 100%
+  );
+  color:var(--text-dark);
+}
+.section-darkest{
+  padding:clamp(60px,8vh,120px) clamp(32px,8vw,120px);
+  background:linear-gradient(180deg,
+    hsl(250,55%,30%) 0%,
+    hsl(255,50%,22%) 50%,
+    hsl(260,45%,16%) 100%
+  );
+  color:var(--text-dark);
+}
+
+.section-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.25em;
+  opacity:.5;
+  font-weight:400;
+  margin-bottom:48px;
+}
+
+.skills-flex{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 20px;
+  max-width:700px;
+}
+.skill-pill{
+  font-size:13px;
+  padding:10px 20px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:100px;
+  transition:background .3s,border-color .3s;
+}
+.skill-pill:hover{
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.4);
+}
+
+.project-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:32px;
+  max-width:900px;
+}
+.project-card{
+  padding:32px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  transition:border-color .3s,transform .3s;
+}
+.project-card:hover{
+  border-color:rgba(255,255,255,.3);
+  transform:translateY(-4px);
+}
+.project-card h3{
+  font-size:16px;
+  font-weight:500;
+  margin-bottom:12px;
+}
+.project-card p{
+  font-size:13px;
+  color:rgba(255,255,255,.7);
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.project-card a{
+  display:inline-block;
+  font-size:12px;
+  color:rgba(255,255,255,.6);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.2);
+  padding-bottom:2px;
+  transition:border-color .3s,color .3s;
+}
+.project-card a:hover{
+  color:#fff;
+  border-color:#fff;
+}
+
+.oss-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px 48px;
+  max-width:700px;
+}
+.oss-item{
+  font-size:14px;
+  opacity:.8;
+}
+.oss-item .stars{
+  opacity:.5;
+  margin-left:8px;
+  font-size:12px;
+}
+
+.contact-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px 40px;
+  max-width:700px;
+}
+.section-ratings{
+  padding:clamp(60px,8vh,120px) clamp(32px,8vw,120px);
+  background:linear-gradient(180deg,
+    hsl(245,60%,45%) 0%,
+    hsl(248,55%,38%) 100%
+  );
+  color:var(--text-dark);
+}
+
+.contact-row a{
+  font-size:14px;
+  color:var(--text-dark);
+  text-decoration:none;
+  padding:12px 24px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:8px;
+  transition:background .3s,border-color .3s;
+}
+.contact-row a:hover{
+  background:rgba(255,255,255,.1);
+  border-color:rgba(255,255,255,.4);
+}
+
+footer{
+  text-align:center;
+  padding:40px clamp(32px,8vw,120px);
+  background:hsl(260,45%,16%);
+  color:rgba(255,255,255,.3);
+  font-size:12px;
+}
+
+@media(max-width:768px){
+  .stats-bar{flex-wrap:wrap;gap:32px}
+  .project-grid{grid-template-columns:1fr}
+}
+.ratings-section{padding:4rem 0;text-align:center}
+.ratings-section h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:2rem}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.5rem;transition:transform .2s,border-color .2s}
+.rating-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.2)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:rgba(255,255,255,0.95)}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:rgba(255,255,255,0.45);margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:rgba(255,255,255,0.6);margin:0;padding-top:.75rem;border-top:1px solid rgba(255,255,255,0.06);font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.3);color:#fff}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-nav">Skip to content</a>
+
+<header class="hero" role="banner" id="main">
+  <h1>Yahya Mahroof</h1>
+  <p class="role">ML / MLOps Engineer</p>
+  <p class="bio">Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+</header>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="num">14+</div>
+    <div class="label">Projects</div>
+  </div>
+  <div class="stat">
+    <div class="num">3+</div>
+    <div class="label">Years</div>
+  </div>
+  <div class="stat">
+    <div class="num">100%</div>
+    <div class="label">Satisfaction</div>
+  </div>
+</div>
+
+<section class="section-dark" aria-label="Skills">
+  <p class="section-label">Skills</p>
+  <div class="skills-flex">
+    <span class="skill-pill">Python</span>
+    <span class="skill-pill">Flask</span>
+    <span class="skill-pill">Django</span>
+    <span class="skill-pill">FastAPI</span>
+    <span class="skill-pill">TensorFlow</span>
+    <span class="skill-pill">PyTorch</span>
+    <span class="skill-pill">Docker</span>
+    <span class="skill-pill">Ubuntu</span>
+    <span class="skill-pill">CI/CD</span>
+    <span class="skill-pill">GPU Deployment</span>
+    <span class="skill-pill">React</span>
+    <span class="skill-pill">TypeScript</span>
+    <span class="skill-pill">Git</span>
+    <span class="skill-pill">Firebase</span>
+  </div>
+</section>
+
+<section class="section-darker" aria-label="Projects">
+  <p class="section-label">Projects</p>
+  <div class="project-grid">
+    <div class="project-card">
+      <h3>AI English Tutor</h3>
+      <p>Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.</p>
+      <a href="https://english-tutor.yahya-mahroof.site/" target="_blank" rel="noopener">Visit &rarr;</a>
+    </div>
+    <div class="project-card">
+      <h3>Handwriting OCR</h3>
+      <p>Turn handwritten text into digital data instantly with high accuracy for easier documentation.</p>
+      <a href="https://yahya-mahroof.site/OCR-Demo" target="_blank" rel="noopener">Visit &rarr;</a>
+    </div>
+    <div class="project-card">
+      <h3>Quran Recitation AI</h3>
+      <p>Test your memorization using AI voice recognition to detect and correct reading mistakes.</p>
+      <a href="https://quran-tracker.yahya-mahroof.site" target="_blank" rel="noopener">Visit &rarr;</a>
+    </div>
+    <div class="project-card">
+      <h3>AI ATS System</h3>
+      <p>Automatically compare applicant CVs against job descriptions to screen the best candidates.</p>
+      <a href="https://ats.yahya-mahroof.site/admin" target="_blank" rel="noopener">Visit &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-ratings" aria-label="Client Testimonials">
+  <p class="section-label">Client Feedback</p>
+  <div id="ratings-display" class="ratings-grid"></div>
+  <a href="/rate-us.html" class="rate-link">Rate Us &rarr;</a>
+</section>
+
+<section class="section-darkest" aria-label="Open Source & Contact">
+  <p class="section-label">Open Source</p>
+  <div class="oss-row">
+    <div class="oss-item"><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Quran Tracker</a> <span class="stars">134&#9733; &middot; 15 forks</span></div>
+    <div class="oss-item"><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">OCR</a> <span class="stars">9&#9733; &middot; 1 fork</span></div>
+    <div class="oss-item"><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Messenger Bot</a> <span class="stars">5&#9733;</span></div>
+  </div>
+
+  <p class="section-label" style="margin-top:64px">Contact</p>
+  <div class="contact-row">
+    <a href="mailto:yahyamahroof35@gmail.com">Email</a>
+    <a href="https://github.com/yayaiu6" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/yahya-mahrouf" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://wa.me/201001866276" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Yahya Mahroof</p>
+</footer>
+<script type="module" src="/shared/firebase-ratings.js"></script>
+</body>
+</html>

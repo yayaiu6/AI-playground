@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#f5f4f0;
+  --text:#2c2c2c;
+  --text-muted:#6b6b6b;
+  --accent:#4a4a4a;
+  --rule:#d4d2cd;
+  --card-bg:#ffffff;
+  --card-border:#e0ded9;
+}
+
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+
+body{
+  font-family:'Source Serif 4','Source Serif Pro',Georgia,'Times New Roman',serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+}
+
+.skip-link{
+  position:absolute;
+  top:-100%;
+  left:16px;
+  background:var(--text);
+  color:var(--bg);
+  padding:8px 16px;
+  z-index:1000;
+  border-radius:0 0 4px 4px;
+  font-size:14px;
+  text-decoration:none;
+}
+.skip-link:focus{top:0}
+
+.monolith{
+  max-width:680px;
+  margin:0 auto;
+  padding:80px 24px 100px;
+}
+
+/* Fade-in on scroll */
+.mono-section{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.mono-section.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media(prefers-reduced-motion:reduce){
+  .mono-section{opacity:1;transform:none}
+}
+
+/* Header / Name */
+.mono-name{
+  font-size:clamp(2.4rem,6vw,3.6rem);
+  font-weight:700;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  margin-bottom:4px;
+}
+.mono-title{
+  font-size:clamp(1rem,2.5vw,1.15rem);
+  font-weight:300;
+  color:var(--text-muted);
+  margin-bottom:0;
+}
+
+.mono-rule{
+  border:none;
+  border-top:1px solid var(--rule);
+  margin:56px 0;
+}
+.mono-rule--top{margin-top:0}
+
+/* Section titles */
+.mono-section-label{
+  font-size:0.72rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.14em;
+  color:var(--text-muted);
+  margin-bottom:20px;
+}
+
+/* Bio */
+.mono-bio{
+  font-size:1.05rem;
+  line-height:1.8;
+  color:var(--text);
+  max-width:600px;
+}
+
+/* Stats */
+.mono-stats{
+  display:flex;
+  gap:40px;
+  flex-wrap:wrap;
+}
+.mono-stat-num{
+  font-size:2rem;
+  font-weight:700;
+  line-height:1;
+  display:block;
+  color:var(--text);
+}
+.mono-stat-label{
+  font-size:0.82rem;
+  color:var(--text-muted);
+  letter-spacing:0.03em;
+}
+
+/* Skills */
+.mono-skills{
+  font-size:1rem;
+  line-height:2;
+  color:var(--text-muted);
+}
+.mono-skills span{
+  display:inline;
+}
+
+/* Projects */
+.mono-projects{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.mono-project{
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:6px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .25s ease;
+}
+.mono-project:hover,
+.mono-project:focus-within{
+  border-color:var(--accent);
+}
+.mono-project-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 22px;
+  user-select:none;
+}
+.mono-project-name{
+  font-size:1.05rem;
+  font-weight:600;
+  color:var(--text);
+}
+.mono-project-chevron{
+  width:18px;
+  height:18px;
+  color:var(--text-muted);
+  transition:transform .3s ease;
+  flex-shrink:0;
+}
+.mono-project.expanded .mono-project-chevron{
+  transform:rotate(180deg);
+}
+.mono-project-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+.mono-project.expanded .mono-project-body{
+  max-height:300px;
+}
+.mono-project-content{
+  padding:0 22px 20px;
+  font-size:0.92rem;
+  color:var(--text-muted);
+  line-height:1.7;
+}
+.mono-project-link{
+  display:inline-block;
+  margin-top:10px;
+  font-size:0.85rem;
+  color:var(--accent);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.mono-project-link:hover{color:var(--text)}
+
+/* Open Source */
+.mono-oss{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.mono-oss-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  font-size:0.98rem;
+}
+.mono-oss-name{font-weight:600;color:var(--text)}
+.mono-oss-meta{
+  font-size:0.84rem;
+  color:var(--text-muted);
+  white-space:nowrap;
+}
+
+/* Contact */
+.mono-contact{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.mono-contact a{
+  color:var(--accent);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  word-break:break-all;
+  font-size:0.95rem;
+}
+.mono-contact a:hover{color:var(--text)}
+
+/* Ratings */
+.ratings-section{padding:4rem 0;text-align:center}
+.ratings-section h2{font-family:var(--body);font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:2rem}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s}
+.rating-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:#111827}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:#6b7280;margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:#4b5563;margin:0;padding-top:.75rem;border-top:1px solid #f3f4f6;font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid #d1d5db;border-radius:8px;color:#374151;text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:#f9fafb;border-color:#9ca3af;color:#111827}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+
+/* Responsive */
+@media(max-width:480px){
+  .monolith{padding:56px 18px 80px}
+  .mono-stats{gap:28px}
+  .mono-project-header{padding:15px 16px}
+  .mono-project-content{padding:0 16px 16px}
+  .mono-rule{margin:44px 0}
+}
+</style>
+</head>
+<body>
+
+<a href="#content" class="skip-link">Skip to content</a>
+
+<main class="monolith" id="content">
+
+  <!-- Name -->
+  <section class="mono-section">
+    <h1 class="mono-name">Yahya Mahroof</h1>
+    <p class="mono-title">ML/MLOps Engineer</p>
+  </section>
+
+  <hr class="mono-rule mono-rule--top">
+
+  <!-- Bio -->
+  <section class="mono-section">
+    <p class="mono-section-label">About</p>
+    <p class="mono-bio">Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+  </section>
+
+  <hr class="mono-rule">
+
+  <!-- Stats -->
+  <section class="mono-section">
+    <p class="mono-section-label">At a Glance</p>
+    <div class="mono-stats">
+      <div>
+        <span class="mono-stat-num">14+</span>
+        <span class="mono-stat-label">Projects</span>
+      </div>
+      <div>
+        <span class="mono-stat-num">3+</span>
+        <span class="mono-stat-label">Years</span>
+      </div>
+      <div>
+        <span class="mono-stat-num">100%</span>
+        <span class="mono-stat-label">Satisfaction</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="mono-rule">
+
+  <!-- Skills -->
+  <section class="mono-section">
+    <p class="mono-section-label">Skills</p>
+    <p class="mono-skills">
+      <span>Python, Flask, Django, FastAPI, TensorFlow, PyTorch, Docker, Ubuntu, CI/CD, GPU Deployment, React, TypeScript, Git, Firebase</span>
+    </p>
+  </section>
+
+  <hr class="mono-rule">
+
+  <!-- Projects -->
+  <section class="mono-section">
+    <p class="mono-section-label">Projects</p>
+    <div class="mono-projects">
+
+      <article class="mono-project" tabindex="0" role="button" aria-expanded="false">
+        <div class="mono-project-header">
+          <span class="mono-project-name">AI English Tutor</span>
+          <svg class="mono-project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="mono-project-body">
+          <div class="mono-project-content">
+            An interactive AI-powered English learning platform that provides personalized tutoring, real-time feedback, and adaptive lessons for learners at every level.
+            <a href="https://english-tutor.yahya-mahroof.site/" class="mono-project-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Visit &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mono-project" tabindex="0" role="button" aria-expanded="false">
+        <div class="mono-project-header">
+          <span class="mono-project-name">Handwriting OCR</span>
+          <svg class="mono-project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="mono-project-body">
+          <div class="mono-project-content">
+            A handwriting recognition system that converts handwritten text into digital form using deep learning, supporting multiple languages and styles.
+            <a href="https://yahya-mahroof.site/OCR-Demo" class="mono-project-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Visit &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mono-project" tabindex="0" role="button" aria-expanded="false">
+        <div class="mono-project-header">
+          <span class="mono-project-name">Quran Recitation AI</span>
+          <svg class="mono-project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="mono-project-body">
+          <div class="mono-project-content">
+            An AI system that analyzes Quran recitation, provides real-time feedback on Tajweed rules, and tracks memorization progress for learners.
+            <a href="https://quran-tracker.yahya-mahroof.site" class="mono-project-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Visit &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mono-project" tabindex="0" role="button" aria-expanded="false">
+        <div class="mono-project-header">
+          <span class="mono-project-name">AI ATS System</span>
+          <svg class="mono-project-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="mono-project-body">
+          <div class="mono-project-content">
+            An AI-powered Applicant Tracking System that automates resume screening, candidate matching, and hiring workflow management.
+            <a href="https://ats.yahya-mahroof.site/admin" class="mono-project-link" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Visit &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <hr class="mono-rule">
+
+  <!-- Open Source -->
+  <section class="mono-section">
+    <p class="mono-section-label">Open Source</p>
+    <div class="mono-oss">
+      <div class="mono-oss-item">
+        <span class="mono-oss-name"><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Quran Tracker</a></span>
+        <span class="mono-oss-meta">134 stars &middot; 15 forks</span>
+      </div>
+      <div class="mono-oss-item">
+        <span class="mono-oss-name"><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">OCR</a></span>
+        <span class="mono-oss-meta">9 stars &middot; 1 fork</span>
+      </div>
+      <div class="mono-oss-item">
+        <span class="mono-oss-name"><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Messenger Bot</a></span>
+        <span class="mono-oss-meta">5 stars</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Testimonials -->
+  <section class="mono-section">
+    <p class="mono-section-label">Client Feedback</p>
+    <div id="ratings-display" class="mono-ratings"></div>
+    <a href="/rate-us.html" class="mono-rate-link">Rate Us</a>
+  </section>
+
+  <hr class="mono-rule">
+
+  <!-- Contact -->
+  <section class="mono-section">
+    <p class="mono-section-label">Contact</p>
+    <div class="mono-contact">
+      <a href="mailto:yahyamahroof35@gmail.com">yahyamahroof35@gmail.com</a>
+      <a href="https://github.com/yayaiu6" target="_blank" rel="noopener noreferrer">github.com/yayaiu6</a>
+      <a href="https://linkedin.com/in/yahya-mahrouf" target="_blank" rel="noopener noreferrer">linkedin.com/in/yahya-mahrouf</a>
+      <a href="https://wa.me/201001866276" target="_blank" rel="noopener noreferrer">wa.me/201001866276</a>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="/shared/firebase-ratings.js"></script>
+<script>
+(function(){
+  var reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll-triggered fade-in
+  var sections=document.querySelectorAll('.mono-section');
+  if(!reducedMotion&&'IntersectionObserver' in window){
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+    sections.forEach(function(s){observer.observe(s)});
+  }else{
+    sections.forEach(function(s){s.classList.add('visible')});
+  }
+
+  // Project expand/collapse
+  var projects=document.querySelectorAll('.mono-project');
+  projects.forEach(function(p){
+    function toggle(){
+      var expanded=p.classList.toggle('expanded');
+      p.setAttribute('aria-expanded',expanded?'true':'false');
+    }
+    p.addEventListener('click',function(e){
+      if(e.target.tagName==='A')return;
+      toggle();
+    });
+    p.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

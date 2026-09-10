@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yahya Mahroof — ML/MLOps Engineer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --paper: #fdfcf9;
+  --paper-edge: #f0ede6;
+  --ink: #1a1814;
+  --ink-dim: #5c574d;
+  --ink-faint: #9e9889;
+  --rule: #d4cfc4;
+  --rule-light: #e8e4da;
+  --accent: #8b2500;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Source Sans 3', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --page-max: 720px;
+  --page-pad: 3.5rem;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  font-family: var(--font-sans);
+  background: #e8e4da;
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.5rem 1rem;
+  z-index: 10000;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+}
+.skip-nav:focus { top: 0; }
+
+/* === PAGE STRUCTURE === */
+.page {
+  background: var(--paper);
+  max-width: var(--page-max);
+  margin: 2rem auto;
+  padding: var(--page-pad);
+  position: relative;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.06),
+    0 4px 12px rgba(0,0,0,0.04),
+    12px 0 24px -8px rgba(0,0,0,0.03);
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50px;
+  width: 1px;
+  background: var(--rule-light);
+}
+
+@media (max-width: 768px) {
+  .page { margin: 0; padding: 2rem 1.5rem; }
+  .page::before { left: 20px; }
+}
+
+/* === PAGE HEADER === */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 2rem;
+}
+
+.page-header-title {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.page-header-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+
+/* === PAGE FOOTER === */
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.page-footer-name {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--ink-faint);
+}
+
+.page-footer-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+
+/* === SECTION TITLES (PRINT STYLE) === */
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.section-subhead {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.6rem;
+}
+
+/* === COVER PAGE === */
+.cover-content {
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+
+.cover-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.cover-rule {
+  width: 80px;
+  height: 2px;
+  background: var(--accent);
+  margin: 1.2rem auto;
+}
+
+.cover-role {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--ink-dim);
+  letter-spacing: 0.1em;
+}
+
+.cover-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* === JUSTIFIED TEXT === */
+.text-justify {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  line-height: 1.8;
+}
+
+.text-justify::first-letter {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: 700;
+  float: left;
+  line-height: 1;
+  margin-right: 0.15em;
+  margin-top: 0.05em;
+  color: var(--ink);
+}
+
+/* === SKILLS TABLE === */
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.skills-table th {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid var(--ink);
+}
+
+.skills-table td {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  vertical-align: top;
+}
+
+.skills-table td:first-child {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--ink);
+  width: 120px;
+}
+
+.skills-table td:last-child {
+  color: var(--ink-dim);
+}
+
+.skill-list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.skill-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  color: var(--ink-dim);
+}
+
+/* === STATS TABLE === */
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.stats-table th {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 0.5rem 1rem 0.5rem 0;
+  border-bottom: 2px solid var(--ink);
+}
+
+.stats-table td {
+  padding: 0.8rem 1rem 0.8rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.9rem;
+}
+
+.stats-table td:first-child {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+.stats-table td:last-child {
+  color: var(--ink-dim);
+}
+
+/* === PROJECTS LIST === */
+.project-entry {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.project-entry:last-child { border-bottom: none; }
+
+.project-idx {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  text-align: right;
+}
+
+.project-detail h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+
+.project-detail a {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+  word-break: break-all;
+}
+
+.project-detail a:hover { border-color: var(--accent); }
+
+.project-desc {
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+  line-height: 1.5;
+  margin-bottom: 0.4rem;
+}
+
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* === RATINGS === */
+.ratings-section{margin:1rem 0}
+.ratings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;max-width:1100px;margin:0 auto;text-align:left}
+.rating-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s}
+.rating-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.rating-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.rating-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex-shrink:0}
+.rating-info{flex:1;min-width:0}
+.rating-name-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rating-name{font-weight:700;font-size:1rem;color:#111827}
+.rating-stars{display:flex;gap:2px;flex-shrink:0}
+.rating-contact{display:flex;flex-wrap:wrap;gap:.75rem;font-size:.8rem;color:#6b7280;margin-top:.25rem}
+.rating-email,.rating-phone{display:inline-flex;align-items:center;gap:4px}
+.rating-comment{font-size:.92rem;line-height:1.6;color:#4b5563;margin:0;padding-top:.75rem;border-top:1px solid #f3f4f6;font-style:italic}
+.ratings-empty{opacity:.5;text-align:center;padding:2rem}
+.rate-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2rem;padding:.75rem 1.5rem;border:1px solid #d1d5db;border-radius:8px;color:#374151;text-decoration:none;font-size:.9rem;transition:all .2s}
+.rate-link:hover{background:#f9fafb;border-color:#9ca3af;color:#111827}
+@media(max-width:600px){.ratings-grid{grid-template-columns:1fr}}
+
+/* === OSS TABLE === */
+.oss-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.oss-table th {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid var(--ink);
+}
+
+.oss-table td {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+}
+
+.oss-table td:first-child {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* === CONTACT BLOCK === */
+.contact-block {
+  margin-top: 1rem;
+}
+
+.contact-entry {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.9rem;
+}
+
+.contact-entry:last-child { border-bottom: none; }
+
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.1rem;
+}
+
+.contact-entry a {
+  color: var(--ink-dim);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.2s, border-color 0.2s;
+  word-break: break-all;
+}
+
+.contact-entry a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* === COLOPHON === */
+.colophon {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+  margin-top: 1rem;
+  letter-spacing: 0.1em;
+}
+
+/* === PAGE BREAK MARKERS === */
+.page-break {
+  page-break-after: always;
+}
+
+/* === ANIMATION === */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page {
+  animation: page-enter 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.page:nth-child(1) { animation-delay: 0.1s; }
+.page:nth-child(2) { animation-delay: 0.2s; }
+.page:nth-child(3) { animation-delay: 0.3s; }
+.page:nth-child(4) { animation-delay: 0.4s; }
+.page:nth-child(5) { animation-delay: 0.5s; }
+.page:nth-child(6) { animation-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page { animation: none; opacity: 1; }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  :root { --page-pad: 1.5rem; }
+  .page { box-shadow: none; border-bottom: 1px solid var(--rule); }
+  .page-header { flex-direction: column; gap: 0.3rem; }
+  .project-entry { grid-template-columns: 1fr; gap: 0.2rem; }
+  .project-idx { text-align: left; }
+  .project-tag { display: none; }
+}
+</style>
+<script type="module" src="/shared/firebase-ratings.js"></script>
+</head>
+<body>
+<a href="#main" class="skip-nav">Skip to content</a>
+
+<!-- PAGE 1: COVER -->
+<div class="page page-break" role="document">
+  <div class="cover-content">
+    <h1 class="cover-name">Yahya<br>Mahroof</h1>
+    <div class="cover-rule"></div>
+    <p class="cover-role">ML / MLOps Engineer</p>
+    <p class="cover-meta">PORTFOLIO — 2026 EDITION</p>
+  </div>
+  <div class="colophon">
+    Self-contained portfolio · All works referenced herein
+  </div>
+</div>
+
+<!-- PAGE 2: ABOUT -->
+<div class="page page-break" role="document" id="main">
+  <header class="page-header">
+    <span class="page-header-title">Yahya Mahroof</span>
+    <span class="page-header-num">ii</span>
+  </header>
+
+  <section aria-label="About">
+    <div class="section-subhead">Section 01</div>
+    <h2 class="section-heading">About</h2>
+    <p class="text-justify">Results-driven ML Operations Engineer with experience designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real-world solutions.</p>
+  </section>
+
+  <section aria-label="Statistics" style="margin-top: 2rem;">
+    <div class="section-subhead">Section 02</div>
+    <h2 class="section-heading">Statistics</h2>
+    <table class="stats-table">
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>14+</td><td>Projects Completed</td></tr>
+        <tr><td>3+</td><td>Years Experience</td></tr>
+        <tr><td>100%</td><td>Client Satisfaction</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="page-footer">
+    <span class="page-footer-name">Yahya Mahroof</span>
+    <span class="page-footer-num">— 1</span>
+  </footer>
+</div>
+
+<!-- PAGE 3: SKILLS -->
+<div class="page page-break" role="document">
+  <header class="page-header">
+    <span class="page-header-title">Yahya Mahroof</span>
+    <span class="page-header-num">iii</span>
+  </header>
+
+  <section aria-label="Skills">
+    <div class="section-subhead">Section 03</div>
+    <h2 class="section-heading">Technical Skills</h2>
+    <table class="skills-table">
+      <thead>
+        <tr><th>Category</th><th>Technologies</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Languages</td>
+          <td>
+            <div class="skill-list-inline">
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">TypeScript</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Frameworks</td>
+          <td>
+            <div class="skill-list-inline">
+              <span class="skill-pill">Flask</span>
+              <span class="skill-pill">Django</span>
+              <span class="skill-pill">FastAPI</span>
+              <span class="skill-pill">React</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>ML / AI</td>
+          <td>
+            <div class="skill-list-inline">
+              <span class="skill-pill">TensorFlow</span>
+              <span class="skill-pill">PyTorch</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Infrastructure</td>
+          <td>
+            <div class="skill-list-inline">
+              <span class="skill-pill">Docker</span>
+              <span class="skill-pill">Ubuntu</span>
+              <span class="skill-pill">CI/CD</span>
+              <span class="skill-pill">GPU Deployment</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Tools</td>
+          <td>
+            <div class="skill-list-inline">
+              <span class="skill-pill">Git</span>
+              <span class="skill-pill">Firebase</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="page-footer">
+    <span class="page-footer-name">Yahya Mahroof</span>
+    <span class="page-footer-num">— 2</span>
+  </footer>
+</div>
+
+<!-- PAGE 4: PROJECTS -->
+<div class="page page-break" role="document">
+  <header class="page-header">
+    <span class="page-header-title">Yahya Mahroof</span>
+    <span class="page-header-num">iv</span>
+  </header>
+
+  <section aria-label="Projects">
+    <div class="section-subhead">Section 04</div>
+    <h2 class="section-heading">Projects</h2>
+
+    <div class="project-entry">
+      <span class="project-idx">01</span>
+      <div class="project-detail">
+        <h3>AI English Tutor</h3>
+        <p class="project-desc">Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.</p>
+        <a href="https://english-tutor.yahya-mahroof.site/" target="_blank" rel="noopener">english-tutor.yahya-mahroof.site</a>
+      </div>
+      <span class="project-tag">Live</span>
+    </div>
+
+    <div class="project-entry">
+      <span class="project-idx">02</span>
+      <div class="project-detail">
+        <h3>Handwriting OCR</h3>
+        <p class="project-desc">Turn handwritten text into digital data instantly with high accuracy for easier documentation.</p>
+        <a href="https://yahya-mahroof.site/OCR-Demo" target="_blank" rel="noopener">yahya-mahroof.site/OCR-Demo</a>
+      </div>
+      <span class="project-tag">Live</span>
+    </div>
+
+    <div class="project-entry">
+      <span class="project-idx">03</span>
+      <div class="project-detail">
+        <h3>Quran Recitation AI</h3>
+        <p class="project-desc">Test your memorization using AI voice recognition to detect and correct reading mistakes.</p>
+        <a href="https://quran-tracker.yahya-mahroof.site" target="_blank" rel="noopener">quran-tracker.yahya-mahroof.site</a>
+      </div>
+      <span class="project-tag">Live</span>
+    </div>
+
+    <div class="project-entry">
+      <span class="project-idx">04</span>
+      <div class="project-detail">
+        <h3>AI ATS System</h3>
+        <p class="project-desc">Automatically compare applicant CVs against job descriptions to screen the best candidates.</p>
+        <a href="https://ats.yahya-mahroof.site/admin" target="_blank" rel="noopener">ats.yahya-mahroof.site/admin</a>
+      </div>
+      <span class="project-tag">Live</span>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <span class="page-footer-name">Yahya Mahroof</span>
+    <span class="page-footer-num">— 3</span>
+  </footer>
+</div>
+
+<!-- PAGE 5: OPEN SOURCE -->
+<div class="page page-break" role="document">
+  <header class="page-header">
+    <span class="page-header-title">Yahya Mahroof</span>
+    <span class="page-header-num">v</span>
+  </header>
+
+  <section aria-label="Open Source">
+    <div class="section-subhead">Section 05</div>
+    <h2 class="section-heading">Open Source</h2>
+    <table class="oss-table">
+      <thead>
+        <tr><th>Repository</th><th>Stars</th><th>Forks</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Quran Tracker</a></td>
+          <td>134</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">OCR</a></td>
+          <td>9</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/yayaiu6/ChatGPT-Powered-Messenger-Bot" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">Messenger Bot</a></td>
+          <td>5</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="page-footer">
+    <span class="page-footer-name">Yahya Mahroof</span>
+    <span class="page-footer-num">— 4</span>
+  </footer>
+</div>
+
+<!-- PAGE 6: TESTIMONIALS -->
+<div class="page page-break" role="document">
+  <header class="page-header">
+    <span class="page-header-title">Yahya Mahroof</span>
+    <span class="page-header-num">vi</span>
+  </header>
+
+  <section aria-label="Client Testimonials">
+    <div class="section-subhead">Section 06</div>
+    <h2 class="section-heading">Client Feedback</h2>
+    <div id="ratings-display" class="ratings-grid"></div>
+    <a href="/rate-us.html" class="rate-link">Rate Us</a>
+  </section>
+
+  <footer class="page-footer">
+    <span class="page-footer-name">Yahya Mahroof</span>
+    <span class="page-footer-num">— 5</span>
+  </footer>
+</div>
+
+<!-- PAGE 7: CONTACT -->
+<div class="page" role="document">
+  <header class="page-header">
+    <span class="page-header-title">Yahya Mahroof</span>
+    <span class="page-header-num">vii</span>
+  </header>
+
+  <section aria-label="Contact">
+    <div class="section-subhead">Section 06</div>
+    <h2 class="section-heading">Contact</h2>
+    <div class="contact-block">
+      <div class="contact-entry">
+        <div class="contact-label">Email</div>
+        <a href="mailto:yahyamahroof35@gmail.com">yahyamahroof35@gmail.com</a>
+      </div>
+      <div class="contact-entry">
+        <div class="contact-label">GitHub</div>
+        <a href="https://github.com/yayaiu6" target="_blank" rel="noopener">github.com/yayaiu6</a>
+      </div>
+      <div class="contact-entry">
+        <div class="contact-label">LinkedIn</div>
+        <a href="https://linkedin.com/in/yahya-mahrouf" target="_blank" rel="noopener">linkedin.com/in/yahya-mahrouf</a>
+      </div>
+      <div class="contact-entry">
+        <div class="contact-label">WhatsApp</div>
+        <a href="https://wa.me/201001866276" target="_blank" rel="noopener">+20 100 186 6276</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="colophon">
+    Yahya Mahroof — ML/MLOps Engineer · Portfolio 2026
+  </div>
+
+  <footer class="page-footer">
+    <span class="page-footer-name">Yahya Mahroof</span>
+    <span class="page-footer-num">— 5</span>
+  </footer>
+</div>
+
+<script>
+(function() {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    document.querySelectorAll('.page').forEach(p => { p.style.opacity = '1'; });
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.page').forEach(p => observer.observe(p));
+})();
+</script>
+</body>
+</html>
