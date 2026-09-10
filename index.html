@@ -137,6 +137,15 @@
         document.body.removeAttribute('style');
         document.body.innerHTML = doc.body.innerHTML;
 
+        /* ── Load deps.js synchronously so window.loadDep exists for inline scripts ── */
+        if (!window.loadDep) {
+          try {
+            var depsResp = await fetch('/shared/deps.js');
+            var depsCode = await depsResp.text();
+            eval(depsCode);
+          } catch (e) { /* deps.js missing — inline scripts will handle it */ }
+        }
+
         /* ── Inject <script src="..."> (non-module, e.g. GSAP) ── */
         doc.querySelectorAll('script[src]:not([type="module"])').forEach(function(old) {
           var src = old.getAttribute('src');
