@@ -46,10 +46,10 @@ const projects = [
   {
     icon: GraduationCap,
     title: 'AI English Tutor',
-    desc: 'Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.',
+    desc: 'A real-time AI English teacher you speak with naturally. It listens, responds aloud, and teaches through spoken conversation.',
     url: 'https://english-tutor.yahya-mahroof.site/',
     tech: ['React', 'Python', 'LLM'],
-    visual: 'typing' as const,
+    visual: 'voice' as const,
   },
   {
     icon: FileText,
@@ -110,12 +110,12 @@ function ScaleIn({
 }
 
 /* ── Project Visual Previews ───────────────────────────────────────────── */
-function ProjectVisual({ type }: { type: 'typing' | 'scan' | 'wave' | 'doc' }) {
+function ProjectVisual({ type }: { type: 'voice' | 'scan' | 'wave' | 'doc' }) {
   const previewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const preview = previewRef.current
-    if (!preview || (type !== 'scan' && type !== 'wave')) return
+    if (!preview || (type !== 'scan' && type !== 'wave' && type !== 'voice')) return
 
     if (!('IntersectionObserver' in window)) {
       preview.classList.add('is-visible')
@@ -129,23 +129,34 @@ function ProjectVisual({ type }: { type: 'typing' | 'scan' | 'wave' | 'doc' }) {
     return () => observer.disconnect()
   }, [type])
 
-  if (type === 'typing') {
+  if (type === 'voice') {
     return (
-      <div ref={previewRef} className="project-preview project-preview--chat">
-        <div className="flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-red-400/70" />
-          <div className="w-1.5 h-1.5 rounded-full bg-amber-400/70" />
-          <div className="w-1.5 h-1.5 rounded-full bg-green-400/70" />
+      <div ref={previewRef} className="project-preview project-preview--voice" aria-hidden="true">
+        <div className="voice-preview__topline">
+          <span className="voice-preview__live"><span /> Live voice lesson</span>
+          <span className="voice-preview__mode">EN · REAL TIME</span>
         </div>
-        <div className="flex-1 flex items-end">
-          <div className="text-xs font-mono text-[var(--text-muted)] leading-relaxed">
-            <span className="text-primary font-medium">You:</span> "Can you explain past tense?"
-            <br />
-            <span className="text-primary font-medium">AI:</span> Of course! Past tense describes...
-            <span
-              className="preview-caret inline-block w-1.5 h-3 bg-primary/60 ml-0.5 align-middle"
-            />
+        <div className="voice-preview__conversation">
+          <div className="voice-preview__participant">
+            <span className="voice-preview__icon"><Mic size={15} /></span>
+            <span>You</span>
           </div>
+          <div className="voice-preview__wave" aria-hidden="true">
+            {Array.from({ length: 21 }).map((_, i) => (
+              <span
+                key={i}
+                className="preview-wave-bar"
+                style={{ height: `${10 + Math.sin(i * 0.78) * 13}px`, animationDelay: `${i * 0.045}s` }}
+              />
+            ))}
+          </div>
+          <div className="voice-preview__participant voice-preview__participant--tutor">
+            <span className="voice-preview__icon"><GraduationCap size={15} /></span>
+            <span>AI tutor</span>
+          </div>
+        </div>
+        <div className="voice-preview__caption">
+          <span>Listen</span><i /><span>Speak</span><i /><span>Learn</span>
         </div>
       </div>
     )
