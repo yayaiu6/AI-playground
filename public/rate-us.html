@@ -3,54 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0c11">
     <title>Rate Us - AI Solutions</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
-
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        google: ['"Google Sans"', 'Roboto', 'Arial', 'sans-serif'],
-                        googleText: ['"Google Sans Text"', 'Roboto', 'Arial', 'sans-serif'],
+                        google: ['Inter', 'system-ui', 'sans-serif'],
+                        googleText: ['Inter', 'system-ui', 'sans-serif'],
                     },
                     colors: {
                         surface: {
-                            DEFAULT: '#ffffff',
-                            dim: '#f9f9fc',
-                            container: '#f0f0f5',
-                            variant: '#e1e2ec',
+                            DEFAULT: '#14151d',
+                            dim: '#0b0c11',
+                            container: '#191a24',
+                            variant: '#22232e',
                         },
                         primary: {
-                            DEFAULT: '#1a73e8',
-                            container: '#d3e3fd',
+                            DEFAULT: '#837cf5',
+                            container: '#292642',
                             on: '#ffffff',
-                            dark: '#174ea6',
+                            dark: '#a5a1ff',
                         },
                         outline: {
-                            DEFAULT: '#747775',
-                            variant: '#c4c7c5',
+                            DEFAULT: '#777583',
+                            variant: '#2b2d3a',
                         },
                         onSurface: {
-                            DEFAULT: '#1f1f1f',
-                            variant: '#444746',
+                            DEFAULT: '#f1f0f6',
+                            variant: '#b5b3c1',
                         },
-                        error: '#d93025',
+                        error: '#ff9b9b',
                         success: '#1e8e3e',
                         star: '#f9ab00',
                         starHover: '#fbbc04',
                     },
                     boxShadow: {
-                        elevation1: '0 1px 2px rgba(0,0,0,0.1), 0 1px 3px 1px rgba(0,0,0,0.06)',
-                        elevation2: '0 1px 3px rgba(0,0,0,0.12), 0 4px 8px 3px rgba(0,0,0,0.06)',
+                        elevation1: '0 18px 48px rgba(0,0,0,0.28)',
+                        elevation2: '0 20px 55px rgba(0,0,0,0.34)',
                     },
                 }
             }
@@ -124,22 +119,22 @@
             padding-top: 24px;
             font-size: 16px;
             line-height: 1.5;
-            border: 1px solid #747775;
-            border-radius: 4px;
+            border: 1px solid #454653;
+            border-radius: 10px;
             background: transparent;
             outline: none;
             transition: border-color 0.15s;
-            font-family: 'Google Sans Text', sans-serif;
-            color: #1f1f1f;
-            caret-color: #1a73e8;
+            font-family: Inter, system-ui, sans-serif;
+            color: #f1f0f6;
+            caret-color: #a5a1ff;
         }
         .m3-field input:hover,
         .m3-field textarea:hover {
-            border-color: #1f1f1f;
+            border-color: #aaa8b8;
         }
         .m3-field input:focus,
         .m3-field textarea:focus {
-            border-color: #1a73e8;
+            border-color: #a5a1ff;
             border-width: 2px;
             padding: 15px;
             padding-top: 23px;
@@ -150,12 +145,12 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 16px;
-            color: #747775;
+            color: #9694a3;
             pointer-events: none;
             transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
-            background: white;
+            background: #14151d;
             padding: 0 4px;
-            font-family: 'Google Sans Text', sans-serif;
+            font-family: Inter, system-ui, sans-serif;
         }
         .m3-field.textarea-field label {
             top: 24px;
@@ -166,11 +161,11 @@
         .m3-field textarea:not(:placeholder-shown) ~ label {
             top: 0;
             font-size: 12px;
-            color: #1a73e8;
+            color: #a5a1ff;
         }
         .m3-field input:not(:focus):not(:placeholder-shown) ~ label,
         .m3-field textarea:not(:focus):not(:placeholder-shown) ~ label {
-            color: #747775;
+            color: #9694a3;
         }
 
         /* M3 Filled Button */
@@ -181,25 +176,26 @@
             gap: 8px;
             height: 48px;
             padding: 0 24px;
-            border-radius: 24px;
-            font-family: 'Google Sans', sans-serif;
+            border-radius: 12px;
+            font-family: Inter, system-ui, sans-serif;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.1px;
-            background: #1a73e8;
+            background: #837cf5;
             color: white;
             border: none;
             cursor: pointer;
-            transition: box-shadow 0.2s, background 0.2s;
+            transition: box-shadow 0.2s, background 0.2s, transform 0.2s;
             position: relative;
             overflow: hidden;
         }
         .m3-btn-filled:hover {
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 4px 8px 3px rgba(0,0,0,0.06);
+            box-shadow: 0 8px 20px rgba(131,124,245,0.2);
+            transform: translateY(-1px);
         }
         .m3-btn-filled:disabled {
-            background: rgba(31, 31, 31, 0.12);
-            color: rgba(31, 31, 31, 0.38);
+            background: #30313c;
+            color: #9694a3;
             cursor: default;
             box-shadow: none;
         }
@@ -210,14 +206,15 @@
             bottom: 24px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            min-width: 320px;
-            max-width: 560px;
+            width: max-content;
+            min-width: min(320px, calc(100vw - 32px));
+            max-width: min(560px, calc(100vw - 32px));
             padding: 14px 16px;
-            border-radius: 4px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-family: 'Google Sans Text', sans-serif;
+            font-family: Inter, system-ui, sans-serif;
             font-size: 14px;
             z-index: 1000;
             opacity: 0;
@@ -227,8 +224,8 @@
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
-        .m3-snackbar.success { background: #1e8e3e; color: white; }
-        .m3-snackbar.error { background: #d93025; color: white; }
+        .m3-snackbar.success { background: #176b46; color: #f1fff7; }
+        .m3-snackbar.error { background: #9e343b; color: #fff5f5; }
         .m3-snackbar .close-btn {
             margin-left: auto;
             opacity: 0.8;
@@ -257,14 +254,23 @@
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        body { background: #0b0c11; color: #f1f0f6; }
+        .star-btn:focus-visible, .m3-btn-filled:focus-visible, .close-btn:focus-visible, header a:focus-visible { outline: 2px solid #a5a1ff; outline-offset: 3px; }
+        .star-btn[aria-checked="true"] .star-svg { fill: #f9ab00; }
+        .rating-header { background: rgba(11,12,17,.9) !important; border-color: #2b2d3a !important; }
+        #ratingHeroIcon { fill: #a5a1ff; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
     </style>
 </head>
 <body class="bg-surface-dim min-h-screen font-googleText">
 
     <!-- Top App Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-outline-variant/30">
+    <header class="rating-header fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-outline-variant/30">
         <div class="max-w-3xl mx-auto px-4 h-16 flex items-center gap-3">
-            <a href="/" class="state-layer w-10 h-10 rounded-full flex items-center justify-center text-onSurface-variant hover:text-onSurface transition-colors" aria-label="Back">
+            <a href="/" class="state-layer w-10 h-10 rounded-full flex items-center justify-center text-onSurface-variant hover:text-onSurface transition-colors" aria-label="Back to portfolio">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
             </a>
             <h1 class="font-google text-lg font-medium text-onSurface">Rate your experience</h1>
@@ -274,12 +280,12 @@
     <!-- Main Content -->
     <main class="pt-24 pb-12 px-4 max-w-xl mx-auto page-enter">
 
-        <div class="bg-white rounded-2xl shadow-elevation1 overflow-hidden">
+        <div class="bg-surface rounded-2xl shadow-elevation1 overflow-hidden border border-outline-variant/50">
 
             <!-- Hero -->
             <div class="px-6 pt-8 pb-6 text-center border-b border-outline-variant/20">
                 <div class="w-16 h-16 rounded-2xl bg-primary-container flex items-center justify-center mx-auto mb-4">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="#1a73e8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                    <svg id="ratingHeroIcon" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
                 </div>
                 <h2 class="font-google text-2xl font-medium text-onSurface mb-1">How did we do?</h2>
                 <p class="text-onSurface-variant text-sm">Your feedback helps us improve our services</p>
@@ -291,23 +297,23 @@
                 <!-- Stars -->
                 <div>
                     <p class="text-sm font-medium text-onSurface mb-1">Overall rating <span class="text-error">*</span></p>
-                    <div class="flex items-center gap-1 py-3" id="starRating">
-                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="1" aria-label="1 star">
+                    <div class="flex items-center gap-1 py-3" id="starRating" role="radiogroup" aria-label="Overall rating">
+                        <button type="button" role="radio" aria-checked="false" tabindex="0" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="1" aria-label="1 star">
                             <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
                         </button>
-                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="2" aria-label="2 stars">
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="2" aria-label="2 stars">
                             <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
                         </button>
-                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="3" aria-label="3 stars">
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="3" aria-label="3 stars">
                             <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
                         </button>
-                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="4" aria-label="4 stars">
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="4" aria-label="4 stars">
                             <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
                         </button>
-                        <button type="button" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="5" aria-label="5 stars">
+                        <button type="button" role="radio" aria-checked="false" tabindex="-1" class="star-btn w-12 h-12 flex items-center justify-center rounded-full" data-rating="5" aria-label="5 stars">
                             <svg class="star-svg" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
                         </button>
-                        <span id="ratingLabel" class="ml-3 inline-flex items-center gap-1 px-4 py-1.5 rounded-lg text-sm font-medium font-googleText bg-surface-container text-onSurface-variant opacity-0 transition-all duration-200 scale-95"></span>
+                    <span id="ratingLabel" aria-live="polite" class="ml-3 inline-flex items-center gap-1 px-4 py-1.5 rounded-lg text-sm font-medium font-googleText bg-surface-container text-onSurface-variant opacity-0 transition-all duration-200 scale-95"></span>
                     </div>
                     <input type="hidden" id="ratingValue" name="rating" required>
                 </div>
@@ -369,7 +375,7 @@
         const charCount = document.getElementById('charCount');
 
         const ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'];
-        const ratingColors = ['', '#d93025', '#ea8600', '#f9ab00', '#1e8e3e', '#1a73e8'];
+        const ratingColors = ['', '#ff9b9b', '#ffc078', '#f9c74f', '#83dfb3', '#a5a1ff'];
         let selectedRating = 0;
 
         // Ripple
@@ -391,6 +397,8 @@
             stars.forEach((btn, i) => {
                 btn.classList.toggle('selected', i < rating);
                 btn.classList.remove('preview');
+                btn.setAttribute('aria-checked', String(i + 1 === rating));
+                btn.tabIndex = i + 1 === rating || (!rating && i === 0) ? 0 : -1;
             });
             ratingLabel.textContent = ratingLabels[rating] || '';
             ratingLabel.style.color = ratingColors[rating];
@@ -422,6 +430,18 @@
             btn.addEventListener('click', () => setRating(parseInt(btn.dataset.rating)));
             btn.addEventListener('mouseenter', () => showHoverPreview(parseInt(btn.dataset.rating)));
         });
+        starRating.addEventListener('keydown', e => {
+            const activeIndex = Array.from(stars).indexOf(document.activeElement);
+            let nextIndex = activeIndex;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowUp') nextIndex = Math.min(stars.length - 1, activeIndex + 1);
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') nextIndex = Math.max(0, activeIndex - 1);
+            else if (e.key === 'Home') nextIndex = 0;
+            else if (e.key === 'End') nextIndex = stars.length - 1;
+            else return;
+            e.preventDefault();
+            stars[nextIndex].focus();
+            setRating(nextIndex + 1);
+        });
         starRating.addEventListener('mouseleave', clearHoverPreview);
 
         commentField.addEventListener('input', () => {
@@ -434,6 +454,8 @@
 
             const snackbar = document.createElement('div');
             snackbar.className = `m3-snackbar ${type}`;
+            snackbar.setAttribute('role', type === 'error' ? 'alert' : 'status');
+            snackbar.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
             snackbar.innerHTML = `
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="${type === 'success' ? 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' : 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'}"/></svg>
                 <span>${message}</span>

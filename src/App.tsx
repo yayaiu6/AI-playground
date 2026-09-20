@@ -1,30 +1,18 @@
-import { useRef, useEffect, useState, lazy, Suspense } from 'react'
+import { useEffect, useRef, useState, lazy, Suspense, useCallback } from 'react'
+import { animate } from 'animejs'
 import {
-  Mail,
-  Bot,
-  Mic,
-  PieChart,
-  ImageIcon,
-  Settings,
-  RefreshCw,
-  GraduationCap,
-  FileText,
-  BookOpen,
-  UserCheck,
-  Store,
-  Users,
-  Building2,
-  ArrowRight,
-  ExternalLink,
-  Scale,
+  Mail, Bot, Mic, PieChart, ImageIcon, Menu, X,
+  GraduationCap, FileText, BookOpen, UserCheck,
+  Store, Users, Building2, ArrowRight, Scale, ArrowUpRight,
 } from 'lucide-react'
+import HeroBlob from './HeroBlob'
 
 const RatingsSection = lazy(() => import('./RatingsSection'))
 
-/* ─── Brand Icons (not in lucide-react) ─────────────────────────────────── */
+/* ── Icons ─────────────────────────────────────────────────────────────── */
 function LinkedinIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
     </svg>
   )
@@ -32,7 +20,7 @@ function LinkedinIcon({ className }: { className?: string }) {
 
 function GithubIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
     </svg>
   )
@@ -40,38 +28,18 @@ function GithubIcon({ className }: { className?: string }) {
 
 function WhatsappIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
     </svg>
   )
 }
 
-/* ─── Data ──────────────────────────────────────────────────────────────────── */
+/* ── Data ──────────────────────────────────────────────────────────────── */
 const services = [
-  {
-    icon: Bot,
-    title: 'Custom Chatbots',
-    desc: 'Intelligent customer service bots trained on your company\'s knowledge base.',
-    color: 'blue',
-  },
-  {
-    icon: Mic,
-    title: 'Voice & Audio AI',
-    desc: 'Text-to-speech,  and audio transcription in multiple languages.',
-    color: 'emerald',
-  },
-  {
-    icon: PieChart,
-    title: 'Data Analysis',
-    desc: 'Find patterns, generate charts, and get actionable business insights from data.',
-    color: 'violet',
-  },
-  {
-    icon: ImageIcon,
-    title: 'AI Image Generation',
-    desc: 'Create stunning custom visuals, product mockups, and artistic assets simply by describing them.',
-    color: 'amber',
-  },
+  { icon: Bot, title: 'Custom Chatbots', desc: 'Intelligent customer service bots trained on your company knowledge base.' },
+  { icon: Mic, title: 'Voice & Audio AI', desc: 'Text-to-speech and audio transcription in multiple languages.' },
+  { icon: PieChart, title: 'Data Analysis', desc: 'Find patterns, generate charts, and get actionable business insights.' },
+  { icon: ImageIcon, title: 'AI Image Generation', desc: 'Create custom visuals, product mockups, and artistic assets from text.' },
 ]
 
 const projects = [
@@ -80,32 +48,32 @@ const projects = [
     title: 'AI English Tutor',
     desc: 'Interactive AI English teacher that chats with you, corrects mistakes, and explains lessons in real-time.',
     url: 'https://english-tutor.yahya-mahroof.site/',
-    color: 'blue',
-    accent: 'primary',
+    tech: ['React', 'Python', 'LLM'],
+    visual: 'typing' as const,
   },
   {
     icon: FileText,
     title: 'Handwriting OCR',
-    desc: 'Turn handwritten text into digital data instantly with high accuracy for easier documentation.',
-    url: 'https://yahya-mahroof.site/OCR-Demo',
-    color: 'cyan',
-    accent: 'cyan-600',
+    desc: 'Turn handwritten text into digital data instantly with high accuracy.',
+    url: 'https://yahya-mahroof.site/OCR-Demo.html',
+    tech: ['OCR', 'Python', 'API'],
+    visual: 'scan' as const,
   },
   {
     icon: BookOpen,
     title: 'Quran Recitation AI',
     desc: 'Test your memorization using AI voice recognition to detect and correct reading mistakes.',
     url: 'https://quran-tracker.yahya-mahroof.site',
-    color: 'emerald',
-    accent: 'emerald-600',
+    tech: ['Audio ML', 'Python', 'WebSocket'],
+    visual: 'wave' as const,
   },
   {
     icon: UserCheck,
     title: 'AI ATS System',
     desc: 'Automatically compare applicant CVs against the Job Description to screen the best candidates.',
     url: 'https://ats.yahya-mahroof.site/admin',
-    color: 'amber',
-    accent: 'amber-600',
+    tech: ['NLP', 'Python', 'Firebase'],
+    visual: 'doc' as const,
   },
 ]
 
@@ -118,338 +86,547 @@ const industries = [
   { icon: Scale, label: 'Law' },
 ]
 
-const colorMap: Record<string, { bg: string; text: string; hoverBg: string; hoverText: string }> = {
-  blue: { bg: 'bg-blue-500/15', text: 'text-blue-400', hoverBg: 'group-hover:bg-blue-500', hoverText: 'group-hover:text-white' },
-  emerald: { bg: 'bg-emerald-500/15', text: 'text-emerald-400', hoverBg: 'group-hover:bg-emerald-500', hoverText: 'group-hover:text-white' },
-  violet: { bg: 'bg-violet-500/15', text: 'text-violet-400', hoverBg: 'group-hover:bg-violet-500', hoverText: 'group-hover:text-white' },
-  amber: { bg: 'bg-amber-500/15', text: 'text-amber-400', hoverBg: 'group-hover:bg-amber-500', hoverText: 'group-hover:text-white' },
-  cyan: { bg: 'bg-cyan-500/15', text: 'text-cyan-400', hoverBg: 'group-hover:bg-cyan-500', hoverText: 'group-hover:text-white' },
+/* Keep the shared section wrappers visual-only; interaction motion lives on controls. */
+export function FadeUp({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+}) {
+  return <div className={className}>{children}</div>
 }
 
-const projectColorMap: Record<string, { bg: string; text: string; hoverBg: string; hoverText: string; ring: string }> = {
-  blue: { bg: 'bg-blue-50', text: 'text-primary', hoverBg: 'group-hover:bg-primary', hoverText: 'group-hover:text-white', ring: 'hover:border-primary' },
-  cyan: { bg: 'bg-cyan-50', text: 'text-cyan-600', hoverBg: 'group-hover:bg-cyan-600', hoverText: 'group-hover:text-white', ring: 'hover:border-cyan-400' },
-  emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', hoverBg: 'group-hover:bg-emerald-600', hoverText: 'group-hover:text-white', ring: 'hover:border-emerald-400' },
-  amber: { bg: 'bg-amber-50', text: 'text-amber-600', hoverBg: 'group-hover:bg-amber-600', hoverText: 'group-hover:text-white', ring: 'hover:border-amber-400' },
+function ScaleIn({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+}) {
+  return <div className={className}>{children}</div>
 }
 
-/* ─── FadeUp hook ───────────────────────────────────────────────────────────── */
-function useFadeUp() {
-  const ref = useRef<HTMLDivElement>(null)
+/* ── Project Visual Previews ───────────────────────────────────────────── */
+function ProjectVisual({ type }: { type: 'typing' | 'scan' | 'wave' | 'doc' }) {
+  const previewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const preview = previewRef.current
+    if (!preview || (type !== 'scan' && type !== 'wave')) return
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
-    )
+    if (!('IntersectionObserver' in window)) {
+      preview.classList.add('is-visible')
+      return
+    }
 
-    observer.observe(el)
+    const observer = new IntersectionObserver(([entry]) => {
+      preview.classList.toggle('is-visible', entry.isIntersecting)
+    }, { threshold: 0.1 })
+    observer.observe(preview)
     return () => observer.disconnect()
-  }, [])
+  }, [type])
 
-  return ref
-}
+  if (type === 'typing') {
+    return (
+      <div ref={previewRef} className="project-preview project-preview--chat">
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-red-400/70" />
+          <div className="w-1.5 h-1.5 rounded-full bg-amber-400/70" />
+          <div className="w-1.5 h-1.5 rounded-full bg-green-400/70" />
+        </div>
+        <div className="flex-1 flex items-end">
+          <div className="text-xs font-mono text-[var(--text-muted)] leading-relaxed">
+            <span className="text-primary font-medium">You:</span> "Can you explain past tense?"
+            <br />
+            <span className="text-primary font-medium">AI:</span> Of course! Past tense describes...
+            <span
+              className="preview-caret inline-block w-1.5 h-3 bg-primary/60 ml-0.5 align-middle"
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
 
-export function FadeUp({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useFadeUp()
+  if (type === 'scan') {
+    return (
+      <div ref={previewRef} className="project-preview project-preview--scan">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5" />
+        <div className="relative space-y-1.5">
+          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-3/4" />
+          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-full" />
+          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-5/6" />
+          <div className="h-2 bg-primary/30 rounded w-2/3" />
+          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-4/5" />
+        </div>
+        <div
+          className="preview-scan-line absolute left-0 right-0 h-0.5 bg-primary/40"
+        />
+      </div>
+    )
+  }
+
+  if (type === 'wave') {
+    return (
+      <div ref={previewRef} className="project-preview project-preview--wave">
+        {Array.from({ length: 28 }).map((_, i) => (
+          <div
+            key={i}
+            className="preview-wave-bar w-[3px] rounded-full bg-primary/40"
+            style={{
+              height: `${14 + Math.sin(i * 0.5) * 10}px`,
+              animationDelay: `${i * 0.04}s`,
+            }}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  // doc
   return (
-    <div ref={ref} className={`fade-up ${className}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
+    <div ref={previewRef} className="project-preview project-preview--doc">
+      <div className="space-y-1.5">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded bg-primary/20" />
+          <div className="h-2 bg-[var(--text-subtle)]/25 rounded w-1/2" />
+        </div>
+        <div className="h-1.5 bg-emerald-400/30 rounded w-full" />
+        <div className="h-1.5 bg-emerald-400/20 rounded w-4/5" />
+        <div className="h-1.5 bg-[var(--text-subtle)]/15 rounded w-3/4" />
+        <div className="mt-1 h-1.5 bg-amber-400/25 rounded w-2/3" />
+        <div className="h-1.5 bg-[var(--text-subtle)]/15 rounded w-5/6" />
+      </div>
     </div>
   )
 }
 
-/* ─── App ───────────────────────────────────────────────────────────────────── */
+/* ── Main App ──────────────────────────────────────────────────────────── */
 function App() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [videoReady, setVideoReady] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const el = videoRef.current
-    if (!el) return
-
-    const onReady = () => setVideoReady(true)
-    el.addEventListener('canplaythrough', onReady)
-    if (el.readyState >= 4) setVideoReady(true)
-
-    const startVideo = () => {
-      el.playbackRate = 2
-      el.play().catch(() => {})
-    }
-
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(startVideo, { timeout: 3000 })
-    } else {
-      setTimeout(startVideo, 1500)
-    }
-
-    return () => {
-      el.removeEventListener('canplaythrough', onReady)
-    }
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 20)
   }, [])
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false)
+    }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [mobileMenuOpen])
+
   return (
-    <div className="bg-white text-slate-600 antialiased selection:bg-primary selection:text-white scroll-smooth">
-      {/* ── Skip Link ──────────────────────────────────────────────── */}
+    <div className="grain">
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
 
-      {/* ── Floating Sidebar ───────────────────────────────────────── */}
-      <aside
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex-col gap-3 hidden lg:flex"
-        aria-label="Social contact links"
+      {/* ── Navigation ────────────────────────────────────────────────── */}
+      <nav
+              className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[var(--bg)]/90 backdrop-blur-md border-b border-[var(--border)]'
+            : 'bg-[var(--bg)]/65 backdrop-blur-sm border-b border-[var(--border)]/60'
+        }`}
       >
-        <a
-          href="mailto:yahyamahroof35@gmail.com"
-          className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition-all border border-slate-200/80"
-          aria-label="Send email"
-        >
-          <Mail className="w-4 h-4" />
-        </a>
-        <a
-          href="https://wa.me/+201001866276"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center text-slate-500 hover:bg-emerald-500 hover:text-white transition-all border border-slate-200/80"
-          aria-label="WhatsApp"
-        >
-          <WhatsappIcon className="w-4 h-4" />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/yahya-mahrouf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-10 h-10 bg-white shadow-md rounded-full flex items-center justify-center text-slate-500 hover:bg-blue-600 hover:text-white transition-all border border-slate-200/80"
-          aria-label="LinkedIn"
-        >
-          <LinkedinIcon className="w-4 h-4" />
-        </a>
-      </aside>
+        <div className="section-wrap site-nav__inner">
+          <a href="#home" className="site-brand" aria-label="Yahya Mahroof — home">
+            <img className="site-brand__wordmark" src="/yayaiu6-wordmark.png" alt="YAYAIU6" />
+          </a>
 
-      {/* ── Main ───────────────────────────────────────────────────── */}
-      <main id="main-content">
-        {/* ── Hero with Video Background ───────────────────────────── */}
-        <section id="home" className="relative min-h-screen overflow-hidden bg-[#f0f0ee]">
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            preload="none"
-            aria-hidden="true"
-            poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect fill='%23f0f0ee' width='1' height='1'/%3E%3C/svg%3E"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4"
-          />
+          <div id="primary-navigation" className={`site-nav__links${mobileMenuOpen ? ' is-open' : ''}`}>
+            <div className="site-nav__primary">
+              {[
+              { label: 'About', href: '#about' },
+              { label: 'Work', href: '#projects' },
+              { label: 'Contributions', href: '#contributions' },
+              { label: 'Expertise', href: '#expertise' },
+              { label: 'Contact', href: '#contact' },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="site-nav__link text-[13px] font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors rounded-lg hover:bg-white/[0.06]"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
 
-          <div className="relative z-10 flex flex-col min-h-screen">
-            {/* Hero Nav (pill style over video) */}
-            <nav className="flex items-center justify-center pt-4 sm:pt-6 px-4 sm:px-8 gap-2 sm:gap-3">
+            <div className="site-nav__divider w-px h-4 bg-[var(--border)] mx-1.5 hidden sm:block" />
+
+            <div className="site-nav__socials">
               <a
                 href="https://github.com/yayaiu6"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center rounded-full w-14 h-14 sm:w-16 sm:h-16 shrink-0 overflow-hidden"
-                style={{ backgroundColor: '#EDEDED' }}
+                className="site-nav__social w-8 h-8 flex items-center justify-center rounded-lg text-[var(--text-subtle)] hover:text-[var(--text)] hover:bg-white/[0.06] transition-all"
+                aria-label="GitHub"
               >
-                <img
-                  src="/yayaiu6_logo.png"
-                  alt="Yahya Mahroof"
-                  className="w-full h-full object-contain p-2"
-                  width="64"
-                  height="64"
-                  loading="eager"
-                  fetchPriority="high"
-                />
+                <GithubIcon className="w-4 h-4" />
               </a>
-              <div
-                className="flex items-center gap-4 sm:gap-10 rounded-xl px-4 sm:px-8 py-2.5 sm:py-3"
-                style={{ backgroundColor: '#EDEDED' }}
+              <a
+                href="https://www.linkedin.com/in/yahya-mahrouf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="site-nav__social w-8 h-8 flex items-center justify-center rounded-lg text-[var(--text-subtle)] hover:text-[var(--text)] hover:bg-white/[0.06] transition-all"
+                aria-label="LinkedIn"
               >
-                {[
-                  { label: 'Story', href: '#about' },
-                  { label: 'Products', href: '#projects' },
-                  { label: 'Help', href: '#contact' },
-                  { label: 'Support', href: '#contact' },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="text-[12px] sm:text-[14px] font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </nav>
-
-            {/* Hero Content (bottom-left) */}
-            <div className="flex-1 flex items-end pb-10 sm:pb-16 lg:pb-20 px-6 sm:px-12 md:px-20 lg:px-28">
-              <div className="max-w-xs">
-                <a
-                  href="#expertise"
-                  className="inline-flex items-center gap-1.5 text-[11.5px] font-medium text-blue-500 hover:text-blue-600 transition-colors mb-3 group"
-                >
-                  Yahya Mahroof & MLOps Specialist
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">
-                    →
-                  </span>
-                </a>
-
-                <h1 className="text-[1.5rem] sm:text-[1.75rem] leading-[1.15] font-medium text-gray-900 tracking-tight mb-3">
-                  Building smart systems that change the way companies operate
-                </h1>
-
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-2 text-[13px] font-medium text-blue-500 border border-blue-400 rounded-full px-5 py-2.5 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-200 group"
-                >
-                  View Live Demos
-                  <span className="inline-block transition-transform duration-200 group-hover:translate-x-0.5">
-                    →
-                  </span>
-                </a>
-              </div>
+                <LinkedinIcon className="w-4 h-4" />
+              </a>
             </div>
           </div>
-        </section>
+          <button
+            type="button"
+            className="site-nav__toggle"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="primary-navigation"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            {mobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
+          </button>
+        </div>
+      </nav>
 
-        {/* ── Expertise ────────────────────────────────────────────── */}
-        <section id="expertise" className="py-24 bg-dark text-white relative overflow-hidden grid-bg">
-          <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-            <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]" />
-            <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[120px]" />
+      <main id="main-content">
+        {/* ── Hero ──────────────────────────────────────────────────────── */}
+        <section id="home" className="hero-section relative min-h-[min(860px,100svh)] flex items-center overflow-hidden pt-14">
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div className="absolute top-1/4 left-1/5 w-[500px] h-[500px] rounded-full bg-primary/[0.04] blur-[110px]" />
+            <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/[0.03] blur-[90px]" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeUp className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6 border border-blue-500/20">
-                What We Do
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Comprehensive AI Capabilities</h2>
-              <div className="w-12 h-1 bg-accent mx-auto rounded-full mb-6" />
-              <p className="text-slate-400 text-lg">
-                We build, train, and integrate AI tools tailored to your exact organizational needs.
-              </p>
-            </FadeUp>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-              {services.map((svc, i) => {
-                const c = colorMap[svc.color]
-                return (
-                  <FadeUp key={svc.title} delay={i * 80}>
-                    <article className="group bg-white/[0.04] border border-white/[0.08] p-6 rounded-2xl hover:bg-white/[0.07] transition-colors">
-                      <div className={`w-11 h-11 flex items-center justify-center ${c.bg} ${c.text} rounded-xl mb-4`}>
-                        <svc.icon className="w-5 h-5" />
-                      </div>
-                      <h3 className="text-lg font-bold mb-2 text-white">{svc.title}</h3>
-                      <p className="text-slate-400 text-sm leading-relaxed">{svc.desc}</p>
-                    </article>
-                  </FadeUp>
-                )
-              })}
-            </div>
-
-            <FadeUp>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white/[0.03] rounded-2xl p-8 border border-white/[0.08]">
-                <div className="flex gap-4">
-                  <div className="mt-0.5 shrink-0 text-accent">
-                    <Settings className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-white mb-1">Seamless Integration</h4>
-                    <p className="text-slate-400 text-sm">
-                      We make AI solutions work flawlessly with your existing infrastructure.
-                    </p>
+          <div className="relative z-10 section-wrap py-28 sm:py-32 w-full">
+            <div className="hero-layout">
+              <div>
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/[0.09] border border-primary/20 mb-6">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    <span className="text-xs font-semibold text-primary tracking-wide">
+                      AI / MLOps Engineer
+                    </span>
                   </div>
                 </div>
-                <div className="flex gap-4">
-                  <div className="mt-0.5 shrink-0 text-accent">
-                    <RefreshCw className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-bold text-white mb-1">Workflow Automation</h4>
-                    <p className="text-slate-400 text-sm">
-                      Automate repetitive tasks to significantly reduce time and operational costs.
-                    </p>
-                  </div>
+
+                <div>
+                  <h1 className="text-[2.55rem] sm:text-5xl lg:text-[3.55rem] leading-[1.08] font-semibold text-[var(--text)] tracking-[-0.045em] mb-5 max-w-[15ch]">
+                    I build intelligent systems that solve{' '}
+                    <span className="text-primary">real problems</span>
+                  </h1>
                 </div>
-              </div>
-            </FadeUp>
-          </div>
-        </section>
 
-        {/* ── Projects ─────────────────────────────────────────────── */}
-        <section id="projects" className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeUp className="text-center mb-16">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-blue-50 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-blue-100">
-                Our Work
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Featured Projects</h2>
-              <div className="w-12 h-1 bg-primary mx-auto rounded-full" />
-              <p className="mt-4 text-slate-500">Live interactive demos ready for you to test.</p>
-            </FadeUp>
+                <div>
+                  <p className="text-base sm:text-lg text-[var(--text-muted)] max-w-lg mb-8 leading-relaxed">
+                    AI/MLOps Engineer crafting production-ready AI solutions — from intelligent
+                    chatbots to computer vision systems.
+                  </p>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {projects.map((proj, i) => {
-                const c = projectColorMap[proj.color]
-                return (
-                  <FadeUp key={proj.title} delay={i * 80}>
+                <div>
+                  <div className="hero-actions">
                     <a
-                      href={proj.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group flex flex-col bg-white rounded-2xl p-6 border border-slate-200 card-hover ${c.ring}`}
+                      href="#projects"
+                      className="hero-action bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold text-sm transition-all hover:shadow-lg hover:shadow-primary/25"
                     >
-                      <div className="flex justify-between items-start mb-6">
-                        <div
-                          className={`w-11 h-11 ${c.bg} rounded-xl flex items-center justify-center ${c.text} text-lg ${c.hoverBg} ${c.hoverText} transition-colors`}
-                        >
-                          <proj.icon className="w-5 h-5" />
+                      View Work
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                    <a
+                      href="#contact"
+                      className="hero-action bg-[var(--bg-card)] border border-[var(--border-light)] text-[var(--text)] rounded-xl font-semibold text-sm transition-all hover:bg-[var(--bg-alt)] hover:border-primary/35"
+                    >
+                      Get in Touch
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="hero-art-column" aria-hidden="true">
+                <HeroBlob />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── About ─────────────────────────────────────────────────────── */}
+        <section id="about" className="section border-y border-[var(--border)] bg-[var(--bg-alt)]">
+          <div className="section-wrap">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+
+              {/* Left Content */}
+              <div className="lg:col-span-7">
+                <FadeUp>
+                  <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+                    About
+                  </span>
+                </FadeUp>
+
+                <FadeUp delay={80}>
+                  <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-6 leading-[1.2]">
+                    Engineering intelligence
+                    <br className="hidden sm:block" />
+                    into production systems
+                  </h2>
+                </FadeUp>
+
+                <FadeUp delay={160}>
+                  <p className="text-[var(--text-muted)] leading-relaxed text-[15px] max-w-2xl">
+                    Results-driven Machine Learning Operations Engineer with experience in
+                    designing, deploying, and improving AI systems and web applications. Skilled
+                    in building AI agents and integrating AI into real-world solutions. Proficient
+                    in Python, Flask, Django, and FastAPI, with experience deploying applications
+                    on Ubuntu virtual machines. Experienced in backend development, including REST
+                    APIs, WebSockets, and real-time systems.
+                  </p>
+                </FadeUp>
+              </div>
+
+              {/* Right Stats */}
+              <div className="lg:col-span-5">
+                <div className="flex flex-col gap-5">
+                  {[
+                    { value: 14, suffix: '+', label: 'AI Projects Deployed' },
+                    { value: 3, suffix: '+', label: 'Years Experience' },
+                    { value: 99, suffix: '%', label: 'Client Satisfaction' },
+                  ].map((stat, i) => (
+                    <FadeUp key={stat.label} delay={200 + i * 90}>
+                      <div className="stat-card flex items-center gap-5 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-primary/30 transition-colors">
+                        <div className="text-3xl sm:text-4xl font-bold text-primary tracking-tight tabular-nums min-w-[70px]">
+                          <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                         </div>
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-600 border border-emerald-100">
+                        <div className="text-sm text-[var(--text-muted)] leading-snug font-medium">
+                          {stat.label}
+                        </div>
+                      </div>
+                    </FadeUp>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Expertise ─────────────────────────────────────────────────── */}
+        <section id="expertise" className="section">
+          <div className="section-wrap">
+            <FadeUp>
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+                Expertise
+              </span>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-10">
+                What I build
+              </h2>
+            </FadeUp>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {services.map((svc, i) => (
+                <ScaleIn key={svc.title} delay={i * 70}>
+                <div className="service-card group rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-primary/30 hover:bg-[#191a24] transition-all duration-300 hover:-translate-y-0.5">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 flex items-center justify-center bg-primary/[0.07] rounded-xl shrink-0">
+                        <svc.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-[15px] font-bold text-[var(--text)] mb-1">
+                          {svc.title}
+                        </h3>
+                        <p className="text-[var(--text-muted)] text-sm leading-relaxed">
+                          {svc.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ScaleIn>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Projects ──────────────────────────────────────────────────── */}
+        <section id="projects" className="section border-y border-[var(--border)] bg-[var(--bg-alt)]">
+          <div className="section-wrap">
+            <FadeUp>
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+                Selected Work
+              </span>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-10">
+                Featured projects
+              </h2>
+            </FadeUp>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+              {projects.map((proj, i) => (
+                <ScaleIn key={proj.title} delay={i * 90}>
+                  <a
+                    href={proj.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-card group block rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-primary/35 hover:shadow-[0_18px_48px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                  >
+                    <div className="project-card-art">
+                      <ProjectVisual type={proj.visual} />
+                    </div>
+
+                    <div className="project-card__content">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2.5">
+                          <proj.icon className="w-4 h-4 text-primary" />
+                          <h3 className="project-card__title font-bold text-[var(--text)] text-[15px]">
+                            {proj.title}
+                          </h3>
+                        </div>
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-300">
                           Live
                         </span>
                       </div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2">{proj.title}</h3>
-                      <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{proj.desc}</p>
-                      <span className={`${c.text} font-semibold text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all`}>
-                        Try Now <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </a>
-                  </FadeUp>
-                )
-              })}
+
+                      <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-3.5">
+                        {proj.desc}
+                      </p>
+
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex flex-wrap gap-1.5">
+                          {proj.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="px-2.5 py-1 text-xs font-medium rounded-md bg-[var(--bg-alt)] text-[var(--text-muted)] border border-[var(--border-light)]"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                        <span className="text-primary text-sm font-medium flex items-center gap-1 shrink-0 group-hover:gap-2 transition-all">
+                          Demo
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </ScaleIn>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* ── Industries ───────────────────────────────────────────── */}
-        <section id="industries" className="py-20 bg-slate-50 border-y border-slate-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ── Contributions ─────────────────────────────────────────────── */}
+        <section id="contributions" className="section border-y border-[var(--border)] bg-[var(--bg-alt)]">
+          <div className="section-wrap">
             <FadeUp>
-              <h2 className="text-2xl md:text-3xl font-bold text-center text-slate-900 mb-10">
-                Industries We Serve
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+                Contributions
+              </span>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-3">
+                Built, documented, and shared
+              </h2>
+              <p className="text-[var(--text-muted)] max-w-2xl mb-10 leading-relaxed">
+                A closer look at the engineering behind selected AI projects, including my role and the work delivered.
+              </p>
+            </FadeUp>
+
+            <div className="contributions-layout">
+              <article className="contribution-feature">
+                <div className="contribution-main">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-4">
+                    <span className="contribution-kicker">Open source</span>
+                    <span className="contribution-separator" aria-hidden="true">/</span>
+                    <span className="contribution-meta">Creator &amp; maintainer</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[var(--text)] mb-3">
+                    Real-time Quran recitation tracker
+                  </h3>
+                  <p className="text-sm sm:text-[15px] leading-relaxed text-[var(--text-muted)] max-w-2xl mb-6">
+                    Built an open-source system that follows recitation word by word, aligns speech with Quranic text, and detects skipped verses or page mismatches.
+                  </p>
+                  <ul className="contribution-capabilities" aria-label="Project capabilities">
+                    <li>Speech recognition pipeline</li>
+                    <li>Word-level alignment</li>
+                    <li>Sequence detection and feedback</li>
+                    <li>Technical documentation</li>
+                  </ul>
+                  <div className="flex flex-wrap gap-3 mt-7">
+                    <a className="contribution-link" href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer">
+                      View repository <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                    <a className="contribution-link contribution-link--quiet" href="https://quran-tracker.yahya-mahroof.site" target="_blank" rel="noopener noreferrer">
+                      Open live demo <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+                <div className="contribution-evidence" aria-label="GitHub repository activity">
+                  <div className="contribution-stat">
+                    <strong>42</strong><span>Commits</span>
+                  </div>
+                  <div className="contribution-stat">
+                    <strong>137</strong><span>GitHub stars</span>
+                  </div>
+                  <div className="contribution-stat">
+                    <strong>15</strong><span>Forks</span>
+                  </div>
+                  <p className="contribution-note">Public repository signals; see GitHub for current totals.</p>
+                </div>
+              </article>
+
+              <article className="contribution-secondary">
+                <div className="contribution-secondary__icon">
+                  <FileText className="w-5 h-5 text-primary" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <div className="contribution-kicker mb-2">Arabic OCR · Model training pipeline</div>
+                  <h3 className="text-lg font-semibold tracking-tight text-[var(--text)] mb-2">
+                    TrOCR with synthetic Arabic data
+                  </h3>
+                  <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+                    Built a data-generation, preprocessing, and training workflow for Arabic text recognition, including 50,000 synthetic text images.
+                  </p>
+                </div>
+                <a className="contribution-secondary__link" href="https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR" target="_blank" rel="noopener noreferrer" aria-label="View Arabic OCR training pipeline repository">
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Industries ────────────────────────────────────────────────── */}
+        <section id="industries" className="section">
+          <div className="section-wrap">
+            <FadeUp>
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+                Industries
+              </span>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-10">
+                Industries I have worked with
               </h2>
             </FadeUp>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
               {industries.map((ind, i) => (
-                <FadeUp key={ind.label} delay={i * 60}>
-                  <div className="bg-white p-6 rounded-xl border border-slate-100 text-center shadow-sm hover:shadow-md transition-shadow">
-                    <ind.icon className="w-6 h-6 text-primary mx-auto mb-3" />
-                    <h3 className="font-semibold text-slate-700 text-sm">{ind.label}</h3>
+                <FadeUp key={ind.label} delay={i * 50}>
+                  <div className="industry-card flex flex-col items-center gap-2.5 rounded-xl border border-[var(--border)] hover:border-primary/30 hover:bg-[var(--bg-card)] transition-all duration-300 text-center">
+                    <ind.icon className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-medium text-[var(--text)]">{ind.label}</span>
                   </div>
                 </FadeUp>
               ))}
@@ -457,105 +634,60 @@ function App() {
           </div>
         </section>
 
-        {/* ── About ────────────────────────────────────────────────── */}
-        <section id="about" className="py-24 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeUp className="text-center">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-blue-50 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-blue-100">
-                About Us
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Driven by Innovation, Built for Impact
-              </h2>
-              <div className="w-12 h-1 bg-primary mx-auto rounded-full mb-8" />
-              <p className="text-base text-slate-500 leading-relaxed max-w-3xl mx-auto">
-Results driven Machine Learning Operations Engineer with experience in designing, deploying, and improving AI systems and web applications. Skilled in building AI agents and integrating AI into real world solutions
-
-Proficient in Python, Flask, Django, and FastAPI, with experience deploying applications on Ubuntu virtual machines. Experienced in backend development, including REST APIs, WebSockets, and real-time systems, with basic frontend integration skills.
-
-Interested in workflow automation, deploying AI models on high-VRAM GPUs, and building scalable solutions that deliver real business value.
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-8 mt-12">
-                {[
-                  { num: '14+', label: 'AI Projects Deployed' },
-                  { num: '3+', label: 'Years Experience' },
-                  { num: '100%', label: 'Client Satisfaction' },
-                ].map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <div className="text-3xl font-extrabold text-primary">{stat.num}</div>
-                    <div className="text-sm text-slate-400 mt-1">{stat.label}</div>
-                  </div>
-                ))}
+        {/* ── Ratings ───────────────────────────────────────────────────── */}
+        <Suspense
+          fallback={
+            <section id="ratings" className="section" aria-label="Loading testimonials">
+              <div className="section-wrap text-center py-12">
+                <div className="h-6 w-28 bg-[var(--border)] rounded-full mx-auto mb-4 animate-pulse" />
               </div>
-            </FadeUp>
-          </div>
-        </section>
-
-        {/* ── Ratings (lazy-loaded) ────────────────────────────────── */}
-        <Suspense fallback={<section id="ratings" className="py-24 bg-slate-50 border-y border-slate-100" aria-label="Loading testimonials"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div className="text-center mb-16"><span className="inline-block py-1.5 px-4 rounded-full bg-blue-50 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-blue-100">Testimonials</span><h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Client Feedback</h2><div className="w-12 h-1 bg-accent mx-auto rounded-full" /></div><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 min-h-[160px]"><div className="animate-pulse bg-white p-6 rounded-2xl border border-slate-100 h-40"><div className="flex justify-between mb-4"><div className="h-4 bg-slate-200 rounded w-1/3" /><div className="h-4 bg-slate-200 rounded w-1/4" /></div><div className="h-3 bg-slate-200 rounded w-full mb-2" /><div className="h-3 bg-slate-200 rounded w-3/4" /></div><div className="animate-pulse bg-white p-6 rounded-2xl border border-slate-100 h-40 hidden md:block"><div className="flex justify-between mb-4"><div className="h-4 bg-slate-200 rounded w-1/3" /><div className="h-4 bg-slate-200 rounded w-1/4" /></div><div className="h-3 bg-slate-200 rounded w-full mb-2" /><div className="h-3 bg-slate-200 rounded w-3/4" /></div></div></div></section>}>
+            </section>
+          }
+        >
           <RatingsSection />
         </Suspense>
 
-        {/* ── CTA Banner ──────────────────────────────────────────── */}
-        <section className="py-20 bg-dark text-white relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-            <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px]" />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[120px]" />
-          </div>
-          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* ── Contact ───────────────────────────────────────────────────── */}
+        <section id="contact" className="section">
+          <div className="section-wrap text-center">
             <FadeUp>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Ready to Transform Your Business?
-              </h2>
-              <p className="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
-                Let's discuss how AI can streamline your operations, reduce costs, and unlock new opportunities.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-blue-500/20 transition-all"
-                >
-                  Get in Touch <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
-                  href="#projects"
-                  className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white border border-white/10 px-8 py-3.5 rounded-full font-semibold transition-colors"
-                >
-                  View Demos <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </FadeUp>
-          </div>
-        </section>
-
-        {/* ── Contact ──────────────────────────────────────────────── */}
-        <section id="contact" className="py-24 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeUp className="text-center mb-12">
-              <span className="inline-block py-1.5 px-4 rounded-full bg-blue-50 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-blue-100">
-                Get in Touch
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+                Contact
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Connect With Us</h2>
-              <div className="w-12 h-1 bg-primary mx-auto rounded-full" />
+            </FadeUp>
+            <FadeUp delay={80}>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-3">
+                Let us build something together
+              </h2>
+            </FadeUp>
+            <FadeUp delay={160}>
+              <p className="text-[var(--text-muted)] mb-10 max-w-md mx-auto">
+                Have a project in mind? I would love to hear about it.
+              </p>
             </FadeUp>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-xl mx-auto">
               {[
-                { icon: Mail, label: 'Email', href: 'mailto:yahyamahroof35@gmail.com', hover: 'hover:border-primary hover:bg-blue-50/50', iconHover: 'group-hover:text-primary' },
-                { icon: WhatsappIcon, label: 'WhatsApp', href: 'https://wa.me/+201001866276', hover: 'hover:border-emerald-400 hover:bg-emerald-50/50', iconHover: 'group-hover:text-emerald-500', external: true },
-                { icon: LinkedinIcon, label: 'LinkedIn', href: 'https://www.linkedin.com/in/yahya-mahrouf', hover: 'hover:border-blue-500 hover:bg-blue-50/50', iconHover: 'group-hover:text-blue-600', external: true },
-                { icon: GithubIcon, label: 'GitHub', href: 'https://github.com/yayaiu6', hover: 'hover:border-slate-700 hover:bg-slate-100/50', iconHover: 'group-hover:text-slate-800', external: true },
+                { icon: Mail, label: 'Email', href: 'mailto:yahyamahroof35@gmail.com' },
+                { icon: WhatsappIcon, label: 'WhatsApp', href: 'https://wa.me/+201001866276' },
+                {
+                  icon: LinkedinIcon,
+                  label: 'LinkedIn',
+                  href: 'https://www.linkedin.com/in/yahya-mahrouf',
+                },
+                { icon: GithubIcon, label: 'GitHub', href: 'https://github.com/yayaiu6' },
               ].map((item, i) => (
-                <FadeUp key={item.label} delay={i * 80}>
+                <FadeUp key={item.label} delay={240 + i * 70}>
                   <a
                     href={item.href}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                    className={`flex flex-col items-center justify-center p-6 bg-slate-50 border border-slate-100 rounded-xl transition-all group ${item.hover}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-2.5 p-4 rounded-2xl border border-[var(--border)] hover:border-primary/25 hover:bg-primary/[0.03] transition-all duration-300 group"
                   >
-                    <item.icon className={`w-5 h-5 text-slate-400 mb-3 transition-colors ${item.iconHover}`} />
-                    <span className="font-medium text-slate-600 text-sm">{item.label}</span>
+                    <item.icon className="w-5 h-5 text-[var(--text-subtle)] group-hover:text-primary transition-colors" />
+                    <span className="text-sm font-medium text-[var(--text-muted)] group-hover:text-[var(--text)] transition-colors">
+                      {item.label}
+                    </span>
                   </a>
                 </FadeUp>
               ))}
@@ -564,76 +696,117 @@ Interested in workflow automation, deploying AI models on high-VRAM GPUs, and bu
         </section>
       </main>
 
-      {/* ── Footer ─────────────────────────────────────────────────── */}
-      <footer className="bg-dark text-slate-500 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 border-b border-white/[0.06] pb-8">
-            <div>
-              <p className="text-white font-bold mb-3 text-base">Make The future</p>
-              <p className="text-sm leading-relaxed text-slate-400">
-                Empowering businesses with practical, scalable, and intelligent AI integrations.
-              </p>
-            </div>
-            <nav aria-label="Footer navigation">
-              <p className="text-white font-bold mb-3 text-base">Quick Links</p>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#projects" className="text-slate-400 hover:text-white transition-colors">
-                    Projects
-                  </a>
-                </li>
-                <li>
-                  <a href="#expertise" className="text-slate-400 hover:text-white transition-colors">
-                    Our Expertise
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="text-slate-400 hover:text-white transition-colors">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="/rate-us" className="text-slate-400 hover:text-white transition-colors">
-                    Rate Us
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <div>
-              <p className="text-white font-bold mb-3 text-base">Connect</p>
-              <div className="flex gap-3">
-                <a
-                  href="https://github.com/yayaiu6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 bg-white/5 rounded-full flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="GitHub"
-                >
-                   <GithubIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/yahya-mahrouf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 bg-white/5 rounded-full flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <LinkedinIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href="mailto:yahyamahroof35@gmail.com"
-                  className="w-9 h-9 bg-white/5 rounded-full flex items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
-                  aria-label="Email"
-                >
-                  <Mail className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
+      {/* ── Footer ──────────────────────────────────────────────────────── */}
+      <footer className="border-t border-[var(--border)] bg-[var(--bg-alt)]">
+        <div className="section-wrap py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <img className="site-brand__wordmark site-brand__wordmark--small" src="/yayaiu6-wordmark.png" alt="YAYAIU6" />
+            <span className="text-sm text-[var(--text-subtle)]">
+              &copy; {new Date().getFullYear()} Yahya Mahroof
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/yayaiu6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--text-subtle)] hover:text-[var(--text)] transition-colors"
+              aria-label="GitHub"
+            >
+              <GithubIcon className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/yahya-mahrouf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--text-subtle)] hover:text-[var(--text)] transition-colors"
+              aria-label="LinkedIn"
+            >
+              <LinkedinIcon className="w-4 h-4" />
+            </a>
+            <a
+              href="mailto:yahyamahroof35@gmail.com"
+              className="text-[var(--text-subtle)] hover:text-[var(--text)] transition-colors"
+              aria-label="Email"
+            >
+              <Mail className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </footer>
     </div>
   )
+}
+
+function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
+  const numberRef = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    const element = numberRef.current
+    if (!element) return
+
+    const finalValue = `${value}${suffix}`
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let animation: ReturnType<typeof animate> | null = null
+    let observer: IntersectionObserver | null = null
+    let started = false
+
+    const showFinalValue = () => {
+      animation?.cancel()
+      element.textContent = finalValue
+    }
+
+    const startAnimation = () => {
+      if (started) return
+      started = true
+      observer?.disconnect()
+      if (reducedMotion.matches) {
+        showFinalValue()
+        return
+      }
+
+      const counter = { current: 0 }
+      element.textContent = `0${suffix}`
+      animation = animate(counter, {
+        current: value,
+        duration: 1600,
+        ease: 'outExpo',
+        onUpdate: () => {
+          element.textContent = `${Math.floor(counter.current)}${suffix}`
+        },
+        onComplete: () => {
+          element.textContent = finalValue
+        },
+      })
+    }
+
+    const handleMotionPreference = () => {
+      if (reducedMotion.matches) {
+        observer?.disconnect()
+        started = true
+        showFinalValue()
+      }
+    }
+    reducedMotion.addEventListener('change', handleMotionPreference)
+
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) startAnimation()
+      }, { threshold: 0.35 })
+      observer.observe(element)
+    } else {
+      startAnimation()
+    }
+
+    return () => {
+      observer?.disconnect()
+      reducedMotion.removeEventListener('change', handleMotionPreference)
+      animation?.cancel()
+    }
+  }, [suffix, value])
+
+  return <span ref={numberRef} aria-label={`${value}${suffix}`}>{value}{suffix}</span>
 }
 
 export default App
