@@ -6,28 +6,30 @@ I use it to share some of the AI systems and experiments I've built, along with 
 
 Most of my work is around AI engineering, backend development, and MLOps — particularly building AI systems, deploying models, and integrating them into real applications.
 
-**Website:** [yahya-mahroof.site](https://yahya-mahroof.site)
+**Website:** [yahya-mahroof.site](https://yahya-mahroof.site) · [Arabic portfolio](https://yahya-mahroof.site/ar/)
 **GitHub:** [github.com/yayaiu6](https://github.com/yayaiu6)
 
 ## Projects
 
 ### AI English Tutor
 
-An AI tutor for practicing English through interactive conversations.
+An AI tutor for practicing English through real-time spoken conversation. It listens, responds aloud, and teaches through voice rather than text chat.
 
 [Live demo →](https://english-tutor.yahya-mahroof.site)
+[Case study →](https://yahya-mahroof.site/projects/ai-english-tutor/)
 
 ### Handwriting OCR
 
 A handwriting recognition experiment for converting handwritten content into text.
 
-[Live demo →](https://yahya-mahroof.site/OCR-Demo)
+[Project page and live demo →](https://yahya-mahroof.site/projects/handwriting-ocr/)
 
 ### Quran Recitation AI
 
-A speech recognition system built for Quran recitation practice and tracking.
+An open-source speech recognition system for Quran recitation practice and tracking, with word-level alignment and feedback.
 
-[Live demo →](https://quran-tracker.yahya-mahroof.site)
+[GitHub repository →](https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System)
+[Case study →](https://yahya-mahroof.site/projects/quran-recitation-ai/)
 
 ### AI ATS
 

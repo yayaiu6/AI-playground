@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, lazy, Suspense, useCallback } from 'react'
 import { animate } from 'animejs'
 import {
   Mail, Bot, Mic, PieChart, ImageIcon, Menu, X,
-  GraduationCap, FileText, BookOpen, UserCheck,
+  GraduationCap, FileText, UserCheck,
   Store, Users, Building2, ArrowRight, Scale, ArrowUpRight,
 } from 'lucide-react'
 import HeroBlob from './HeroBlob'
@@ -44,28 +44,28 @@ const services = [
 
 const projects = [
   {
+    icon: Store,
+    title: 'Lahzi',
+    desc: 'An Arabic-first restaurant assistant that answers from the restaurant’s menu, recommends dishes, and hands structured order details to the team across Meta messaging channels.',
+    url: '/projects/lahzi/',
+    tech: ['Conversational AI', 'Meta channels', 'Restaurant AI'],
+    visual: 'lahzi' as const,
+  },
+  {
     icon: GraduationCap,
     title: 'AI English Tutor',
     desc: 'A real-time AI English teacher you speak with naturally. It listens, responds aloud, and teaches through spoken conversation.',
-    url: 'https://english-tutor.yahya-mahroof.site/',
+    url: '/projects/ai-english-tutor/',
     tech: ['React', 'Python', 'LLM'],
     visual: 'voice' as const,
   },
   {
     icon: FileText,
     title: 'Handwriting OCR',
-    desc: 'Turn handwritten text into digital data instantly with high accuracy.',
-    url: 'https://yahya-mahroof.site/OCR-Demo.html',
+    desc: 'A custom-built OCR model for extracting text from images and documents, including Arabic, English, French, and handwriting.',
+    url: '/projects/handwriting-ocr/',
     tech: ['OCR', 'Python', 'API'],
     visual: 'scan' as const,
-  },
-  {
-    icon: BookOpen,
-    title: 'Quran Recitation AI',
-    desc: 'Test your memorization using AI voice recognition to detect and correct reading mistakes.',
-    url: 'https://quran-tracker.yahya-mahroof.site',
-    tech: ['Audio ML', 'Python', 'WebSocket'],
-    visual: 'wave' as const,
   },
   {
     icon: UserCheck,
@@ -73,7 +73,7 @@ const projects = [
     desc: 'Automatically compare applicant CVs against the Job Description to screen the best candidates.',
     url: 'https://ats.yahya-mahroof.site/admin',
     tech: ['NLP', 'Python', 'Firebase'],
-    visual: 'doc' as const,
+    visual: 'ats' as const,
   },
 ]
 
@@ -110,12 +110,12 @@ function ScaleIn({
 }
 
 /* ── Project Visual Previews ───────────────────────────────────────────── */
-function ProjectVisual({ type }: { type: 'voice' | 'scan' | 'wave' | 'doc' }) {
+function ProjectVisual({ type }: { type: 'voice' | 'scan' | 'doc' | 'ats' | 'lahzi' }) {
   const previewRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const preview = previewRef.current
-    if (!preview || (type !== 'scan' && type !== 'wave' && type !== 'voice')) return
+    if (!preview || (type !== 'scan' && type !== 'voice')) return
 
     if (!('IntersectionObserver' in window)) {
       preview.classList.add('is-visible')
@@ -128,6 +128,25 @@ function ProjectVisual({ type }: { type: 'voice' | 'scan' | 'wave' | 'doc' }) {
     observer.observe(preview)
     return () => observer.disconnect()
   }, [type])
+
+  if (type === 'lahzi') {
+    return (
+      <div className="project-preview project-preview--lahzi" aria-hidden="true">
+        <div className="lahzi-preview__topline">
+          <span><i /> Lahzi · RESTAURANT INBOX</span>
+          <span>WHATSAPP · SAMPLE</span>
+        </div>
+        <div className="lahzi-preview__conversation" lang="ar" dir="rtl">
+          <p className="lahzi-preview__customer">ممكن وجبة خفيفة بالخضار؟ ترشّح لي إيه؟</p>
+          <p className="lahzi-preview__assistant">أرشّح لك سلطة خضار طازجة. تحب أضيفها لطلبك؟</p>
+        </div>
+        <div className="lahzi-preview__order">
+          <span>ORDER READY FOR TEAM</span>
+          <strong dir="rtl" lang="ar">سلطة خضار × ١ <i>·</i> استلام من الفرع</strong>
+        </div>
+      </div>
+    )
+  }
 
   if (type === 'voice') {
     return (
@@ -164,34 +183,41 @@ function ProjectVisual({ type }: { type: 'voice' | 'scan' | 'wave' | 'doc' }) {
 
   if (type === 'scan') {
     return (
-      <div ref={previewRef} className="project-preview project-preview--scan">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5" />
-        <div className="relative space-y-1.5">
-          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-3/4" />
-          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-full" />
-          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-5/6" />
-          <div className="h-2 bg-primary/30 rounded w-2/3" />
-          <div className="h-2 bg-[var(--text-subtle)]/20 rounded w-4/5" />
+      <div ref={previewRef} className="project-preview project-preview--scan" aria-hidden="true">
+        <div className="ocr-card-preview__source">
+          <span className="ocr-card-preview__label">HANDWRITTEN</span>
+          <div className="ocr-card-preview__lines" lang="ar" dir="rtl">
+            <span className="ocr-card-preview__sample">استمارة تسجيل</span>
+            <span className="ocr-card-preview__sample ocr-card-preview__sample--faint">يرجى مراجعة البيانات</span>
+            <span className="ocr-card-preview__sample ocr-card-preview__sample--faint">رقم الطلب: ١٢٤٨</span>
+            <span className="ocr-card-preview__sample ocr-card-preview__sample--faint">الاسم: يحيى معروف</span>
+            <i className="ocr-card-preview__scan" />
+          </div>
         </div>
-        <div
-          className="preview-scan-line absolute left-0 right-0 h-0.5 bg-primary/40"
-        />
+        <span className="ocr-card-preview__arrow">→</span>
+        <div className="ocr-card-preview__result">
+          <span className="ocr-card-preview__label">EXTRACTED TEXT</span>
+          <div className="ocr-card-preview__lines ocr-card-preview__lines--result" lang="ar" dir="rtl">
+            <span className="ocr-card-preview__clean">استمارة تسجيل</span>
+            <span className="ocr-card-preview__clean">يرجى مراجعة البيانات</span>
+            <span className="ocr-card-preview__clean">رقم الطلب: ١٢٤٨</span>
+            <span className="ocr-card-preview__clean">الاسم: يحيى معروف</span>
+          </div>
+        </div>
       </div>
     )
   }
 
-  if (type === 'wave') {
+  if (type === 'ats') {
     return (
-      <div ref={previewRef} className="project-preview project-preview--wave">
-        {Array.from({ length: 28 }).map((_, i) => (
-          <div
-            key={i}
-            className="preview-wave-bar w-[3px] rounded-full bg-primary/40"
-            style={{
-              height: `${14 + Math.sin(i * 0.5) * 10}px`,
-              animationDelay: `${i * 0.04}s`,
-            }}
-          />
+      <div ref={previewRef} className="project-preview project-preview--ats" aria-hidden="true">
+        <span className="ats-preview__label">CANDIDATE MATCHING</span>
+        {[92, 86, 74].map((score) => (
+          <div className="ats-preview__row" key={score}>
+            <span className="ats-preview__avatar" />
+            <span className="ats-preview__track"><i style={{ width: `${score}%` }} /></span>
+            <b>{score}%</b>
+          </div>
         ))}
       </div>
     )
@@ -210,6 +236,42 @@ function ProjectVisual({ type }: { type: 'voice' | 'scan' | 'wave' | 'doc' }) {
         <div className="h-1.5 bg-[var(--text-subtle)]/15 rounded w-3/4" />
         <div className="mt-1 h-1.5 bg-amber-400/25 rounded w-2/3" />
         <div className="h-1.5 bg-[var(--text-subtle)]/15 rounded w-5/6" />
+      </div>
+    </div>
+  )
+}
+
+function RecitationContributionVisual() {
+  const visualRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const visual = visualRef.current
+    if (!visual) return
+
+    if (!('IntersectionObserver' in window)) {
+      visual.classList.add('is-visible')
+      return
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visual.classList.toggle('is-visible', entry.isIntersecting)
+    }, { threshold: 0.1 })
+    observer.observe(visual)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={visualRef} className="contribution-recitation" aria-hidden="true">
+      <span className="contribution-recitation__label">RECITATION TRACKING</span>
+      <p lang="ar" dir="rtl">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</p>
+      <div className="contribution-recitation__wave">
+        {Array.from({ length: 28 }).map((_, i) => (
+          <span
+            key={i}
+            className="preview-wave-bar"
+            style={{ height: `${14 + Math.sin(i * 0.5) * 10}px`, animationDelay: `${i * 0.04}s` }}
+          />
+        ))}
       </div>
     </div>
   )
@@ -275,6 +337,7 @@ function App() {
                   {link.label}
                 </a>
               ))}
+              <a href="/ar/" lang="ar" className="site-nav__link text-[13px] font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-colors rounded-lg hover:bg-white/[0.06]">العربية</a>
             </div>
 
             <div className="site-nav__divider w-px h-4 bg-[var(--border)] mx-1.5 hidden sm:block" />
@@ -342,8 +405,8 @@ function App() {
 
                 <div>
                   <p className="text-base sm:text-lg text-[var(--text-muted)] max-w-lg mb-8 leading-relaxed">
-                    AI/MLOps Engineer crafting production-ready AI solutions — from intelligent
-                    chatbots to computer vision systems.
+                    AI/MLOps Engineer crafting production ready AI solutions from
+                    AI applications to computer vision systems
                   </p>
                 </div>
 
@@ -376,10 +439,10 @@ function App() {
         {/* ── About ─────────────────────────────────────────────────────── */}
         <section id="about" className="section border-y border-[var(--border)] bg-[var(--bg-alt)]">
           <div className="section-wrap">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 lg:gap-16 items-start">
 
               {/* Left Content */}
-              <div className="lg:col-span-7">
+              <div className="md:col-span-7">
                 <FadeUp>
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
                     About
@@ -396,7 +459,7 @@ function App() {
 
                 <FadeUp delay={160}>
                   <p className="text-[var(--text-muted)] leading-relaxed text-[15px] max-w-2xl">
-                    Results-driven Machine Learning Operations Engineer with experience in
+                    Yahya Mahroof is an AI and Machine Learning Operations Engineer with experience in
                     designing, deploying, and improving AI systems and web applications. Skilled
                     in building AI agents and integrating AI into real-world solutions. Proficient
                     in Python, Flask, Django, and FastAPI, with experience deploying applications
@@ -407,7 +470,7 @@ function App() {
               </div>
 
               {/* Right Stats */}
-              <div className="lg:col-span-5">
+              <div className="md:col-span-5">
                 <div className="flex flex-col gap-5">
                   {[
                     { value: 14, suffix: '+', label: 'AI Projects Deployed' },
@@ -483,13 +546,11 @@ function App() {
               </h2>
             </FadeUp>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+            <div className="projects-grid">
               {projects.map((proj, i) => (
                 <ScaleIn key={proj.title} delay={i * 90}>
                   <a
                     href={proj.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="project-card group block rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-primary/35 hover:shadow-[0_18px_48px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-1 overflow-hidden"
                   >
                     <div className="project-card-art">
@@ -501,11 +562,11 @@ function App() {
                         <div className="flex items-center gap-2.5">
                           <proj.icon className="w-4 h-4 text-primary" />
                           <h3 className="project-card__title font-bold text-[var(--text)] text-[15px]">
-                            {proj.title}
+                            {proj.title}{proj.title === 'Lahzi' && <span className="project-card__localized-name" lang="ar" dir="rtl">لحظي</span>}
                           </h3>
                         </div>
                           <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/10 text-emerald-300">
-                          Live
+                          {proj.title.startsWith('Lahzi') ? 'Product' : 'Live'}
                         </span>
                       </div>
 
@@ -525,7 +586,13 @@ function App() {
                           ))}
                         </div>
                         <span className="text-primary text-sm font-medium flex items-center gap-1 shrink-0 group-hover:gap-2 transition-all">
-                          Demo
+                          {proj.title.startsWith('Lahzi')
+                            ? 'Explore project'
+                            : proj.title === 'AI English Tutor' || proj.title === 'Handwriting OCR'
+                            ? 'Try Demo'
+                            : proj.title === 'AI ATS System'
+                              ? 'Try System'
+                              : 'Explore Project'}
                           <ArrowRight className="w-3.5 h-3.5" />
                         </span>
                       </div>
@@ -574,12 +641,13 @@ function App() {
                     <li>Sequence detection and feedback</li>
                     <li>Technical documentation</li>
                   </ul>
+                  <RecitationContributionVisual />
                   <div className="flex flex-wrap gap-3 mt-7">
-                    <a className="contribution-link" href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer">
-                      View repository <ArrowUpRight className="w-4 h-4" />
+                    <a className="contribution-link" href="/projects/quran-recitation-ai/">
+                      Read case study <ArrowRight className="w-4 h-4" />
                     </a>
-                    <a className="contribution-link contribution-link--quiet" href="https://quran-tracker.yahya-mahroof.site" target="_blank" rel="noopener noreferrer">
-                      Open live demo <ArrowUpRight className="w-4 h-4" />
+                    <a className="contribution-link contribution-link--quiet" href="https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System" target="_blank" rel="noopener noreferrer">
+                      View repository <ArrowUpRight className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
@@ -659,25 +727,25 @@ function App() {
         </Suspense>
 
         {/* ── Contact ───────────────────────────────────────────────────── */}
-        <section id="contact" className="section">
+        <section id="contact" className="section contact-block">
           <div className="section-wrap text-center">
             <FadeUp>
-              <span className="inline-block px-3 py-1 rounded-full bg-primary/[0.07] text-primary text-xs font-semibold tracking-wide mb-5">
+              <span className="contact-eyebrow">
                 Contact
               </span>
             </FadeUp>
             <FadeUp delay={80}>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-3">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight">
                 Let us build something together
               </h2>
             </FadeUp>
             <FadeUp delay={160}>
-              <p className="text-[var(--text-muted)] mb-10 max-w-md mx-auto">
+              <p className="contact-block__copy">
                 Have a project in mind? I would love to hear about it.
               </p>
             </FadeUp>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-xl mx-auto">
+            <div className="contact-actions">
               {[
                 { icon: Mail, label: 'Email', href: 'mailto:yahyamahroof35@gmail.com' },
                 { icon: WhatsappIcon, label: 'WhatsApp', href: 'https://wa.me/+201001866276' },
@@ -687,20 +755,17 @@ function App() {
                   href: 'https://www.linkedin.com/in/yahya-mahrouf',
                 },
                 { icon: GithubIcon, label: 'GitHub', href: 'https://github.com/yayaiu6' },
-              ].map((item, i) => (
-                <FadeUp key={item.label} delay={240 + i * 70}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-col items-center gap-2.5 p-4 rounded-2xl border border-[var(--border)] hover:border-primary/25 hover:bg-primary/[0.03] transition-all duration-300 group"
-                  >
-                    <item.icon className="w-5 h-5 text-[var(--text-subtle)] group-hover:text-primary transition-colors" />
-                    <span className="text-sm font-medium text-[var(--text-muted)] group-hover:text-[var(--text)] transition-colors">
-                      {item.label}
-                    </span>
-                  </a>
-                </FadeUp>
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`contact-action${item.label === 'Email' ? ' contact-action--primary' : ''}`}
+                >
+                  <item.icon className="contact-action__icon" />
+                  <span>{item.label}</span>
+                </a>
               ))}
             </div>
           </div>
@@ -708,21 +773,21 @@ function App() {
       </main>
 
       {/* ── Footer ──────────────────────────────────────────────────────── */}
-      <footer className="border-t border-[var(--border)] bg-[var(--bg-alt)]">
-        <div className="section-wrap py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
+      <footer className="site-footer">
+        <div className="site-footer__inner section-wrap">
+          <a className="site-footer__brand" href="#home" aria-label="Yahya Mahroof — home">
             <img className="site-brand__wordmark site-brand__wordmark--small" src="/yayaiu6-wordmark.png" alt="YAYAIU6" />
-            <span className="text-sm text-[var(--text-subtle)]">
-              &copy; {new Date().getFullYear()} Yahya Mahroof
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
+          </a>
+          <span className="site-footer__copyright">
+            &copy; {new Date().getFullYear()} Yahya Mahroof. All rights reserved.
+          </span>
+          <div className="site-footer__links">
+            <a className="site-footer__email" href="mailto:yahyamahroof35@gmail.com">Email</a>
             <a
               href="https://github.com/yayaiu6"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[var(--text-subtle)] hover:text-[var(--text)] transition-colors"
+              className="site-footer__social"
               aria-label="GitHub"
             >
               <GithubIcon className="w-4 h-4" />
@@ -731,14 +796,14 @@ function App() {
               href="https://www.linkedin.com/in/yahya-mahrouf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[var(--text-subtle)] hover:text-[var(--text)] transition-colors"
+              className="site-footer__social"
               aria-label="LinkedIn"
             >
               <LinkedinIcon className="w-4 h-4" />
             </a>
             <a
               href="mailto:yahyamahroof35@gmail.com"
-              className="text-[var(--text-subtle)] hover:text-[var(--text)] transition-colors"
+              className="site-footer__social"
               aria-label="Email"
             >
               <Mail className="w-4 h-4" />

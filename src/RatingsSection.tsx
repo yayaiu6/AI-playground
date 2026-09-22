@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, getDocs, query, orderBy, limit } from 'firebase/firestore'
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import { User, Star, Mail } from 'lucide-react'
 import { FadeUp } from './App'
 
@@ -32,6 +32,7 @@ interface Rating {
   comment: string
   email?: string
   phone?: string
+  timestamp?: { seconds?: number }
 }
 
 /* ─── Ratings Section ───────────────────────────────────────────────────── */
@@ -47,12 +48,12 @@ export default function RatingsSection() {
       setRatingsLoading(true)
       setLoadError(false)
       try {
-        const q = query(collection(getDb(), 'ratings'), orderBy('timestamp', 'desc'), limit(6))
-        const snapshot = await getDocs(q)
+        const snapshot = await getDocs(collection(getDb(), 'ratings'))
         const items: Rating[] = []
         snapshot.forEach((doc) => {
           items.push({ id: doc.id, ...doc.data() } as Rating)
         })
+        items.sort((a, b) => (b.timestamp?.seconds ?? 0) - (a.timestamp?.seconds ?? 0))
         if (!cancelled) setRatings(items)
       } catch (err) {
         console.error('Failed to load ratings:', err)
@@ -73,7 +74,7 @@ export default function RatingsSection() {
           <h2 className="text-3xl sm:text-4xl font-bold text-[var(--text)] tracking-tight mb-3">Client Feedback</h2>
         </FadeUp>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 min-h-[140px]">
+        <div className="ratings-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 min-h-[140px]">
           {ratingsLoading ? (
             <>
               <div className="animate-pulse bg-[var(--bg-card)] p-5 rounded-xl border border-[var(--border)] h-36">

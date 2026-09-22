@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0c11">
+  <title>Handwriting OCR — Extract text from documents | Yahya Mahroof</title>
+  <meta name="description" content="Explore Yahya Mahroof’s Handwriting OCR project and try its live demo for extracting Arabic, English, French, and handwritten text from images.">
+  <meta name="author" content="Yahya Mahroof">
+  <link rel="canonical" href="https://yahya-mahroof.site/projects/handwriting-ocr/">
+  <link rel="alternate" hreflang="en" href="https://yahya-mahroof.site/projects/handwriting-ocr/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Yahya Mahroof">
+  <meta property="og:title" content="Handwriting OCR — Yahya Mahroof">
+  <meta property="og:description" content="A custom OCR project with a live image-to-text demo for Arabic, English, French, and handwriting.">
+  <meta property="og:url" content="https://yahya-mahroof.site/projects/handwriting-ocr/">
+  <meta property="og:image" content="https://yahya-mahroof.site/og-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Handwriting OCR — Yahya Mahroof">
+  <meta name="twitter:description" content="Explore the Handwriting OCR project and try its live image-to-text demo.">
+  <meta name="twitter:image" content="https://yahya-mahroof.site/og-cover.png">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/phase2.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://yahya-mahroof.site/#person","name":"Yahya Mahroof","url":"https://yahya-mahroof.site/","sameAs":["https://github.com/yayaiu6","https://www.linkedin.com/in/yahya-mahrouf"]},{"@type":"WebPage","@id":"https://yahya-mahroof.site/projects/handwriting-ocr/#webpage","url":"https://yahya-mahroof.site/projects/handwriting-ocr/","name":"Handwriting OCR — Extract text from documents","inLanguage":"en","author":{"@id":"https://yahya-mahroof.site/#person"},"mainEntity":{"@id":"https://yahya-mahroof.site/#handwriting-ocr"}},{"@type":"CreativeWork","@id":"https://yahya-mahroof.site/#handwriting-ocr","name":"Handwriting OCR","description":"A custom-built OCR model for extracting Arabic, English, French, and handwritten text from images and documents, with a browser-based upload and result-review demo.","url":"https://yahya-mahroof.site/projects/handwriting-ocr/","creator":{"@id":"https://yahya-mahroof.site/#person"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portfolio","item":"https://yahya-mahroof.site/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://yahya-mahroof.site/#projects"},{"@type":"ListItem","position":3,"name":"Handwriting OCR","item":"https://yahya-mahroof.site/projects/handwriting-ocr/"}]}]}</script>
+</head>
+<body>
+  <header class="topbar"><div class="wrap nav">
+    <a class="brand" href="/#home" aria-label="Yahya Mahroof home"><img src="/yayaiu6-wordmark.png" alt="YAYAIU6"></a>
+    <nav class="navlinks" aria-label="Site navigation"><a href="/#about">About</a><a href="/#projects">Projects</a><a class="lang" href="/ar/" lang="ar">العربية</a></nav>
+  </div></header>
+  <main class="wrap ocr-project">
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Portfolio</a> / <a href="/#projects">Projects</a> / Handwriting OCR</nav>
+    <article>
+      <header class="case-hero ocr-case-hero">
+        <span class="eyebrow">Computer Vision · OCR</span>
+        <h1>Handwriting OCR</h1>
+        <p>A custom-built optical character recognition model for extracting text from images and documents, including Arabic, English, French, and handwriting.</p>
+        <div class="case-meta"><span>OCR</span><span>Python</span><span>API</span><span>Live demo</span></div>
+        <div class="actions"><a class="button primary" href="#demo">Try the demo <span aria-hidden="true">↓</span></a><a class="button" href="mailto:yahyamahroof35@gmail.com">Contact Yahya</a></div>
+      </header>
+
+      <section class="ocr-proof-section" aria-labelledby="ocr-proof-title">
+        <div class="ocr-proof-copy"><span class="eyebrow">From handwriting to text</span><h2 id="ocr-proof-title">See what text extraction means</h2><p>The sample below illustrates the transformation this project is built to support: handwritten document content on one side, readable extracted text on the other.</p></div>
+        <figure class="ocr-proof" aria-label="Illustrative OCR sample showing handwritten Arabic text and its extracted text">
+          <div class="ocr-proof__pane ocr-proof__source"><div class="ocr-proof__heading"><span>DOCUMENT IMAGE</span><span class="ocr-proof__indicator">SAMPLE</span></div><div class="ocr-proof__paper" lang="ar" dir="rtl"><div class="ocr-proof__handwriting"><span class="ocr-proof__scribble">استمارة طلب تسجيل جديد</span><span class="ocr-proof__scribble ocr-proof__scribble--faint">يرجى مراجعة البيانات قبل الإرسال</span><span class="ocr-proof__scribble ocr-proof__scribble--short">رقم الطلب: ١٢٤٨</span><span class="ocr-proof__scribble ocr-proof__scribble--faint">اسم المتقدم: يحيى معروف</span><span class="ocr-proof__scribble">تاريخ التقديم: ٢١ سبتمبر ٢٠٢٦</span><i class="ocr-proof__scan" aria-hidden="true"></i></div></div></div>
+          <div class="ocr-proof__connector" aria-hidden="true"><span>→</span></div>
+          <div class="ocr-proof__pane ocr-proof__result"><div class="ocr-proof__heading"><span>EXTRACTED TEXT</span><span class="ocr-proof__ready"><i></i> TEXT</span></div><div class="ocr-proof__output" lang="ar" dir="ltr"><div class="ocr-proof__recognized" lang="ar" dir="rtl"><p>استمارة طلب تسجيل جديد</p><p>يرجى مراجعة البيانات قبل الإرسال</p><p>رقم الطلب: ١٢٤٨</p><p>اسم المتقدم: يحيى معروف</p><p>تاريخ التقديم: ٢١ سبتمبر ٢٠٢٦</p></div></div></div>
+          <figcaption>Illustrative sample · not a live OCR result</figcaption>
+        </figure>
+      </section>
+
+      <section class="ocr-demo" id="demo" aria-labelledby="demo-title">
+        <div class="ocr-demo__intro"><span class="eyebrow">Interactive demo</span><h2 id="demo-title">Try it with an image</h2><p>Choose a document image to send it to the OCR service. The extracted text will appear here for review and copying.</p><p class="ocr-demo__privacy">Images are sent to the OCR API for processing. Avoid uploading sensitive documents.</p></div>
+        <div class="ocr-demo__workspace">
+          <div class="ocr-demo__column">
+            <h3>1. Add an image</h3>
+            <p class="ocr-demo__hint" id="uploadHint">JPG, PNG, or another image format · up to 5 MB</p>
+            <input class="sr-only" type="file" id="fileInput" accept="image/*" aria-describedby="uploadHint uploadError">
+            <div id="uploadZone" class="ocr-upload" role="button" tabindex="0" aria-label="Choose an image or drop one here">
+              <div id="uploadPlaceholder" class="ocr-upload__placeholder"><span class="ocr-upload__icon" aria-hidden="true">↑</span><strong>Choose an image or drop it here</strong><span>Image files up to 5 MB</span></div>
+              <img id="preview" class="ocr-upload__preview hidden" alt="">
+            </div>
+            <p id="uploadError" class="ocr-demo__error hidden" role="alert"></p>
+            <button id="processBtn" class="button primary ocr-process" type="button" disabled>Extract text <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="ocr-demo__column ocr-demo__result-column">
+            <div class="ocr-demo__result-heading"><div><h3>2. Review the result</h3><p>Extracted content appears in its original reading direction.</p></div><button id="copyBtn" class="ocr-copy" type="button" disabled>Copy text</button></div>
+            <div id="resultBox" class="ocr-result" role="region" aria-label="OCR result" aria-live="polite">
+              <div id="resultPlaceholder" class="ocr-result__placeholder"><span aria-hidden="true">Aa</span><p>Your extracted text will appear here</p></div>
+              <div id="resultText" class="hidden" dir="auto"></div>
+            </div>
+            <div id="loadingIndicator" class="ocr-loading hidden" role="status" aria-live="polite"><span class="ocr-spinner" aria-hidden="true"></span><p>Extracting text from your image…</p></div>
+            <p id="copyFeedback" class="sr-only" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <div class="case-body ocr-case-body">
+        <section><h2>Problem and purpose</h2><p>Text embedded in scans, document images, or handwriting is not immediately available as editable text. This project explores extracting that text through an OCR model and provides a browser demo for submitting an image and reviewing the returned result.</p></section>
+        <section><h2>How the demo works</h2><ul class="facts"><li>Select or drop an image in the browser interface.</li><li>The image is sent to an OCR API for extraction.</li><li>Review or copy the extracted text from the result panel.</li><li>The demo accepts image uploads up to 5 MB.</li></ul><p>The published demo describes support for Arabic, English, French, and handwritten text. It does not publish a benchmark or accuracy figure.</p></section>
+        <section><h2>My role and implementation</h2><p>Yahya Mahroof presents this as a custom-built OCR project. The portfolio lists Python and an API alongside OCR; the demo exposes the image-upload and result-review flow. The model architecture, training dataset, and measured performance are not specified in the available materials.</p></section>
+        <section><h2>Project links</h2><div class="related"><a class="text-link" href="/#projects">Back to the portfolio projects <b aria-hidden="true">↑</b></a><a class="text-link" href="/projects/quran-recitation-ai/">Quran Recitation AI <b aria-hidden="true">→</b></a></div></section>
+      </div>
+    </article>
+  </main>
+  <footer class="foot"><div class="wrap foot-inner"><a class="brand" href="/"><img src="/yayaiu6-wordmark.png" alt="YAYAIU6"></a><span>© 2026 Yahya Mahroof</span><a href="mailto:yahyamahroof35@gmail.com">Email</a></div></footer>
+  <script>
+    (() => {
+      const API_URL = 'https://ocr.yahya-mahroof.site/extract-text-base64';
+      const uploadZone = document.getElementById('uploadZone');
+      const fileInput = document.getElementById('fileInput');
+      const preview = document.getElementById('preview');
+      const processBtn = document.getElementById('processBtn');
+      const resultText = document.getElementById('resultText');
+      const resultPlaceholder = document.getElementById('resultPlaceholder');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      const uploadError = document.getElementById('uploadError');
+      const copyBtn = document.getElementById('copyBtn');
+      const copyFeedback = document.getElementById('copyFeedback');
+      let currentFile = null;
+      let objectUrl = null;
+
+      const showUploadError = (message) => {
+        uploadError.textContent = message;
+        uploadError.classList.remove('hidden');
+      };
+      const clearUploadError = () => {
+        uploadError.textContent = '';
+        uploadError.classList.add('hidden');
+      };
+      function handleFile(file) {
+        clearUploadError();
+        if (!file.type.startsWith('image/')) {
+          showUploadError('Choose an image file to continue.');
+          fileInput.value = '';
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          showUploadError('This image is larger than 5 MB. Choose a smaller file.');
+          fileInput.value = '';
+          return;
+        }
+        currentFile = file;
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+        objectUrl = URL.createObjectURL(file);
+        preview.src = objectUrl;
+        preview.alt = `Preview of ${file.name}`;
+        preview.classList.remove('hidden');
+        document.getElementById('uploadPlaceholder').classList.add('hidden');
+        processBtn.disabled = false;
+        copyBtn.disabled = true;
+        resultText.classList.add('hidden');
+        resultPlaceholder.classList.remove('hidden');
+      }
+
+      uploadZone.addEventListener('click', (event) => {
+        if (event.target !== fileInput) fileInput.click();
+      });
+      uploadZone.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          fileInput.click();
+        }
+      });
+      uploadZone.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        uploadZone.classList.add('is-dragging');
+      });
+      uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('is-dragging'));
+      uploadZone.addEventListener('drop', (event) => {
+        event.preventDefault();
+        uploadZone.classList.remove('is-dragging');
+        if (event.dataTransfer.files[0]) handleFile(event.dataTransfer.files[0]);
+      });
+      fileInput.addEventListener('change', (event) => {
+        if (event.target.files[0]) handleFile(event.target.files[0]);
+      });
+
+      processBtn.addEventListener('click', async () => {
+        if (!currentFile || processBtn.disabled) return;
+        processBtn.disabled = true;
+        copyBtn.disabled = true;
+        resultPlaceholder.classList.add('hidden');
+        resultText.classList.add('hidden');
+        loadingIndicator.classList.remove('hidden');
+        processBtn.textContent = 'Processing…';
+        try {
+          const base64Data = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = () => reject(new Error('The selected image could not be read.'));
+            reader.readAsDataURL(currentFile);
+          });
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: base64Data }),
+          });
+          const data = await response.json();
+          if (!response.ok || !data.success) throw new Error(data.error || `Extraction failed (${response.status}).`);
+          resultText.textContent = data.text || 'No text was detected in this image.';
+          resultText.dir = 'auto';
+          copyBtn.disabled = !data.text;
+        } catch (error) {
+          resultText.textContent = error instanceof Error ? error.message : 'The image could not be processed. Please try again.';
+          resultText.dir = 'auto';
+        } finally {
+          loadingIndicator.classList.add('hidden');
+          resultText.classList.remove('hidden');
+          processBtn.textContent = 'Extract text →';
+          processBtn.disabled = !currentFile;
+        }
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        if (!resultText.textContent || copyBtn.disabled) return;
+        try {
+          await navigator.clipboard.writeText(resultText.textContent);
+          copyFeedback.textContent = 'Extracted text copied.';
+          copyBtn.textContent = 'Copied';
+          window.setTimeout(() => { copyBtn.textContent = 'Copy text'; }, 1500);
+        } catch {
+          copyFeedback.textContent = 'Could not copy automatically. Select the result text and copy it manually.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
