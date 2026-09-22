@@ -102,7 +102,7 @@ const projects = [
     icon: UserCheck,
     title: 'AI ATS System',
     desc: 'Automatically compare applicant CVs against the Job Description to screen the best candidates.',
-    url: 'https://ats.yahya-mahroof.site/admin',
+    url: '/projects/ai-ats-system/',
     tech: ['NLP', 'Python', 'Firebase'],
     visual: 'ats' as const,
   },
