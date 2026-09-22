@@ -171,6 +171,20 @@
             color: #9694a3;
         }
 
+        /* Keep browser autofill inside the dark rating surface. */
+        .m3-field input:-webkit-autofill,
+        .m3-field input:-webkit-autofill:hover,
+        .m3-field input:-webkit-autofill:focus,
+        .m3-field textarea:-webkit-autofill,
+        .m3-field textarea:-webkit-autofill:hover,
+        .m3-field textarea:-webkit-autofill:focus {
+            -webkit-text-fill-color: #f1f0f6;
+            -webkit-box-shadow: 0 0 0 1000px #14151d inset;
+            box-shadow: 0 0 0 1000px #14151d inset;
+            caret-color: #a5a1ff;
+            transition: background-color 9999s ease-out 0s;
+        }
+
         /* M3 Filled Button */
         .m3-btn-filled {
             display: inline-flex;
