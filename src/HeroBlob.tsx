@@ -87,7 +87,7 @@ export default function HeroBlob() {
         <div className="hero-art__orbit hero-art__orbit--two" />
         <div ref={coreMotionRef} className="hero-art__core-depth">
           <div className="hero-art__core">
-            <img className="hero-art__logo" src="/yayaiu6_logo.png" alt="" decoding="async" />
+            <img className="hero-art__logo" src="/yayaiu6_logo.png" alt="" width="294" height="190" decoding="async" />
           </div>
         </div>
         <span className="hero-art__node hero-art__node--one" />

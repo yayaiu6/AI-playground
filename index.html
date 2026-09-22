@@ -5,6 +5,11 @@
     <link rel="icon" href="/favicon.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b0c11" />
+    <script>
+      if (new URLSearchParams(window.location.search).get('lang') === 'ar') {
+        window.location.replace('/ar/' + window.location.hash)
+      }
+    </script>
     <title>Yahya Mahroof | AI &amp; MLOps Engineer</title>
     <meta name="description" content="Yahya Mahroof is an AI and MLOps Engineer building and deploying AI systems, voice applications, computer vision solutions, and production software." />
     <meta name="author" content="Yahya Mahroof" />

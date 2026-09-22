@@ -9,6 +9,37 @@ import HeroBlob from './HeroBlob'
 
 const RatingsSection = lazy(() => import('./RatingsSection'))
 
+function DeferredRatingsSection() {
+  const triggerRef = useRef<HTMLDivElement>(null)
+  const [shouldLoad, setShouldLoad] = useState(false)
+
+  useEffect(() => {
+    const trigger = triggerRef.current
+    if (!trigger || shouldLoad) return
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true)
+      return
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      setShouldLoad(true)
+      observer.disconnect()
+    }, { rootMargin: '500px 0px' })
+    observer.observe(trigger)
+    return () => observer.disconnect()
+  }, [shouldLoad])
+
+  if (!shouldLoad) {
+    return <section ref={triggerRef} id="ratings" className="section" aria-label="Client testimonials" />
+  }
+
+  return (
+    <Suspense fallback={<section id="ratings" className="section" aria-label="Loading testimonials" />}>
+      <RatingsSection />
+    </Suspense>
+  )
+}
+
 /* ── Icons ─────────────────────────────────────────────────────────────── */
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -316,7 +347,7 @@ function App() {
       >
         <div className="section-wrap site-nav__inner">
           <a href="#home" className="site-brand" aria-label="Yahya Mahroof — home">
-            <img className="site-brand__wordmark" src="/yayaiu6-wordmark.png" alt="YAYAIU6" />
+            <img className="site-brand__wordmark" src="/yayaiu6-wordmark.png" alt="YAYAIU6" width="294" height="44" />
           </a>
 
           <div id="primary-navigation" className={`site-nav__links${mobileMenuOpen ? ' is-open' : ''}`}>
@@ -714,17 +745,7 @@ function App() {
         </section>
 
         {/* ── Ratings ───────────────────────────────────────────────────── */}
-        <Suspense
-          fallback={
-            <section id="ratings" className="section" aria-label="Loading testimonials">
-              <div className="section-wrap text-center py-12">
-                <div className="h-6 w-28 bg-[var(--border)] rounded-full mx-auto mb-4 animate-pulse" />
-              </div>
-            </section>
-          }
-        >
-          <RatingsSection />
-        </Suspense>
+        <DeferredRatingsSection />
 
         {/* ── Contact ───────────────────────────────────────────────────── */}
         <section id="contact" className="section contact-block">
@@ -776,7 +797,7 @@ function App() {
       <footer className="site-footer">
         <div className="site-footer__inner section-wrap">
           <a className="site-footer__brand" href="#home" aria-label="Yahya Mahroof — home">
-            <img className="site-brand__wordmark site-brand__wordmark--small" src="/yayaiu6-wordmark.png" alt="YAYAIU6" />
+            <img className="site-brand__wordmark site-brand__wordmark--small" src="/yayaiu6-wordmark.png" alt="YAYAIU6" width="294" height="44" />
           </a>
           <span className="site-footer__copyright">
             &copy; {new Date().getFullYear()} Yahya Mahroof. All rights reserved.
