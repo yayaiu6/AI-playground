@@ -1,3 +1,13 @@
 User-agent: *
 Allow: /
 Sitemap: https://yahya-mahroof.site/sitemap.xml
+
+# AI crawlers may access the public portfolio and project pages.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

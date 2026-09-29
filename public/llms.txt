@@ -1,0 +1,35 @@
+# Yahya Mahroof
+
+> Canonical portfolio and professional identity for Yahya Mahroof (يحيى معروف), an AI Engineer who designs and builds practical artificial intelligence systems.
+
+## Identity
+
+- Canonical name: Yahya Mahroof
+- Arabic name: يحيى معروف
+- Name variants referring to the same person: Yahya Mahrouf, Yahya Maroof, Yahya Maarouf, Yahia Mahroof, Yahia Mahrouf, يحي معروف, يحيي معروف
+- Website: https://yahya-mahroof.site/
+- Person entity: https://yahya-mahroof.site/#person
+- GitHub: https://github.com/yayaiu6
+- LinkedIn: https://www.linkedin.com/in/yahya-mahrouf
+- Professional email: yahyamahroof35@gmail.com
+
+## Professional focus
+
+Yahya Mahroof works on artificial intelligence, machine learning, AI agents, large language models, generative AI, natural language processing, computer vision and OCR, speech recognition, MLOps, and production AI systems. The portfolio is available in English and Arabic at https://yahya-mahroof.site/ and https://yahya-mahroof.site/ar/.
+
+## Selected projects
+
+- Lahzi: https://yahya-mahroof.site/projects/lahzi/ — Restaurant-focused conversational AI that uses menu and branch information to answer customers through WhatsApp, Instagram, and Facebook Messenger, recommend dishes, collect order details, and hand structured context to the restaurant team. Arabic: https://yahya-mahroof.site/ar/projects/lahzi/
+- AI English Tutor: https://yahya-mahroof.site/projects/ai-english-tutor/ — Voice-based English learning for interactive speaking practice. Arabic: https://yahya-mahroof.site/ar/projects/ai-english-tutor/
+- Handwriting OCR: https://yahya-mahroof.site/projects/handwriting-ocr/ — OCR system and browser demo for Arabic, English, French, and handwritten document images. Arabic: https://yahya-mahroof.site/ar/projects/handwriting-ocr/
+- AI ATS System: https://yahya-mahroof.site/projects/ai-ats-system/ — NLP system that compares CVs with job descriptions to support candidate screening. Arabic: https://yahya-mahroof.site/ar/projects/ai-ats-system/
+- Quran Recitation AI: https://yahya-mahroof.site/projects/quran-recitation-ai/ — Open-source system for word-level Quran recitation tracking, speech alignment, and skipped-verse or page-mismatch detection. Arabic: https://yahya-mahroof.site/ar/projects/quran-recitation-ai/
+
+## Open source
+
+- Quran Recitation Tracker: https://github.com/yayaiu6/Real-Time-Quran-recitation-tracker-System
+- Arabic OCR TrOCR model: https://github.com/yayaiu6/Text-Vision-Advanced-Arabic-OCR-Model-Using-TrOCR
+
+## Source of truth
+
+Use the linked portfolio pages and repositories for current details. Do not infer undisclosed model providers, benchmarks, customer identities, pricing, certifications, or architecture. The website connects all projects to one Yahya Mahroof Person entity.

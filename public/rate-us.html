@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/theme.js"></script>
     <meta name="theme-color" content="#0b0c11">
     <title>Rate Yahya Mahroof’s Work</title>
     <meta name="robots" content="noindex,follow" />
@@ -22,16 +23,16 @@
                     },
                     colors: {
                         surface: {
-                            DEFAULT: '#14151d',
+                            DEFAULT: 'var(--color-surface)',
                             dim: '#0b0c11',
                             container: '#191a24',
                             variant: '#22232e',
                         },
                         primary: {
-                            DEFAULT: '#837cf5',
+                            DEFAULT: 'var(--color-primary-dark)',
                             container: '#292642',
                             on: '#ffffff',
-                            dark: '#a5a1ff',
+                            dark: 'var(--color-primary)',
                         },
                         outline: {
                             DEFAULT: '#777583',
@@ -128,8 +129,8 @@
             outline: none;
             transition: border-color 0.15s;
             font-family: Inter, system-ui, sans-serif;
-            color: #f1f0f6;
-            caret-color: #a5a1ff;
+            color: var(--text);
+            caret-color: var(--color-primary);
         }
         .m3-field input:hover,
         .m3-field textarea:hover {
@@ -137,7 +138,7 @@
         }
         .m3-field input:focus,
         .m3-field textarea:focus {
-            border-color: #a5a1ff;
+            border-color: var(--color-primary);
             border-width: 2px;
             padding: 15px;
             padding-top: 23px;
@@ -148,10 +149,10 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 16px;
-            color: #9694a3;
+            color: var(--text-subtle);
             pointer-events: none;
             transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
-            background: #14151d;
+            background: var(--bg-card);
             padding: 0 4px;
             font-family: Inter, system-ui, sans-serif;
         }
@@ -164,11 +165,11 @@
         .m3-field textarea:not(:placeholder-shown) ~ label {
             top: 0;
             font-size: 12px;
-            color: #a5a1ff;
+            color: var(--color-primary);
         }
         .m3-field input:not(:focus):not(:placeholder-shown) ~ label,
         .m3-field textarea:not(:focus):not(:placeholder-shown) ~ label {
-            color: #9694a3;
+            color: var(--text-subtle);
         }
 
         /* Keep browser autofill inside the dark rating surface. */
@@ -178,10 +179,10 @@
         .m3-field textarea:-webkit-autofill,
         .m3-field textarea:-webkit-autofill:hover,
         .m3-field textarea:-webkit-autofill:focus {
-            -webkit-text-fill-color: #f1f0f6;
+            -webkit-text-fill-color: var(--text);
             -webkit-box-shadow: 0 0 0 1000px #14151d inset;
             box-shadow: 0 0 0 1000px #14151d inset;
-            caret-color: #a5a1ff;
+            caret-color: var(--color-primary);
             transition: background-color 9999s ease-out 0s;
         }
 
@@ -198,7 +199,7 @@
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.1px;
-            background: #837cf5;
+            background: var(--color-primary-dark);
             color: white;
             border: none;
             cursor: pointer;
@@ -211,8 +212,8 @@
             transform: translateY(-1px);
         }
         .m3-btn-filled:disabled {
-            background: #30313c;
-            color: #9694a3;
+            background: var(--border-light);
+            color: var(--text-subtle);
             cursor: default;
             box-shadow: none;
         }
@@ -272,11 +273,11 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        body { background: #0b0c11; color: #f1f0f6; }
-        .star-btn:focus-visible, .m3-btn-filled:focus-visible, .close-btn:focus-visible, header a:focus-visible { outline: 2px solid #a5a1ff; outline-offset: 3px; }
+        body { background: #0b0c11; color: var(--text); }
+        .star-btn:focus-visible, .m3-btn-filled:focus-visible, .close-btn:focus-visible, header a:focus-visible { outline: 2px solid #2f8cff; outline-offset: 3px; }
         .star-btn[aria-checked="true"] .star-svg { fill: #f9ab00; }
         .rating-header { background: rgba(11,12,17,.9) !important; border-color: #2b2d3a !important; }
-        #ratingHeroIcon { fill: #a5a1ff; }
+        #ratingHeroIcon { fill: #2f8cff; }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
@@ -392,7 +393,7 @@
         const charCount = document.getElementById('charCount');
 
         const ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'];
-        const ratingColors = ['', '#ff9b9b', '#ffc078', '#f9c74f', '#83dfb3', '#a5a1ff'];
+        const ratingColors = ['', '#ff9b9b', '#ffc078', '#f9c74f', '#83dfb3', '#2f8cff'];
         let selectedRating = 0;
 
         // Ripple
