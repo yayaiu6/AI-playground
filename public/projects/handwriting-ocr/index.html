@@ -20,6 +20,30 @@
   <meta name="twitter:image" content="https://yahya-mahroof.site/og-cover.png">
   <link rel="icon" href="/favicon.png" type="image/png">
   <script src="/theme.js"></script><link rel="stylesheet" href="/phase2.css">
+  <style>
+    /* Markdown rendering for the extracted-text box */
+    .ocr-md{white-space:normal;overflow-wrap:anywhere;flex:1 1 auto;width:100%;min-width:0}
+    .ocr-md>*:first-child{margin-block-start:0}
+    .ocr-md>*:last-child{margin-block-end:0}
+    .ocr-md p{margin:.45em 0}
+    .ocr-md h1,.ocr-md h2,.ocr-md h3,.ocr-md h4,.ocr-md h5,.ocr-md h6{margin:1em 0 .4em;line-height:1.4;font-weight:700}
+    .ocr-md h1{font-size:1.14em}
+    .ocr-md h2{font-size:1.08em}
+    .ocr-md h3,.ocr-md h4,.ocr-md h5,.ocr-md h6{font-size:1em}
+    .ocr-md ul,.ocr-md ol{margin:.5em 0;padding-inline-start:1.5em}
+    .ocr-md ul{list-style:disc}
+    .ocr-md ol{list-style:decimal}
+    .ocr-md li{margin:.2em 0}
+    .ocr-md li::marker{color:var(--subtle)}
+    .ocr-md table{display:block;width:100%;margin:.7em 0;border-collapse:collapse;overflow-x:auto}
+    .ocr-md th,.ocr-md td{border:1px solid var(--line-light);padding:.3em .55em;text-align:start;vertical-align:top}
+    .ocr-md th{background:rgba(127,127,127,.14);font-weight:700}
+    .ocr-md blockquote{margin:.6em 0;padding:.2em .8em;border-inline-start:3px solid var(--color-primary);color:var(--muted)}
+    .ocr-md hr{border:0;border-top:1px solid var(--line-light);margin:.9em 0}
+    .ocr-md code{background:rgba(127,127,127,.16);padding:.1em .35em;border-radius:.3em}
+    .ocr-md a{color:var(--color-primary);text-decoration:underline}
+    .ocr-md strong{font-weight:700}
+  </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://yahya-mahroof.site/#person","name":"Yahya Mahroof","url":"https://yahya-mahroof.site/","sameAs":["https://github.com/yayaiu6","https://www.linkedin.com/in/yahya-mahrouf"]},{"@type":"WebPage","@id":"https://yahya-mahroof.site/projects/handwriting-ocr/#webpage","url":"https://yahya-mahroof.site/projects/handwriting-ocr/","name":"Handwriting OCR — Extract text from documents","inLanguage":"en","author":{"@id":"https://yahya-mahroof.site/#person"},"mainEntity":{"@id":"https://yahya-mahroof.site/#handwriting-ocr"}},{"@type":"CreativeWork","@id":"https://yahya-mahroof.site/#handwriting-ocr","name":"Handwriting OCR","description":"A custom-built OCR model for extracting Arabic, English, French, and handwritten text from images and documents, with a browser-based upload and result-review demo.","url":"https://yahya-mahroof.site/projects/handwriting-ocr/","creator":{"@id":"https://yahya-mahroof.site/#person"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portfolio","item":"https://yahya-mahroof.site/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://yahya-mahroof.site/#projects"},{"@type":"ListItem","position":3,"name":"Handwriting OCR","item":"https://yahya-mahroof.site/projects/handwriting-ocr/"}]}]}</script>
 </head>
 <body>
@@ -66,7 +90,7 @@
             <div class="ocr-demo__result-heading"><div><h3>2. Review the result</h3><p>Extracted content appears in its original reading direction.</p></div><button id="copyBtn" class="ocr-copy" type="button" disabled>Copy text</button></div>
             <div id="resultBox" class="ocr-result" role="region" aria-label="OCR result" aria-live="polite">
               <div id="resultPlaceholder" class="ocr-result__placeholder"><span aria-hidden="true">Aa</span><p>Your extracted text will appear here</p></div>
-              <div id="resultText" class="hidden" dir="auto"></div>
+              <div id="resultText" class="hidden ocr-md" dir="auto"></div>
             </div>
             <div id="loadingIndicator" class="ocr-loading hidden" role="status" aria-live="polite"><span class="ocr-spinner" aria-hidden="true"></span><p>Extracting text from your image…</p></div>
             <p id="copyFeedback" class="sr-only" aria-live="polite"></p>
@@ -98,6 +122,149 @@
       const copyFeedback = document.getElementById('copyFeedback');
       let currentFile = null;
       let objectUrl = null;
+      let currentResult = '';
+
+      const mdNode = (tag, text) => {
+        const node = document.createElement(tag);
+        node.textContent = text;
+        return node;
+      };
+      const mdRowCells = (line) => {
+        let row = line.trim();
+        if (row.startsWith('|')) row = row.slice(1);
+        if (row.endsWith('|')) row = row.slice(0, -1);
+        return row.split('|').map((cell) => cell.trim());
+      };
+      const mdIsBlockStart = (line) =>
+        /^(#{1,6})\s+/.test(line) ||
+        /^\s*(-{3,}|\*{3,}|_{3,})\s*$/.test(line) ||
+        /^\s*\|.*\|\s*$/.test(line) ||
+        /^\s*[-*+]\s+/.test(line) ||
+        /^\s*\d+[.)]\s+/.test(line) ||
+        /^\s*>\s?/.test(line);
+      const mdInline = (text) => {
+        const frag = document.createDocumentFragment();
+        const pattern = /(`[^`]+`)|(\*\*[^*]+\*\*)|(\*[^*\n]+\*)|(\[[^\]\n]+\]\([^)\s]+\))/;
+        let rest = String(text);
+        while (rest) {
+          const match = pattern.exec(rest);
+          if (!match) { frag.append(document.createTextNode(rest)); break; }
+          if (match.index > 0) frag.append(document.createTextNode(rest.slice(0, match.index)));
+          const token = match[0];
+          if (token[0] === '`') frag.append(mdNode('code', token.slice(1, -1)));
+          else if (token.startsWith('**')) frag.append(mdNode('strong', token.slice(2, -2)));
+          else if (token[0] === '*') frag.append(mdNode('em', token.slice(1, -1)));
+          else {
+            const link = /^\[([^\]\n]+)\]\(([^)\s]+)\)$/.exec(token);
+            if (link && /^(https?:|mailto:)/i.test(link[2])) {
+              const anchor = document.createElement('a');
+              anchor.href = link[2];
+              anchor.rel = 'noopener noreferrer nofollow';
+              anchor.target = '_blank';
+              anchor.append(document.createTextNode(link[1]));
+              frag.append(anchor);
+            } else {
+              frag.append(document.createTextNode(token));
+            }
+          }
+          rest = rest.slice(match.index + token.length);
+        }
+        return frag;
+      };
+      const renderMarkdown = (source, container) => {
+        container.textContent = '';
+        const lines = String(source).replace(/\r\n?/g, '\n').split('\n');
+        let i = 0;
+        while (i < lines.length) {
+          const line = lines[i];
+          if (!line.trim()) { i += 1; continue; }
+
+          const heading = /^(#{1,6})\s+(.*?)\s*#*\s*$/.exec(line);
+          if (heading) {
+            const level = document.createElement('h' + heading[1].length);
+            level.append(mdInline(heading[2].trim()));
+            container.append(level);
+            i += 1;
+            continue;
+          }
+
+          if (/^\s*(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) {
+            container.append(document.createElement('hr'));
+            i += 1;
+            continue;
+          }
+
+          const isRow = (value) => /^\s*\|.*\|\s*$/.test(value);
+          if (isRow(line) && i + 1 < lines.length && /^\s*\|?[\s:|-]*-{3,}[\s:|-]*\|?\s*$/.test(lines[i + 1])) {
+            const table = document.createElement('table');
+            const headRow = document.createElement('tr');
+            mdRowCells(line).forEach((cell) => { const cellNode = document.createElement('th'); cellNode.append(mdInline(cell)); headRow.append(cellNode); });
+            const tableHead = document.createElement('thead');
+            tableHead.append(headRow);
+            table.append(tableHead);
+            const tableBody = document.createElement('tbody');
+            i += 2;
+            while (i < lines.length && isRow(lines[i])) {
+              const tableRow = document.createElement('tr');
+              mdRowCells(lines[i]).forEach((cell) => { const cellNode = document.createElement('td'); cellNode.append(mdInline(cell)); tableRow.append(cellNode); });
+              tableBody.append(tableRow);
+              i += 1;
+            }
+            table.append(tableBody);
+            container.append(table);
+            continue;
+          }
+
+          if (/^\s*[-*+]\s+/.test(line)) {
+            const list = document.createElement('ul');
+            while (i < lines.length && /^\s*[-*+]\s+/.test(lines[i])) {
+              const item = document.createElement('li');
+              item.append(mdInline(lines[i].replace(/^\s*[-*+]\s+/, '')));
+              list.append(item);
+              i += 1;
+            }
+            container.append(list);
+            continue;
+          }
+
+          if (/^\s*\d+[.)]\s+/.test(line)) {
+            const list = document.createElement('ol');
+            while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) {
+              const item = document.createElement('li');
+              item.append(mdInline(lines[i].replace(/^\s*\d+[.)]\s+/, '')));
+              list.append(item);
+              i += 1;
+            }
+            container.append(list);
+            continue;
+          }
+
+          if (/^\s*>\s?/.test(line)) {
+            const quote = document.createElement('blockquote');
+            const quoteLine = document.createElement('p');
+            let started = false;
+            while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+              if (started) quoteLine.append(document.createElement('br'));
+              quoteLine.append(mdInline(lines[i].replace(/^\s*>\s?/, '')));
+              started = true;
+              i += 1;
+            }
+            quote.append(quoteLine);
+            container.append(quote);
+            continue;
+          }
+
+          const paragraph = document.createElement('p');
+          let started = false;
+          while (i < lines.length && lines[i].trim() && !mdIsBlockStart(lines[i])) {
+            if (started) paragraph.append(document.createElement('br'));
+            paragraph.append(mdInline(lines[i]));
+            started = true;
+            i += 1;
+          }
+          container.append(paragraph);
+        }
+      };
 
       const showUploadError = (message) => {
         uploadError.textContent = message;
@@ -128,6 +295,7 @@
         document.getElementById('uploadPlaceholder').classList.add('hidden');
         processBtn.disabled = false;
         copyBtn.disabled = true;
+        currentResult = '';
         resultText.classList.add('hidden');
         resultPlaceholder.classList.remove('hidden');
       }
@@ -177,10 +345,16 @@
           });
           const data = await response.json();
           if (!response.ok || !data.success) throw new Error(data.error || `Extraction failed (${response.status}).`);
-          resultText.textContent = data.text || 'No text was detected in this image.';
+          currentResult = data.text || '';
+          if (currentResult.trim()) {
+            renderMarkdown(currentResult, resultText);
+          } else {
+            resultText.textContent = 'No text was detected in this image.';
+          }
           resultText.dir = 'auto';
-          copyBtn.disabled = !data.text;
+          copyBtn.disabled = !currentResult;
         } catch (error) {
+          currentResult = '';
           resultText.textContent = error instanceof Error ? error.message : 'The image could not be processed. Please try again.';
           resultText.dir = 'auto';
         } finally {
@@ -192,9 +366,9 @@
       });
 
       copyBtn.addEventListener('click', async () => {
-        if (!resultText.textContent || copyBtn.disabled) return;
+        if (!currentResult || copyBtn.disabled) return;
         try {
-          await navigator.clipboard.writeText(resultText.textContent);
+          await navigator.clipboard.writeText(currentResult);
           copyFeedback.textContent = 'Extracted text copied.';
           copyBtn.textContent = 'Copied';
           window.setTimeout(() => { copyBtn.textContent = 'Copy text'; }, 1500);
